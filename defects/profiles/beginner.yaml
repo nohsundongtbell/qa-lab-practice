@@ -1,0 +1,3 @@
+profile: beginner
+extends: none
+defects: [DF-001, DF-002, DF-003, DF-004, DF-005, DF-006]

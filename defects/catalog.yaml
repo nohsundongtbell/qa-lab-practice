@@ -1,0 +1,198 @@
+# ⚠️ 스포일러 — 실습 정답이 들어 있는 파일이다. 랩을 풀기 전에는 열지 말 것.
+# 이 파일은 어떤 README 에서도 링크하지 않는다.
+#
+# 규칙
+# - id: DF-### 순번. 유형을 드러내지 않는다. 한 번 쓴 ID는 재사용하지 않는다.
+# - 코드에서는 isDefectOn('<id>') 한 곳에서만 분기한다 (location).
+# - modules: QA-Lab 모듈 slug (data/qa-lab-modules.snapshot.json 에 있어야 함)
+# - severity: S1 치명(서비스 불가·보안·데이터 손실) / S2 높음(금전·핵심 기능 오류) / S3 보통(우회 가능) / S4 낮음(표시·경미)
+# - repro: SPEC 대로의 "기대 동작"을 적은 재현 절차(DSL). 결함이 켜지면 이 절차의 기대가 실패해야 한다.
+#   DSL: login(시드 회원 이메일로 로그인 → 이후 요청에 토큰 사용), http(요청), expect(status / json 경로별 값),
+#        save(응답 json 경로를 변수로 저장), {{변수}} 치환.
+#   모든 repro 는 실행 전에 DB를 초기화한다(/__admin/reset).
+schemaVersion: 1
+defects:
+  - id: DF-001
+    type: boundary
+    severity: S3
+    surface: api
+    modules: [test-design, exploratory-testing]
+    location: apps/shop/api/src/domain/shipping.ts
+    spec: SPEC §5
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: POST, path: /api/quote, json: { items: [{ productId: 1, qty: 1 }] } }
+          expect: { status: 200, json: { subtotal: 50000, shippingFee: 0, total: 50000 } }
+
+  - id: DF-002
+    type: boundary
+    severity: S3
+    surface: api
+    modules: [test-design]
+    location: apps/shop/api/src/domain/grade.ts
+    spec: SPEC §1.3
+    repro:
+      steps:
+        - http: { method: GET, path: '/api/grades/evaluate?totalSpent=1000000' }
+          expect: { status: 200, json: { grade: VIP, discountRate: 5 } }
+
+  - id: DF-003
+    type: decision-table
+    severity: S3
+    surface: api
+    modules: [test-design]
+    location: apps/shop/api/src/domain/coupon.ts
+    spec: SPEC §4 최소 주문 금액
+    repro:
+      steps:
+        - login: lee@example.com
+        - http: { method: POST, path: /api/quote, json: { items: [{ productId: 9, qty: 20 }], couponCode: WELCOME3000 } }
+          expect: { status: 200, json: { subtotal: 20000, couponDiscount: 3000 } }
+
+  - id: DF-004
+    type: validation
+    severity: S3
+    surface: api
+    modules: [test-design, defect-management]
+    location: apps/shop/api/src/domain/validation.ts
+    spec: SPEC §2
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: PUT, path: /api/cart/items/1, json: { qty: 0 } }
+          expect: { status: 400, json: { code: VALIDATION_ERROR } }
+
+  - id: DF-005
+    type: i18n
+    severity: S2
+    surface: api
+    modules: [test-design, defect-management, exploratory-testing]
+    location: apps/shop/api/src/domain/validation.ts
+    spec: SPEC §1.1 이름 글자 수
+    repro:
+      steps:
+        - http:
+            method: POST
+            path: /api/members
+            json: { name: 김수한무거북이와두루미, email: new-member@example.com, password: password123, zipcode: '06236' }
+          expect: { status: 201, json: { name: 김수한무거북이와두루미 } }
+
+  - id: DF-006
+    type: boundary
+    severity: S2
+    surface: api
+    modules: [test-design, defect-management]
+    location: apps/shop/api/src/domain/coupon.ts
+    spec: SPEC §4 정률 쿠폰 최대 할인액
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: POST, path: /api/quote, json: { items: [{ productId: 6, qty: 1 }], couponCode: SALE10 } }
+          expect: { status: 200, json: { subtotal: 89000, couponDiscount: 5000 } }
+
+  - id: DF-007
+    type: state-transition
+    severity: S2
+    surface: api
+    modules: [test-design, exploratory-testing]
+    location: apps/shop/api/src/domain/order-state.ts
+    spec: SPEC §7.1
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: PUT, path: /api/cart/items/2, json: { qty: 1 } }
+          expect: { status: 200 }
+        - http: { method: POST, path: /api/orders, json: {} }
+          expect: { status: 201 }
+          save: { orderId: id }
+        - http: { method: POST, path: '/api/orders/{{orderId}}/pay', json: { cardNumber: 4111-1111-1111-1111 } }
+          expect: { status: 200, json: { status: PAID } }
+        - login: admin@example.com
+        - http: { method: POST, path: '/api/admin/orders/{{orderId}}/ship' }
+          expect: { status: 200, json: { status: SHIPPED } }
+        - login: kim@example.com
+        - http: { method: POST, path: '/api/orders/{{orderId}}/cancel' }
+          expect: { status: 409, json: { code: INVALID_STATE_TRANSITION } }
+
+  - id: DF-008
+    type: data-integrity
+    severity: S2
+    surface: api
+    modules: [exploratory-testing, data-checking-sql-logs-analytics]
+    location: apps/shop/api/src/routes/shop.ts
+    spec: SPEC §7.4 취소 시 재고 복원
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: PUT, path: /api/cart/items/10, json: { qty: 1 } }
+          expect: { status: 200 }
+        - http: { method: POST, path: /api/orders, json: {} }
+          expect: { status: 201 }
+          save: { orderId: id }
+        - http: { method: POST, path: '/api/orders/{{orderId}}/cancel' }
+          expect: { status: 200, json: { status: CANCELLED } }
+        - http: { method: GET, path: /api/products/10 }
+          expect: { status: 200, json: { stock: 1 } }
+
+  - id: DF-009
+    type: data-integrity
+    severity: S2
+    surface: api
+    modules: [test-design, exploratory-testing]
+    location: apps/shop/api/src/domain/coupon.ts
+    spec: SPEC §4 사용 횟수
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: PUT, path: /api/cart/items/1, json: { qty: 1 } }
+          expect: { status: 200 }
+        - http: { method: POST, path: /api/orders, json: { couponCode: WELCOME3000 } }
+          expect: { status: 201 }
+        - http: { method: PUT, path: /api/cart/items/2, json: { qty: 1 } }
+          expect: { status: 200 }
+        - http: { method: POST, path: /api/orders, json: { couponCode: WELCOME3000 } }
+          expect: { status: 422, json: { code: COUPON_NOT_APPLICABLE, details.reason: ALREADY_USED } }
+
+  - id: DF-010
+    type: hidden-variable
+    severity: S3
+    surface: api
+    modules: [test-design, exploratory-testing]
+    location: apps/shop/api/src/domain/calendar.ts
+    spec: SPEC §6 출고 마감 시각(KST)
+    repro:
+      steps:
+        - http: { method: GET, path: '/api/delivery-estimate?paidAt=2026-10-07T15:00:00%2B09:00&zipcode=06236' }
+          expect: { status: 200, json: { shipDate: '2026-10-08', deliveryDate: '2026-10-12' } }
+
+  - id: DF-011
+    type: calculation
+    severity: S4
+    surface: api
+    modules: [exploratory-testing, defect-management]
+    location: apps/shop/api/src/domain/grade.ts
+    spec: SPEC §3 할인 내림
+    repro:
+      steps:
+        - login: lee@example.com
+        - http: { method: POST, path: /api/quote, json: { items: [{ productId: 3, qty: 1 }] } }
+          expect: { status: 200, json: { subtotal: 4990, gradeDiscount: 49 } }
+
+  - id: DF-012
+    type: data-integrity
+    severity: S1
+    surface: api
+    modules: [exploratory-testing, data-checking-sql-logs-analytics]
+    location: apps/shop/api/src/routes/shop.ts
+    spec: SPEC §7.2 저장된 결제 금액
+    repro:
+      steps:
+        - login: kim@example.com
+        - http: { method: PUT, path: /api/cart/items/1, json: { qty: 1 } }
+          expect: { status: 200 }
+        - http: { method: POST, path: /api/orders, json: { couponCode: WELCOME3000 } }
+          expect: { status: 201, json: { couponDiscount: 3000, shippingFee: 3000, total: 50000 } }
+          save: { orderId: id }
+        - http: { method: GET, path: '/api/orders/{{orderId}}' }
+          expect: { status: 200, json: { total: 50000 } }

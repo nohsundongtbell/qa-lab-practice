@@ -1,0 +1,565 @@
+openapi: 3.1.0
+info:
+  title: QA 숍 API
+  version: 1.0.0
+  description: |
+    실습용 쇼핑몰 API. 이 문서가 API **계약의 원본**이다(spec-first).
+    업무 규칙(금액 계산, 쿠폰, 배송, 상태 전이)은 SPEC.md 를 따른다.
+    ⚠️ 의도적인 결함이 들어 있을 수 있는 실습용 서비스다. 공개 서버에 배포하지 말 것.
+  license:
+    name: MIT
+servers:
+  - url: http://127.0.0.1:3000
+tags:
+  - name: members
+  - name: catalog
+  - name: cart
+  - name: orders
+  - name: admin
+  - name: calculators
+paths:
+  /health:
+    get:
+      summary: 헬스 체크
+      operationId: health
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string, const: ok }
+  /api/members:
+    post:
+      tags: [members]
+      summary: 회원 가입
+      operationId: createMember
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/NewMember' }
+      responses:
+        '201':
+          description: 가입됨
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Member' }
+        '400': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+  /api/auth/login:
+    post:
+      tags: [members]
+      summary: 로그인
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: 토큰 발급
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [token]
+                properties:
+                  token: { type: string }
+        '401': { $ref: '#/components/responses/Error' }
+  /api/members/me:
+    get:
+      tags: [members]
+      summary: 내 정보
+      operationId: getMe
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Member' }
+        '401': { $ref: '#/components/responses/Error' }
+  /api/members/me/coupons:
+    get:
+      tags: [members]
+      summary: 내 쿠폰 목록
+      operationId: listMyCoupons
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/OwnedCoupon' }
+        '401': { $ref: '#/components/responses/Error' }
+  /api/grades/evaluate:
+    get:
+      tags: [calculators]
+      summary: 누적 구매액으로 등급 판정
+      operationId: evaluateGrade
+      parameters:
+        - name: totalSpent
+          in: query
+          required: true
+          schema: { type: integer, minimum: 0 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [totalSpent, grade, discountRate]
+                properties:
+                  totalSpent: { type: integer }
+                  grade: { $ref: '#/components/schemas/Grade' }
+                  discountRate: { type: integer, description: 상품 할인율(%) }
+        '400': { $ref: '#/components/responses/Error' }
+  /api/delivery-estimate:
+    get:
+      tags: [calculators]
+      summary: 배송 예정일 계산
+      operationId: estimateDelivery
+      parameters:
+        - name: paidAt
+          in: query
+          required: true
+          description: 시간대가 포함된 ISO-8601 결제 시각 (예 2026-10-05T13:59:59+09:00)
+          schema: { type: string, format: date-time }
+        - name: zipcode
+          in: query
+          required: true
+          schema: { $ref: '#/components/schemas/Zipcode' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [paidAt, zipcode, remote, shipDate, deliveryDate]
+                properties:
+                  paidAt: { type: string, format: date-time }
+                  zipcode: { $ref: '#/components/schemas/Zipcode' }
+                  remote: { type: boolean }
+                  shipDate: { type: string, format: date }
+                  deliveryDate: { type: string, format: date }
+        '400': { $ref: '#/components/responses/Error' }
+  /api/products:
+    get:
+      tags: [catalog]
+      summary: 상품 목록
+      operationId: listProducts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Product' }
+  /api/products/{id}:
+    get:
+      tags: [catalog]
+      summary: 상품 상세
+      operationId: getProduct
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '404': { $ref: '#/components/responses/Error' }
+  /api/cart:
+    get:
+      tags: [cart]
+      summary: 장바구니 조회
+      operationId: getCart
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Cart' }
+        '401': { $ref: '#/components/responses/Error' }
+  /api/cart/items/{productId}:
+    put:
+      tags: [cart]
+      summary: 장바구니 수량 설정 (같은 상품은 수량을 바꾼다)
+      operationId: setCartItem
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: productId, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [qty]
+              properties:
+                qty: { type: integer, minimum: 1, maximum: 99 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [productId, qty]
+                properties:
+                  productId: { type: integer }
+                  qty: { type: integer }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+    delete:
+      tags: [cart]
+      summary: 장바구니에서 빼기
+      operationId: removeCartItem
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: productId, in: path, required: true, schema: { type: integer } }
+      responses:
+        '204': { description: 삭제됨 }
+        '401': { $ref: '#/components/responses/Error' }
+  /api/quote:
+    post:
+      tags: [orders]
+      summary: 금액 미리보기 (주문을 만들지 않음)
+      operationId: quote
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [items]
+              properties:
+                items:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    required: [productId, qty]
+                    properties:
+                      productId: { type: integer }
+                      qty: { type: integer, minimum: 1, maximum: 99 }
+                couponCode: { type: string }
+                zipcode: { $ref: '#/components/schemas/Zipcode' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Quote' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+  /api/orders:
+    get:
+      tags: [orders]
+      summary: 내 주문 목록 (최신순)
+      operationId: listOrders
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Order' }
+        '401': { $ref: '#/components/responses/Error' }
+    post:
+      tags: [orders]
+      summary: 장바구니로 주문 생성
+      operationId: createOrder
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                couponCode: { type: string }
+                zipcode: { $ref: '#/components/schemas/Zipcode' }
+                address: { type: string }
+      responses:
+        '201':
+          description: 생성됨 (PENDING)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Order' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+  /api/orders/{id}:
+    get:
+      tags: [orders]
+      summary: 주문 상세
+      operationId: getOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Order' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+  /api/orders/{id}/pay:
+    post:
+      tags: [orders]
+      summary: 결제 (가짜 결제)
+      operationId: payOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cardNumber]
+              properties:
+                cardNumber: { type: string, description: '16자리, 하이픈 허용. 4000-0000-0000-0002 는 승인 거절' }
+      responses:
+        '200': { $ref: '#/components/responses/OrderOk' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '402': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+  /api/orders/{id}/cancel:
+    post:
+      tags: [orders]
+      summary: 주문 취소
+      operationId: cancelOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': { $ref: '#/components/responses/OrderOk' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+  /api/orders/{id}/refund:
+    post:
+      tags: [orders]
+      summary: 환불 (배송 완료 후 7일 이내)
+      operationId: refundOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': { $ref: '#/components/responses/OrderOk' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+  /api/admin/orders/{id}/ship:
+    post:
+      tags: [admin]
+      summary: 출고 처리 (관리자)
+      operationId: shipOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': { $ref: '#/components/responses/OrderOk' }
+        '401': { $ref: '#/components/responses/Error' }
+        '403': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+  /api/admin/orders/{id}/deliver:
+    post:
+      tags: [admin]
+      summary: 배송 완료 처리 (관리자)
+      operationId: deliverOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': { $ref: '#/components/responses/OrderOk' }
+        '401': { $ref: '#/components/responses/Error' }
+        '403': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    OrderId:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    Error:
+      description: 오류
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    OrderOk:
+      description: 변경된 주문
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Order' }
+  schemas:
+    Error:
+      type: object
+      required: [code, message, details]
+      properties:
+        code: { type: string, examples: [VALIDATION_ERROR] }
+        message: { type: string }
+        details: { type: object }
+    Zipcode:
+      type: string
+      pattern: '^[0-9]{5}$'
+    Grade:
+      type: string
+      enum: [NORMAL, SILVER, GOLD, VIP]
+    NewMember:
+      type: object
+      required: [name, email, password, zipcode]
+      properties:
+        name: { type: string, description: 공백 제거 후 2~20자 (한글 1글자 = 1자) }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8, maxLength: 64 }
+        zipcode: { $ref: '#/components/schemas/Zipcode' }
+        address: { type: string }
+    Member:
+      type: object
+      required: [id, email, name, zipcode, address, grade, totalSpent]
+      properties:
+        id: { type: integer }
+        email: { type: string }
+        name: { type: string }
+        zipcode: { $ref: '#/components/schemas/Zipcode' }
+        address: { type: string }
+        grade: { $ref: '#/components/schemas/Grade' }
+        totalSpent: { type: integer, minimum: 0 }
+    OwnedCoupon:
+      type: object
+      required: [code, type, amount, rate, maxDiscount, minOrderAmount, validFrom, validUntil, usedAt]
+      properties:
+        code: { type: string }
+        type: { type: string, enum: [FIXED, PERCENT] }
+        amount: { type: [integer, 'null'] }
+        rate: { type: [integer, 'null'] }
+        maxDiscount: { type: [integer, 'null'] }
+        minOrderAmount: { type: integer }
+        validFrom: { type: string, format: date }
+        validUntil: { type: string, format: date }
+        usedAt: { type: [string, 'null'], format: date-time }
+    Product:
+      type: object
+      required: [id, name, price, stock]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        price: { type: integer, minimum: 1 }
+        stock: { type: integer, minimum: 0 }
+    CartLine:
+      type: object
+      required: [productId, name, unitPrice, qty, lineTotal]
+      properties:
+        productId: { type: integer }
+        name: { type: string }
+        unitPrice: { type: integer }
+        qty: { type: integer }
+        lineTotal: { type: integer }
+    Cart:
+      type: object
+      required: [items, subtotal]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/CartLine' }
+        subtotal: { type: integer }
+    Amounts:
+      type: object
+      required: [subtotal, gradeDiscount, couponDiscount, totalDiscount, shippingFee, total]
+      properties:
+        subtotal: { type: integer }
+        gradeDiscount: { type: integer }
+        couponDiscount: { type: integer }
+        totalDiscount: { type: integer }
+        shippingFee: { type: integer }
+        total: { type: integer }
+    Quote:
+      allOf:
+        - $ref: '#/components/schemas/Amounts'
+        - type: object
+          required: [items, grade, couponCode, zipcode]
+          properties:
+            items:
+              type: array
+              items: { $ref: '#/components/schemas/CartLine' }
+            grade: { $ref: '#/components/schemas/Grade' }
+            couponCode: { type: [string, 'null'] }
+            zipcode: { $ref: '#/components/schemas/Zipcode' }
+    OrderStatus:
+      type: string
+      enum: [PENDING, PAID, SHIPPED, DELIVERED, CANCELLED, REFUNDED]
+    OrderItem:
+      type: object
+      required: [productId, productName, unitPrice, qty, lineTotal]
+      properties:
+        productId: { type: integer }
+        productName: { type: string }
+        unitPrice: { type: integer }
+        qty: { type: integer }
+        lineTotal: { type: integer }
+    Order:
+      type: object
+      required: [id, status, grade, items, subtotal, gradeDiscount, couponDiscount, couponCode, shippingFee, total,
+                 zipcode, address, createdAt, paidAt, shipDate, estimatedDelivery, shippedAt, deliveredAt, cancelledAt, refundedAt]
+      properties:
+        id: { type: integer }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        grade: { $ref: '#/components/schemas/Grade' }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/OrderItem' }
+        subtotal: { type: integer }
+        gradeDiscount: { type: integer }
+        couponDiscount: { type: integer }
+        couponCode: { type: [string, 'null'] }
+        shippingFee: { type: integer }
+        total: { type: integer, description: 결제 금액 (SPEC §3 계산 결과와 같아야 함) }
+        zipcode: { $ref: '#/components/schemas/Zipcode' }
+        address: { type: string }
+        createdAt: { type: string, format: date-time }
+        paidAt: { type: [string, 'null'], format: date-time }
+        shipDate: { type: [string, 'null'], format: date }
+        estimatedDelivery: { type: [string, 'null'], format: date }
+        shippedAt: { type: [string, 'null'], format: date-time }
+        deliveredAt: { type: [string, 'null'], format: date-time }
+        cancelledAt: { type: [string, 'null'], format: date-time }
+        refundedAt: { type: [string, 'null'], format: date-time }

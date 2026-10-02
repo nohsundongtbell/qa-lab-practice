@@ -1,0 +1,75 @@
+# QA 숍 — 실습 대상 앱 (웹 + API + DB)
+# ⚠️ 의도적 결함·취약점이 들어 있다. 모든 포트는 127.0.0.1 에만 바인딩한다. 공개 서버에 배포하지 말 것.
+#
+#   docker compose up          # 기동 (db → seed → api → web)
+#   docker compose down -v     # 중지 + 데이터 초기화
+#
+# 결함 프로필은 .env 의 DEFECT_PROFILE (none|beginner|intermediate|advanced) 로 정한다.
+name: qa-lab-shop
+
+services:
+  db:
+    image: postgres:16-alpine@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea  # 멀티 아키텍처 인덱스 (amd64/arm64), 2026-10-02 확인
+    environment:
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop
+      POSTGRES_DB: shop
+    ports:
+      - "127.0.0.1:${DB_PORT:-55432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  seed:
+    build: ./apps/shop/api
+    image: qa-lab-shop-api:local
+    command: ["node", "dist/db/seed.js"]
+    environment:
+      DATABASE_URL: postgres://shop:shop@db:5432/shop
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    image: qa-lab-shop-api:local
+    environment:
+      HOST: 0.0.0.0
+      PORT: "3000"
+      DATABASE_URL: postgres://shop:shop@db:5432/shop
+      DEFECTS_DIR: /defects
+      DEFECT_PROFILE: ${DEFECT_PROFILE:-none}
+      DEFECTS_ON: ${DEFECTS_ON:-}
+      DEFECTS_OFF: ${DEFECTS_OFF:-}
+      # 로컬 실습 전용 기능 (/__admin/*, X-QA-Lab-Defects, X-QA-Lab-Now)
+      ALLOW_DEV_TOOLS: "1"
+      LOG_FILE: /var/log/shop/app.log
+    volumes:
+      - ./defects:/defects:ro
+      - ./var/logs:/var/log/shop
+    ports:
+      - "127.0.0.1:${API_PORT:-3000}:3000"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health >/dev/null || exit 1"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  web:
+    build: ./apps/shop/web
+    image: qa-lab-shop-web:local
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  db-data:

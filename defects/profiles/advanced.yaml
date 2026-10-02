@@ -1,0 +1,4 @@
+# 동시성·성능·보안·접근성 결함은 해당 랩(5단계)에서 추가한다.
+profile: advanced
+extends: intermediate
+defects: []

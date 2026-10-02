@@ -1,0 +1,35 @@
+{
+  "name": "@qa-lab/shop-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QA 숍 REST API (실습용, 결함 주입 가능)",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/server.js",
+    "seed": "node dist/db/seed.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run test/unit",
+    "test:integration": "vitest run test/integration"
+  },
+  "dependencies": {
+    "@fastify/swagger": "9.9.1",
+    "@fastify/swagger-ui": "6.1.1",
+    "fastify": "5.12.5",
+    "js-yaml": "5.4.2",
+    "pg": "8.23.1",
+    "pino": "10.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "@types/pg": "8.23.1",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}

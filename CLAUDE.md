@@ -101,4 +101,7 @@ status: planned|beta|ready
 
 ## 10. 개발 명령 (SUT)
 - API 단위 테스트: `npm --prefix apps/shop/api test`
-- API 통합 테스트는 `DATABASE_URL`이 가리키는 Postgres가 필요하다(`apps/shop/api/README.md` 참조).
+- API 통합 테스트: `docker compose up -d --wait db` 후 `npm --prefix apps/shop/api run test:integration` (DB를 초기화함)
+- 결함 추가 절차: `apps/shop/api/README.md`
+- 재현 DSL 실행기: `scripts/lib/repro-runner.mjs` (카탈로그 검증과 랩 채점기가 함께 씀)
+- seed는 스키마가 없을 때만 실행된다. 초기화는 `docker compose down -v` 또는 `POST /__admin/reset`.

@@ -1,0 +1,3 @@
+profile: intermediate
+extends: beginner
+defects: [DF-007, DF-008, DF-009, DF-010, DF-011, DF-012]
