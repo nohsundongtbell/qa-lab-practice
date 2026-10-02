@@ -61,6 +61,7 @@ export function evaluatePass({ results, detected }, pass, { repoRoot, noun = '�
 
 /** ```repro 블록 내용(YAML)을 재현 절차로. 형식이 틀리면 { error } */
 export function reproFromBlock(content) {
+  if (content.trim() === '') return { error: 'repro 블록이 비어 있습니다. steps: 목록을 쓰세요 (docs/REPRO_DSL.md)' }
   let data
   try {
     data = loadYaml(content)
