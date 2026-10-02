@@ -1,0 +1,13 @@
+name,technique,steps,expected
+PENDING → 결제,상태전이(유효),pay,PAID
+PENDING → 취소,상태전이(유효),cancel,CANCELLED
+PAID → 취소,상태전이(유효),pay>cancel,CANCELLED
+PAID → 출고,상태전이(유효),pay>ship,SHIPPED
+SHIPPED → 취소는 거부,상태전이(무효),pay>ship>cancel,409
+SHIPPED → 배송 완료,상태전이(유효),pay>ship>deliver,DELIVERED
+DELIVERED → 환불,상태전이(유효),pay>ship>deliver>refund,REFUNDED
+환불 기한 정확히 7일,상태전이+경계값,pay>ship>deliver>wait:7>refund,REFUNDED
+환불 기한 넘김 (8일),상태전이+경계값,pay>ship>deliver>wait:8>refund,409
+PENDING → 출고는 거부,상태전이(무효),ship,409
+결제 거절이면 PENDING 유지,상태전이,pay_declined,PENDING
+CANCELLED → 결제는 거부,상태전이(무효),cancel>pay,409

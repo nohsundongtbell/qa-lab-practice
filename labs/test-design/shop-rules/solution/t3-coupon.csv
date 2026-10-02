@@ -1,0 +1,13 @@
+name,technique,member,items,coupon,expected_discount
+정액·최소 금액 충족,결정표,kim,1x1,WELCOME3000,3000
+정액·최소 금액 정확히 (20000원),결정표+경계값,kim,9x20,WELCOME3000,3000
+정액·최소 금액 미달 (19800원),결정표,kim,4x2,WELCOME3000,MIN_ORDER_NOT_MET
+정액·등급 할인이 있어도 최소 금액은 할인 전 기준,결정표,lee,9x20,WELCOME3000,3000
+정률·최대 할인액 미만 (39000원의 10%),결정표,kim,5x1,SALE10,3900
+정률·최대 할인액 정확히 (50000원의 10%),결정표+경계값,kim,9x50,SALE10,5000
+정률·최대 할인액 초과 (89000원의 10%),결정표,kim,6x1,SALE10,5000
+정률·최소 금액 미달 (29000원),결정표,kim,9x29,SALE10,MIN_ORDER_NOT_MET
+정액 1만 원·최소 10만 원 충족,결정표,kim,7x1,FIXED10000,10000
+기간 만료,결정표,kim,1x1,EXPIRED5000,EXPIRED
+아직 시작 전,결정표,kim,1x1,SOON5000,NOT_STARTED
+없는 쿠폰,결정표,kim,1x1,NOPE,NOT_FOUND

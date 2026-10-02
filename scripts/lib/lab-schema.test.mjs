@@ -101,6 +101,14 @@ describe('validateLabData', () => {
       expect(withChange((d) => (d.tasks[0].check = { unix: 'check/t1.sh', windows: 'check/t1.bat' })).join()).toMatch(/\.ps1/)
     })
 
+    it('pass 의 max_cases·beyond_profile 과 알 수 없는 기준', () => {
+      expect(withChange((d) => (d.tasks[0].pass = { min_defects: 2, max_cases: 10, beyond_profile: 'beginner' }))).toEqual([])
+      expect(withChange((d) => (d.tasks[0].pass = { max_cases: 0 })).join()).toMatch(/max_cases/)
+      expect(withChange((d) => (d.tasks[0].pass = { beyond_profile: 'hard' })).join()).toMatch(/beyond_profile/)
+      expect(withChange((d) => (d.tasks[0].pass = { min_defect: 1 })).join()).toMatch(/알 수 없는 기준입니다: min_defect/)
+      expect(withChange((d) => (d.tasks[0].pass = [1])).join()).toMatch(/객체/)
+    })
+
     it('pass.min_defects 는 0 이상의 정수', () => {
       expect(withChange((d) => (d.tasks[0].pass = { min_defects: -1 })).join()).toMatch(/min_defects/)
       expect(withChange((d) => (d.tasks[0].pass = { min_defects: 0 }))).toEqual([])

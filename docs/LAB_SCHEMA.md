@@ -1,7 +1,7 @@
 # 랩 구조와 `lab.yaml` 참조
 
 랩을 만드는 사람을 위한 참조 문서다. 처음 만드는 랩은 [`templates/`](../templates/)를 복사해 시작한다.
-(샘플 랩 작성 가이드 `CONTRIBUTING_LABS.md`는 랩 1~3이 `ready`가 된 뒤에 추가한다.)
+만드는 순서와 패턴은 [`CONTRIBUTING_LABS.md`](CONTRIBUTING_LABS.md)를 따른다.
 
 ## 폴더
 
@@ -11,7 +11,8 @@ labs/<module-slug>/<lab-name>/
   lab.yaml      # 아래 필드
   starter/      # 시작 파일. `npm run lab` 이 work/ 로 복사한다
   solution/     # 정답 (저장소 안)
-  check/        # 채점 스크립트
+  check/        # 채점 스크립트 (t1.mjs …), 랩 공통 로직, 단위 테스트(*.test.mjs)
+  data/         # (선택) 채점 기준값을 계산하는 원본 데이터 — starter 에는 사본을 둔다
   work/         # 학습자의 작업 폴더 (자동 생성, git 무시)
 ```
 
@@ -45,7 +46,15 @@ labs/<module-slug>/<lab-name>/
 | `id` | ✅ | `t1`, `t2` … 랩 안에서 유일 |
 | `goal` | ✅ | 행동 동사로 시작하는 한 문장 |
 | `check` | ✅ | `check/t1.mjs`(OS 공통, 기본) 또는 `{ unix: check/t1.sh, windows: check/t1.ps1 }` 쌍 |
-| `pass` | | 관찰 가능한 통과 기준. 지금은 `min_defects`(귀속된 서로 다른 결함 ID 수) |
+| `pass` | | 관찰 가능한 통과 기준 (아래). 채점 스크립트가 `lab.yaml`에서 읽는다 — 기준값은 한 곳에만 둔다 |
+
+`pass` 기준:
+
+| 키 | 뜻 |
+|---|---|
+| `min_defects` | 귀속된 **서로 다른** 결함 ID 수의 최소값 |
+| `max_cases` | 제출 케이스 수 상한 (무작위 대입이 아니라 기법으로 설계하도록) |
+| `beyond_profile` | 이 프로필에 **없는** 결함만 `min_defects`로 센다 (예: `beginner` → 더 깊은 결함을 찾았는지) |
 
 ## 채점 스크립트 규약
 
@@ -72,6 +81,7 @@ labs/<module-slug>/<lab-name>/
 
 | 명령 | 하는 일 |
 |---|---|
+| `npm run test:labs` | 실행 중인 앱으로 모든 ready/beta 랩 채점 (solution 통과, starter 과제별 실패) |
 | `npm run validate` | `lab.yaml` 스키마, slug 존재, check 파일, README 필수 절·OS 블록 쌍·레슨 링크, 결함 카탈로그, 파일 이름·줄바꿈 규칙 |
 | `npm run build-index` | `labs/index.json` 생성 (검증을 통과해야 함). `--check`는 최신인지만 확인 |
 | `npm run snapshot:update -- <modules.json>` | QA-Lab 스냅샷 갱신 (slug 삭제 시 경고) |

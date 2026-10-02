@@ -17,6 +17,7 @@ const COMMANDS = {
   validate: '저장소 규칙을 검증한다 (랩, 스냅샷, 문서)',
   'build-index': 'labs/index.json 을 만든다 (--check 면 최신인지만 확인)',
   'snapshot-update': 'QA-Lab modules.json 으로 스냅샷을 갱신한다',
+  'test-labs': '모든 랩을 실행 중인 앱으로 채점해 본다 (solution 통과·starter 실패)',
 }
 
 function help() {

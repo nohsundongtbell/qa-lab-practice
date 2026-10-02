@@ -1,0 +1,41 @@
+id,title,module,severity,found_in,status,opened_at,resolved_at,reopened
+BUG-001,주소 검색 결과가 비어 있음,회원,S2,production,CLOSED,2026-08-17,2026-08-22,N
+BUG-002,장바구니 합계가 새로고침 후 갱신,장바구니,S3,uat,REJECTED,2026-09-17,,N
+BUG-003,가입 시 이메일 대소문자 중복 허용,회원,S4,system_test,RESOLVED,2026-07-27,2026-08-04,Y
+BUG-004,로그아웃 후 뒤로 가기로 개인정보 노출,회원,S2,system_test,RESOLVED,2026-07-17,2026-07-28,Y
+BUG-005,주문 상세 금액과 목록 금액 불일치,주문,S3,uat,CLOSED,2026-08-31,2026-09-03,N
+BUG-006,취소한 주문이 목록에서 사라짐,주문,S2,uat,CLOSED,2026-07-07,2026-07-19,N
+BUG-007,정률 쿠폰 할인액 반올림,쿠폰,S3,production,CLOSED,2026-07-19,2026-07-19,N
+BUG-008,가격 천 단위 구분 기호 누락,상품,S1,system_test,CLOSED,2026-09-10,2026-09-14,N
+BUG-009,결제 실패 후 재시도 버튼 없음,결제,S2,production,CLOSED,2026-08-24,2026-08-26,N
+BUG-010,가입 시 이메일 대소문자 중복 허용,회원,S1,uat,OPEN,2026-07-08,,N
+BUG-011,주문 상세 금액과 목록 금액 불일치,주문,S4,uat,RESOLVED,2026-09-02,2026-09-03,N
+BUG-012,주문 상세 금액과 목록 금액 불일치,주문,S2,system_test,CLOSED,2026-07-22,2026-07-30,N
+BUG-013,주문 상세 금액과 목록 금액 불일치,주문,S2,system_test,CLOSED,2026-08-31,2026-09-05,N
+BUG-014,취소한 주문이 목록에서 사라짐,주문,S1,uat,CLOSED,2026-09-03,2026-09-17,N
+BUG-015,상품 이미지 대체 텍스트 없음,상품,S3,uat,CLOSED,2026-07-15,2026-07-21,N
+BUG-016,가입 시 이메일 대소문자 중복 허용,회원,S3,uat,DUPLICATE,2026-07-20,,N
+BUG-017,영수증 금액 표기 오류,결제,S3,system_test,CLOSED,2026-08-16,2026-08-20,N
+BUG-018,정률 쿠폰 할인액 반올림,쿠폰,S3,system_test,CLOSED,2026-08-08,2026-08-22,N
+BUG-019,수량 입력란에 소수 입력 가능,장바구니,S4,system_test,OPEN,2026-07-08,,N
+BUG-020,영수증 금액 표기 오류,결제,S2,uat,RESOLVED,2026-08-10,2026-08-14,N
+BUG-021,상품 이미지 대체 텍스트 없음,상품,S2,uat,RESOLVED,2026-08-03,2026-08-09,N
+BUG-022,만료 쿠폰이 목록에 표시,쿠폰,S3,system_test,OPEN,2026-08-08,,N
+BUG-023,주문 목록 정렬이 오래된 순,주문,S2,system_test,CLOSED,2026-08-10,2026-08-24,N
+BUG-024,배송지 변경이 저장되지 않음,주문,S3,system_test,RESOLVED,2026-08-11,2026-08-18,N
+BUG-025,비밀번호 오류 메시지가 영어로 표시,회원,S4,system_test,CLOSED,2026-08-09,2026-08-21,Y
+BUG-026,주소 검색 결과가 비어 있음,회원,S2,uat,CLOSED,2026-08-20,2026-08-26,N
+BUG-027,결제 실패 후 재시도 버튼 없음,결제,S3,system_test,RESOLVED,2026-08-17,2026-08-17,N
+BUG-028,쿠폰 적용 후 배송비 재계산 안 됨,쿠폰,S2,system_test,DUPLICATE,2026-07-09,,N
+BUG-029,가격 천 단위 구분 기호 누락,상품,S4,system_test,CLOSED,2026-09-06,2026-09-19,N
+BUG-030,비밀번호 오류 메시지가 영어로 표시,회원,S3,system_test,CLOSED,2026-09-07,2026-09-20,N
+BUG-031,결제 시간 초과 시 주문 상태 불명확,결제,S3,uat,CLOSED,2026-09-02,2026-09-15,N
+BUG-032,가격 천 단위 구분 기호 누락,상품,S3,uat,OPEN,2026-09-10,,N
+BUG-033,같은 상품 두 번 담으면 두 줄 생김,장바구니,S3,system_test,OPEN,2026-08-29,,N
+BUG-034,장바구니 합계가 새로고침 후 갱신,장바구니,S2,production,CLOSED,2026-07-10,2026-07-17,Y
+BUG-035,같은 상품 두 번 담으면 두 줄 생김,장바구니,S4,production,CLOSED,2026-08-03,2026-08-14,N
+BUG-036,가격 천 단위 구분 기호 누락,상품,S4,production,CLOSED,2026-08-21,2026-08-21,N
+BUG-037,결제 시간 초과 시 주문 상태 불명확,결제,S2,system_test,CLOSED,2026-09-12,2026-09-24,N
+BUG-038,쿠폰 적용 후 배송비 재계산 안 됨,쿠폰,S3,system_test,OPEN,2026-08-26,,N
+BUG-039,가격 천 단위 구분 기호 누락,상품,S1,system_test,RESOLVED,2026-08-16,2026-08-23,N
+BUG-040,결제 시간 초과 시 주문 상태 불명확,결제,S3,system_test,OPEN,2026-09-04,,N

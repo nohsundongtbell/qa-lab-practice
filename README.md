@@ -76,16 +76,21 @@ npm run up
 | `admin@example.com` | 관리자 | — | 출고·배송 완료 처리 |
 
 ### 4. 첫 랩
-랩은 준비 중입니다(`labs/`). 랩이 생기면 이렇게 시작합니다.
+랩 목록은 `npm run lab`으로 봅니다. 처음이라면 이 순서를 권합니다.
+
+| 순서 | 랩 | 결함 프로필 | 시간 |
+|---|---|---|---|
+| 1 | [쇼핑몰 규칙으로 테스트 케이스 설계하기](labs/test-design/shop-rules/README.md) (`test-design/shop-rules`) | intermediate | 120분 |
+| 2 | [재현되는 결함 리포트 쓰기와 결함 지표 계산](labs/defect-management/defect-reports/README.md) (`defect-management/defect-reports`) | beginner | 90분 |
+| 3 | [차터로 이끄는 탐색 세션과 결함 지도](labs/exploratory-testing/charter-sessions/README.md) (`exploratory-testing/charter-sessions`) | intermediate | 120분 |
 
 공통
 
 ```bash
-npm run lab
-npm run lab -- <모듈-slug>/<랩-이름>
+npm run lab -- test-design/shop-rules
 ```
 
-그동안은 [제품 사양서(SPEC)](apps/shop/SPEC.md)를 읽고 웹과 API를 자유롭게 둘러보세요.
+명령이 알려 주는 대로 랩 README를 읽고, 결함 프로필을 맞춘 뒤 과제를 풉니다. 채점은 `npm run check -- test-design/shop-rules`로 합니다.
 
 ---
 

@@ -1,0 +1,9 @@
+# 결함 지표 — data/defect-history.csv, data/module-size.csv 로 계산한다.
+# 계산 규칙은 README 의 "이 랩의 계산 규칙"을 따른다. 비율과 기간은 소수 첫째 자리까지.
+valid_defects:
+by_severity: { S1: , S2: , S3: , S4: }
+escape_rate_pct:
+reopen_rate_pct:
+avg_resolution_days:
+open_count:
+highest_density_module:

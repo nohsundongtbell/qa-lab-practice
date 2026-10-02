@@ -1,0 +1,22 @@
+module: defect-management
+lessons: [writing-good-defect-reports, defect-lifecycle-severity-priority, test-reports-and-quality-metrics]
+title_ko: 재현되는 결함 리포트 쓰기와 결함 지표 계산
+level: beginner
+est_minutes: 90
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+tools: [markdown, csv]
+sut_profile: beginner
+tasks:
+  - id: t1
+    goal: 서로 다른 결함 3개를 찾아 자동으로 재현되는 결함 리포트를 작성한다
+    check: check/t1.mjs
+    pass: { min_defects: 3 }
+  - id: t2
+    goal: 각 리포트의 심각도와 우선순위를 팀 기준에 따라 구분해 판단하고 근거를 쓴다
+    check: check/t2.mjs
+    pass: { min_defects: 3 }
+  - id: t3
+    goal: 결함 이력 데이터로 품질 지표를 계산한다
+    check: check/t3.mjs
+status: ready

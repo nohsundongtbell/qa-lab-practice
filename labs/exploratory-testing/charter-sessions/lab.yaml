@@ -1,0 +1,25 @@
+module: exploratory-testing
+lessons: [what-is-exploratory-testing, charter-writing, careful-observation, hidden-variables, discovering-states-and-transitions, exploring-without-ui]
+also_for:
+  - module: test-design
+    lessons: [experience-based-testing]
+title_ko: 차터로 이끄는 탐색 세션과 결함 지도
+level: intermediate
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+tools: [markdown]
+sut_profile: intermediate
+tasks:
+  - id: t1
+    goal: 리스크를 바탕으로 서로 다른 영역의 탐색 차터를 2개 이상 작성한다
+    check: check/t1.mjs
+  - id: t2
+    goal: 차터 하나로 시간 상자 세션을 진행하고, 세션 노트에 재현되는 버그를 3개 이상 기록한다
+    check: check/t2.mjs
+    pass: { min_defects: 3 }
+  - id: t3
+    goal: 상태·데이터·숨은 변수를 따라가 beginner 수준을 넘는 결함을 2개 이상 찾고 로그 상관 ID로 증거를 남긴다
+    check: check/t3.mjs
+    pass: { min_defects: 2, beyond_profile: beginner }
+status: ready

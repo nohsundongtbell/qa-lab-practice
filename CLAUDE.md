@@ -70,6 +70,10 @@ status: planned|beta|ready
   2. 랩 프로필에서 실패하면 검출로 본다.
   3. 결함을 하나씩 켜서 어떤 결함을 잡았는지 귀속한다.
 - 힌트는 README `<details>`로 힌트 1 → 힌트 2 → 정답 위치 순서로 연다.
+- **README 링크 글자에는 QA-Lab 모듈·레슨 이름을 쓰지 않고 slug 를 쓴다** (예: ``[`test-design / boundary-value-analysis`](…/)``). 이름 복사 금지 원칙.
+- `pass` 기준 키: `min_defects`(서로 다른 결함 수), `max_cases`(케이스 상한, 무작위 대입 방지), `beyond_profile`(그 프로필에 없는 결함만 셈). 채점기는 `lab.yaml` 에서 읽는다.
+- 무효 케이스(결함 없는 버전에서도 기대와 다름)는 **실제 값을 숨기고** 사양서 절을 힌트로 준다. 지표 오답도 정답 값을 출력하지 않는다. 결함 ID 는 보여 줘도 되지만 카탈로그 내용은 출력하지 않는다.
+- 새 랩은 `docs/CONTRIBUTING_LABS.md` 와 기준 샘플 랩 3개(`test-design/shop-rules`, `defect-management/defect-reports`, `exploratory-testing/charter-sessions`)를 따른다.
 - 정답(`solution/`)으로는 check가 통과하고 `starter/`로는 실패해야 한다(CI 검증).
 - 1차 랩별 도구: test-design(케이스 표), defect-management, exploratory-testing, unit-integration(Vitest), structural(Istanbul/Stryker), data(psql·로그), api-contract(**Newman**·OpenAPI·Pact), api-testing-tools(Swagger UI·mitmproxy·pcap), ui-automation(Playwright), ui-automation-tools(**Selenium**), ci-cd(GitHub Actions), performance(**Locust**, docker), security(**SonarQube + 스캐너 리포트 분류**).
 
@@ -89,9 +93,9 @@ status: planned|beta|ready
 
 ## 9. 진행 단계와 권장 모델
 1. 사전 작업·PLAN [Opus] — 완료
-2. SUT 골격 + 결함 주입 + compose 동작 확인 [Opus]
-3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet]
-4. 랩 1~3 `ready` [Opus] → 사용자 직접 풀이·피드백 → `docs/CONTRIBUTING_LABS.md` 작성
+2. SUT 골격 + 결함 주입 + compose 동작 확인 [Opus] — 완료
+3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet] — 완료
+4. 랩 1~3 `ready` [Opus] — 완료, `docs/CONTRIBUTING_LABS.md` 작성 완료 → **사용자 직접 풀이·피드백 대기** (피드백 반영 후 단계 5)
 5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus)
 6. CI·인덱스 배포 [Sonnet]
 7. QA-Lab 연동 제안서 [Sonnet]
@@ -107,6 +111,8 @@ status: planned|beta|ready
 - `npm run validate` 가 검사하는 것: lab.yaml 스키마·slug 존재(스냅샷), check 파일·문법, README 필수 절·힌트 1/2·레슨 링크·앵커 금지·OS 블록 쌍, 결함 카탈로그(모듈 slug, ANSWERS·프로필 대조), 정답표 링크 금지, 파일 이름(ASCII, 120자, 대소문자 충돌), 줄바꿈(LF), package.json 셸 문법 금지, `.sh`↔`.ps1` 쌍. 스냅샷이 없으면 통과시키지 않고 실패한다.
 - `QA_LAB_ROOT` 환경 변수는 임시 저장소를 대상으로 CLI 를 돌리는 테스트용 훅이다.
 - `labs/index.json` 은 `npm run build-index` 로 만들고 커밋한다(`--check` 로 최신 여부를 CI 에서 확인). 시각 정보는 넣지 않는다(결정적 출력).
+- 채점 공통 부품: `lab-kit.mjs`(문맥·출력·통과 판정·repro 블록), `grading.mjs`(차등 오라클 + 귀속), `csv.mjs`(UTF-8/CP949), `markdown.mjs`. 재현 DSL 의 업무 동작(`quote`, `order`, `ship` …)은 `repro-runner.mjs` 의 `ACTIONS` 와 `docs/REPRO_DSL.md` 를 함께 고친다. 단계의 알 수 없는 키는 오류다(오타 방지).
+- `npm test` 는 단위 테스트(스크립트 + `labs/**/check/*.test.mjs`), `npm run test:labs` 는 실행 중인 SUT 로 모든 ready 랩을 채점한다(solution 통과, starter 는 과제별 실패).
 
 ## 11. 개발 명령 (SUT)
 - API 단위 테스트: `npm --prefix apps/shop/api test`

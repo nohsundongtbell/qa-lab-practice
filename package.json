@@ -20,7 +20,8 @@
     "validate": "node scripts/cli.mjs validate",
     "build-index": "node scripts/cli.mjs build-index",
     "snapshot:update": "node scripts/cli.mjs snapshot-update",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:labs": "node scripts/cli.mjs test-labs"
   },
   "dependencies": {
     "js-yaml": "5.4.2"

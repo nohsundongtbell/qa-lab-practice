@@ -1,0 +1,2 @@
+name,technique,member,items,coupon,expected_discount
+5만 원 주문에 정액 쿠폰 3천 원,결정표,kim,1x1,WELCOME3000,3000

@@ -3,6 +3,7 @@
   - 절 제목(## …)은 바꾸거나 지우지 않는다. `npm run validate` 가 검사한다.
   - 개념 설명은 쓰지 않는다. QA-Lab 레슨 링크로 대신한다. (강의 내용 복사 금지)
   - QA-Lab 링크는 레슨 단위 URL(끝 `/`)까지만. 앵커(#…)는 쓰지 않는다.
+  - 링크 글자에는 QA-Lab 모듈·레슨 **이름을 쓰지 않고 slug** 를 쓴다 (이름 복사 금지, 이름이 바뀌어도 낡지 않게).
   - lab.yaml 의 lessons 에 적은 레슨은 모두 아래에 링크해야 한다.
   - 정답표(defects/ANSWERS.md)와 결함 카탈로그는 링크하지 않는다.
   - OS 마다 다른 명령은 "macOS / Linux (터미널)" + "Windows (PowerShell)" 두 블록을 모두 쓴다. 같으면 "공통" 블록 하나.
@@ -19,11 +20,11 @@
 ## 선수 모듈
 <!-- QA-Lab 의 선수 관계(스냅샷의 prerequisites)를 따른다. 링크만 쓴다. -->
 
-- [<선수 모듈 이름>](https://qa-lab.pages.dev/module/<module-slug>/)
+- QA-Lab 모듈 [`<module-slug>`](https://qa-lab.pages.dev/module/<module-slug>/)
 
 이 랩과 연결된 레슨 (개념은 여기서 배웁니다):
 
-- [<레슨 이름>](https://qa-lab.pages.dev/lesson/<module-slug>/<lesson-slug>/)
+- [`<module-slug> / <lesson-slug>`](https://qa-lab.pages.dev/lesson/<module-slug>/<lesson-slug>/) — 관련 과제
 
 ## 소요 시간
 약 N분
@@ -98,4 +99,4 @@ npm run check -- <module-slug>/<lab-name>
 ## 다음 랩
 <!-- QA-Lab 선수 관계상 이 모듈을 선수로 가진 모듈의 랩. 아직 랩이 없으면 QA-Lab 모듈 페이지 링크. -->
 
-- [<다음 랩 또는 모듈>](https://qa-lab.pages.dev/module/<module-slug>/)
+- [다음 랩 README](../../<next-module>/<next-lab>/README.md) 또는 QA-Lab 모듈 [`<next-module>`](https://qa-lab.pages.dev/module/<next-module>/)

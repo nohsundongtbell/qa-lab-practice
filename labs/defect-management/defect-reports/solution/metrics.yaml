@@ -1,0 +1,8 @@
+# 결함 지표 — 모범 답안
+valid_defects: 37          # 40건 중 REJECTED 1, DUPLICATE 2 제외
+by_severity: { S1: 4, S2: 12, S3: 14, S4: 7 }
+escape_rate_pct: 16.2      # production 6 / 37
+reopen_rate_pct: 13.3      # 재오픈 4 / 처리 완료(RESOLVED+CLOSED) 30
+avg_resolution_days: 7.4   # 해결일이 있는 30건의 (resolved_at - opened_at) 평균
+open_count: 7
+highest_density_module: 상품   # 7건 / 3.1 KLOC ≈ 2.26 (건수가 가장 많은 "주문"은 밀도가 가장 낮다)

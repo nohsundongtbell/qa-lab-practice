@@ -42,7 +42,7 @@ export async function run(argv) {
       return 1
     }
     if (sut.profile && sut.profile !== d.sut_profile) {
-      console.log(`[주의] 이 랩은 결함 프로필 "${d.sut_profile}" 을(를) 가정하는데, 지금 앱은 "${sut.profile}" 로 실행 중입니다.\n       \`npm run up -- --profile ${d.sut_profile}\` 로 맞추세요.\n`)
+      console.log(`[주의] 이 랩은 결함 프로필 "${d.sut_profile}" 을(를) 가정하는데, 지금 앱은 "${sut.profile}" 로 실행 중입니다.\n       채점은 그대로 진행되지만, 직접 확인할 때 결과가 README 와 다를 수 있습니다.\n       \`npm run up -- --profile ${d.sut_profile}\` 로 맞추세요.\n`)
     }
   }
 

@@ -6,5 +6,96 @@
     "source": "qa-learning-platform_v2 @ main 938cb3b (content/modules.json + content/stages.json + lesson frontmatter)",
     "generatedAt": "2026-10-02"
   },
-  "labs": []
+  "labs": [
+    {
+      "id": "defect-management/defect-reports",
+      "moduleSlug": "defect-management",
+      "lessonSlugs": [
+        "writing-good-defect-reports",
+        "defect-lifecycle-severity-priority",
+        "test-reports-and-quality-metrics"
+      ],
+      "title": "재현되는 결함 리포트 쓰기와 결함 지표 계산",
+      "path": "labs/defect-management/defect-reports",
+      "status": "ready",
+      "estimatedMinutes": 90,
+      "level": "입문",
+      "tools": [
+        "markdown",
+        "csv"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "exploratory-testing/charter-sessions",
+      "moduleSlug": "exploratory-testing",
+      "lessonSlugs": [
+        "what-is-exploratory-testing",
+        "charter-writing",
+        "careful-observation",
+        "hidden-variables",
+        "discovering-states-and-transitions",
+        "exploring-without-ui"
+      ],
+      "title": "차터로 이끄는 탐색 세션과 결함 지도",
+      "path": "labs/exploratory-testing/charter-sessions",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "markdown"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "exploratory-testing/charter-sessions",
+      "moduleSlug": "test-design",
+      "lessonSlugs": [
+        "experience-based-testing"
+      ],
+      "title": "차터로 이끄는 탐색 세션과 결함 지도",
+      "path": "labs/exploratory-testing/charter-sessions",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "markdown"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "test-design/shop-rules",
+      "moduleSlug": "test-design",
+      "lessonSlugs": [
+        "boundary-value-analysis",
+        "state-transition-decision-table",
+        "test-case-design-synthesis"
+      ],
+      "title": "쇼핑몰 규칙으로 테스트 케이스 설계하기",
+      "path": "labs/test-design/shop-rules",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "csv"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    }
+  ]
 }

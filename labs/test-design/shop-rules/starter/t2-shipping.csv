@@ -1,0 +1,2 @@
+name,technique,member,items,zipcode,expected_shipping_fee
+김일반이 무선 마우스 1개를 사면 배송비가 붙는다,동등분할,kim,2x1,,3000

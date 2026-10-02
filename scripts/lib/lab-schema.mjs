@@ -105,9 +105,13 @@ export function validateLabData(data, snapshot, where = {}) {
         if (!files[1].file.endsWith('.ps1')) err(`${label}.check.windows 는 .ps1 파일이어야 합니다.`)
       }
       if (t.pass !== undefined) {
-        if (!t.pass || typeof t.pass !== 'object') err(`${label}.pass 는 객체여야 합니다.`)
-        else if (t.pass.min_defects !== undefined && (!Number.isInteger(t.pass.min_defects) || t.pass.min_defects < 0)) {
-          err(`${label}.pass.min_defects 는 0 이상의 정수여야 합니다.`)
+        if (!t.pass || typeof t.pass !== 'object' || Array.isArray(t.pass)) err(`${label}.pass 는 객체여야 합니다.`)
+        else {
+          const { min_defects: minD, max_cases: maxC, beyond_profile: beyond, ...rest } = t.pass
+          if (minD !== undefined && (!Number.isInteger(minD) || minD < 0)) err(`${label}.pass.min_defects 는 0 이상의 정수여야 합니다.`)
+          if (maxC !== undefined && (!Number.isInteger(maxC) || maxC < 1)) err(`${label}.pass.max_cases 는 1 이상의 정수여야 합니다.`)
+          if (beyond !== undefined && !PROFILES.includes(beyond)) err(`${label}.pass.beyond_profile 은 ${PROFILES.join(' | ')} 중 하나여야 합니다.`)
+          for (const key of Object.keys(rest)) err(`${label}.pass: 알 수 없는 기준입니다: ${key} (min_defects, max_cases, beyond_profile)`)
         }
       }
       for (const key of Object.keys(t)) {

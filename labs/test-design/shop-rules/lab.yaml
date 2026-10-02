@@ -1,0 +1,27 @@
+module: test-design
+lessons: [boundary-value-analysis, state-transition-decision-table, test-case-design-synthesis]
+title_ko: 쇼핑몰 규칙으로 테스트 케이스 설계하기
+level: intermediate
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+tools: [csv]
+sut_profile: intermediate
+tasks:
+  - id: t1
+    goal: 경계값 분석으로 회원 등급 판정 케이스를 설계해 숨은 결함을 찾는다
+    check: check/t1.mjs
+    pass: { min_defects: 1, max_cases: 8 }
+  - id: t2
+    goal: 동등분할과 경계값 분석으로 배송비·수량 케이스를 설계해 숨은 결함을 찾는다
+    check: check/t2.mjs
+    pass: { min_defects: 2, max_cases: 12 }
+  - id: t3
+    goal: 결정 테이블로 쿠폰 적용 조건의 조합을 설계해 숨은 결함을 찾는다
+    check: check/t3.mjs
+    pass: { min_defects: 2, max_cases: 12 }
+  - id: t4
+    goal: 상태 전이 표로 주문 상태 변화(유효·무효 전이)를 설계해 숨은 결함을 찾는다
+    check: check/t4.mjs
+    pass: { min_defects: 1, max_cases: 12 }
+status: ready

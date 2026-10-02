@@ -1,0 +1,9 @@
+name,technique,total_spent,expected_grade
+최솟값 0원,경계값,0,NORMAL
+SILVER 경계 바로 아래,경계값,99999,NORMAL
+SILVER 경계,경계값,100000,SILVER
+GOLD 경계 바로 아래,경계값,499999,SILVER
+GOLD 경계,경계값,500000,GOLD
+VIP 경계 바로 아래,경계값,999999,GOLD
+VIP 경계,경계값,1000000,VIP
+음수는 유효하지 않은 구간,동등분할(무효),-1,오류

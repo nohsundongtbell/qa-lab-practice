@@ -1,0 +1,2 @@
+name,technique,steps,expected
+결제하면 결제 완료,상태전이,pay,PAID
