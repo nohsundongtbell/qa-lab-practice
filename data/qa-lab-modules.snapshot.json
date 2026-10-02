@@ -1,0 +1,3651 @@
+{
+  "_notice": "스냅샷, 원본 아님. 원본은 QA-Lab content/modules.json 이며 이 파일은 slug 검증용 빌드 편의 사본이다. 모듈·스테이지 이름은 의도적으로 제외했다.",
+  "meta": {
+    "source": "qa-learning-platform_v2 @ main 938cb3b (content/modules.json + content/stages.json + lesson frontmatter)",
+    "generatedAt": "2026-10-02",
+    "siteBaseUrl": "https://qa-lab.pages.dev",
+    "counts": {
+      "moduleRecords": 68,
+      "lessons": 432
+    },
+    "excludeFromLabs": {
+      "comingSoon": [
+        "m60",
+        "m66",
+        "m59",
+        "m62",
+        "m63",
+        "m65"
+      ],
+      "untrackedInSource": [
+        "m55"
+      ]
+    }
+  },
+  "stages": [
+    {
+      "id": "s1",
+      "slug": "test-foundation",
+      "order": 1
+    },
+    {
+      "id": "s2",
+      "slug": "practice-process",
+      "order": 2
+    },
+    {
+      "id": "s3",
+      "slug": "dev-foundation",
+      "order": 3
+    },
+    {
+      "id": "s4",
+      "slug": "automation",
+      "order": 4
+    },
+    {
+      "id": "s5",
+      "slug": "nonfunctional",
+      "order": 5
+    },
+    {
+      "id": "s6",
+      "slug": "ai-qa",
+      "order": 6
+    },
+    {
+      "id": "s7",
+      "slug": "tool-practicum",
+      "order": 7
+    }
+  ],
+  "modules": [
+    {
+      "id": "m01",
+      "slug": "testing-essence",
+      "stage": "s1",
+      "order": 1,
+      "level": "입문",
+      "status": "published",
+      "prerequisites": [],
+      "url": "/module/testing-essence/",
+      "lessons": [
+        {
+          "id": "s1-m01-l01",
+          "slug": "why-we-test",
+          "order": 1,
+          "url": "/lesson/testing-essence/why-we-test/"
+        },
+        {
+          "id": "s1-m01-l02",
+          "slug": "verification-validation-defect-propagation",
+          "order": 2,
+          "url": "/lesson/testing-essence/verification-validation-defect-propagation/"
+        },
+        {
+          "id": "s1-m01-l03",
+          "slug": "test-levels",
+          "order": 3,
+          "url": "/lesson/testing-essence/test-levels/"
+        },
+        {
+          "id": "s1-m01-l04",
+          "slug": "test-types",
+          "order": 4,
+          "url": "/lesson/testing-essence/test-types/"
+        },
+        {
+          "id": "s1-m01-l05",
+          "slug": "testing-limits",
+          "order": 5,
+          "url": "/lesson/testing-essence/testing-limits/"
+        },
+        {
+          "id": "s1-m01-l06",
+          "slug": "qa-qc-tester-roles",
+          "order": 6,
+          "url": "/lesson/testing-essence/qa-qc-tester-roles/"
+        }
+      ]
+    },
+    {
+      "id": "m02",
+      "slug": "requirements",
+      "stage": "s1",
+      "order": 2,
+      "level": "입문",
+      "status": "published",
+      "prerequisites": [
+        "m01"
+      ],
+      "url": "/module/requirements/",
+      "lessons": [
+        {
+          "id": "s1-m02-l01",
+          "slug": "reading-requirements-actively",
+          "order": 1,
+          "url": "/lesson/requirements/reading-requirements-actively/"
+        },
+        {
+          "id": "s1-m02-l02",
+          "slug": "testable-requirements",
+          "order": 2,
+          "url": "/lesson/requirements/testable-requirements/"
+        },
+        {
+          "id": "s1-m02-l03",
+          "slug": "finding-ambiguity-and-gaps",
+          "order": 3,
+          "url": "/lesson/requirements/finding-ambiguity-and-gaps/"
+        },
+        {
+          "id": "s1-m02-l04",
+          "slug": "acceptance-criteria",
+          "order": 4,
+          "url": "/lesson/requirements/acceptance-criteria/"
+        },
+        {
+          "id": "s1-m02-l05",
+          "slug": "requirements-change-traceability",
+          "order": 5,
+          "url": "/lesson/requirements/requirements-change-traceability/"
+        },
+        {
+          "id": "s1-m02-l06",
+          "slug": "requirement-review-meetings",
+          "order": 6,
+          "url": "/lesson/requirements/requirement-review-meetings/"
+        }
+      ]
+    },
+    {
+      "id": "m03",
+      "slug": "test-design",
+      "stage": "s1",
+      "order": 3,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m01",
+        "m02"
+      ],
+      "url": "/module/test-design/",
+      "lessons": [
+        {
+          "id": "s1-m03-l01",
+          "slug": "boundary-value-analysis",
+          "order": 1,
+          "url": "/lesson/test-design/boundary-value-analysis/"
+        },
+        {
+          "id": "s1-m03-l02",
+          "slug": "test-design-technique-map",
+          "order": 2,
+          "url": "/lesson/test-design/test-design-technique-map/"
+        },
+        {
+          "id": "s1-m03-l03",
+          "slug": "state-transition-decision-table",
+          "order": 3,
+          "url": "/lesson/test-design/state-transition-decision-table/"
+        },
+        {
+          "id": "s1-m03-l04",
+          "slug": "use-case-based-testing",
+          "order": 4,
+          "url": "/lesson/test-design/use-case-based-testing/"
+        },
+        {
+          "id": "s1-m03-l05",
+          "slug": "pairwise-combinatorial-testing",
+          "order": 5,
+          "url": "/lesson/test-design/pairwise-combinatorial-testing/"
+        },
+        {
+          "id": "s1-m03-l06",
+          "slug": "classification-tree-testona",
+          "order": 6,
+          "url": "/lesson/test-design/classification-tree-testona/"
+        },
+        {
+          "id": "s1-m03-l07",
+          "slug": "structural-coverage-testing",
+          "order": 7,
+          "url": "/lesson/test-design/structural-coverage-testing/"
+        },
+        {
+          "id": "s1-m03-l08",
+          "slug": "experience-based-testing",
+          "order": 8,
+          "url": "/lesson/test-design/experience-based-testing/"
+        },
+        {
+          "id": "s1-m03-l09",
+          "slug": "test-case-design-synthesis",
+          "order": 9,
+          "url": "/lesson/test-design/test-case-design-synthesis/"
+        },
+        {
+          "id": "s1-m03-l10",
+          "slug": "cyclomatic-complexity-path-testing",
+          "order": 10,
+          "url": "/lesson/test-design/cyclomatic-complexity-path-testing/"
+        },
+        {
+          "id": "s1-m03-l11",
+          "slug": "model-based-testing",
+          "order": 11,
+          "url": "/lesson/test-design/model-based-testing/"
+        }
+      ]
+    },
+    {
+      "id": "m04",
+      "slug": "test-planning-rbt",
+      "stage": "s2",
+      "order": 1,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m03"
+      ],
+      "url": "/module/test-planning-rbt/",
+      "lessons": [
+        {
+          "id": "s2-m04-l01",
+          "slug": "test-plan-and-strategy",
+          "order": 1,
+          "url": "/lesson/test-planning-rbt/test-plan-and-strategy/"
+        },
+        {
+          "id": "s2-m04-l02",
+          "slug": "risk-based-testing",
+          "order": 2,
+          "url": "/lesson/test-planning-rbt/risk-based-testing/"
+        },
+        {
+          "id": "s2-m04-l03",
+          "slug": "coverage-planning-by-size",
+          "order": 3,
+          "url": "/lesson/test-planning-rbt/coverage-planning-by-size/"
+        },
+        {
+          "id": "s2-m04-l04",
+          "slug": "schedule-estimation-exit-criteria",
+          "order": 4,
+          "url": "/lesson/test-planning-rbt/schedule-estimation-exit-criteria/"
+        },
+        {
+          "id": "s2-m04-l05",
+          "slug": "release-go-no-go",
+          "order": 5,
+          "url": "/lesson/test-planning-rbt/release-go-no-go/"
+        },
+        {
+          "id": "s2-m04-l06",
+          "slug": "migration-and-cutover-verification",
+          "order": 6,
+          "url": "/lesson/test-planning-rbt/migration-and-cutover-verification/"
+        },
+        {
+          "id": "s2-m04-l07",
+          "slug": "seven-layer-coverage-checklist",
+          "order": 7,
+          "url": "/lesson/test-planning-rbt/seven-layer-coverage-checklist/"
+        }
+      ]
+    },
+    {
+      "id": "m05",
+      "slug": "exploratory-testing",
+      "stage": "s2",
+      "order": 2,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m03"
+      ],
+      "url": "/module/exploratory-testing/",
+      "lessons": [
+        {
+          "id": "s2-m05-l01",
+          "slug": "what-is-exploratory-testing",
+          "order": 1,
+          "url": "/lesson/exploratory-testing/what-is-exploratory-testing/"
+        },
+        {
+          "id": "s2-m05-l02",
+          "slug": "charter-writing",
+          "order": 2,
+          "url": "/lesson/exploratory-testing/charter-writing/"
+        },
+        {
+          "id": "s2-m05-l03",
+          "slug": "nightmare-headline-game",
+          "order": 3,
+          "url": "/lesson/exploratory-testing/nightmare-headline-game/"
+        },
+        {
+          "id": "s2-m05-l04",
+          "slug": "careful-observation",
+          "order": 4,
+          "url": "/lesson/exploratory-testing/careful-observation/"
+        },
+        {
+          "id": "s2-m05-l05",
+          "slug": "hidden-variables",
+          "order": 5,
+          "url": "/lesson/exploratory-testing/hidden-variables/"
+        },
+        {
+          "id": "s2-m05-l06",
+          "slug": "sequence-interaction-personas",
+          "order": 6,
+          "url": "/lesson/exploratory-testing/sequence-interaction-personas/"
+        },
+        {
+          "id": "s2-m05-l07",
+          "slug": "entities-and-relationships",
+          "order": 7,
+          "url": "/lesson/exploratory-testing/entities-and-relationships/"
+        },
+        {
+          "id": "s2-m05-l08",
+          "slug": "discovering-states-and-transitions",
+          "order": 8,
+          "url": "/lesson/exploratory-testing/discovering-states-and-transitions/"
+        },
+        {
+          "id": "s2-m05-l09",
+          "slug": "software-ecosystem-exploration",
+          "order": 9,
+          "url": "/lesson/exploratory-testing/software-ecosystem-exploration/"
+        },
+        {
+          "id": "s2-m05-l10",
+          "slug": "exploring-without-ui",
+          "order": 10,
+          "url": "/lesson/exploratory-testing/exploring-without-ui/"
+        },
+        {
+          "id": "s2-m05-l11",
+          "slug": "exploring-legacy-systems",
+          "order": 11,
+          "url": "/lesson/exploratory-testing/exploring-legacy-systems/"
+        },
+        {
+          "id": "s2-m05-l12",
+          "slug": "non-reproducible-bugs",
+          "order": 12,
+          "url": "/lesson/exploratory-testing/non-reproducible-bugs/"
+        },
+        {
+          "id": "s2-m05-l13",
+          "slug": "pair-exploration-estimation-enough",
+          "order": 13,
+          "url": "/lesson/exploratory-testing/pair-exploration-estimation-enough/"
+        },
+        {
+          "id": "s2-m05-l14",
+          "slug": "test-heuristics-cheat-sheet",
+          "order": 14,
+          "url": "/lesson/exploratory-testing/test-heuristics-cheat-sheet/"
+        }
+      ]
+    },
+    {
+      "id": "m06",
+      "slug": "defect-management",
+      "stage": "s2",
+      "order": 3,
+      "level": "입문",
+      "status": "published",
+      "prerequisites": [
+        "m01"
+      ],
+      "url": "/module/defect-management/",
+      "lessons": [
+        {
+          "id": "s2-m06-l01",
+          "slug": "defect-lifecycle-severity-priority",
+          "order": 1,
+          "url": "/lesson/defect-management/defect-lifecycle-severity-priority/"
+        },
+        {
+          "id": "s2-m06-l02",
+          "slug": "writing-good-defect-reports",
+          "order": 2,
+          "url": "/lesson/defect-management/writing-good-defect-reports/"
+        },
+        {
+          "id": "s2-m06-l03",
+          "slug": "blame-free-defect-communication",
+          "order": 3,
+          "url": "/lesson/defect-management/blame-free-defect-communication/"
+        },
+        {
+          "id": "s2-m06-l04",
+          "slug": "issue-tracking-tools",
+          "order": 4,
+          "url": "/lesson/defect-management/issue-tracking-tools/"
+        },
+        {
+          "id": "s2-m06-l05",
+          "slug": "test-reports-and-quality-metrics",
+          "order": 5,
+          "url": "/lesson/defect-management/test-reports-and-quality-metrics/"
+        }
+      ]
+    },
+    {
+      "id": "m07",
+      "slug": "test-management",
+      "stage": "s2",
+      "order": 4,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m04",
+        "m06"
+      ],
+      "url": "/module/test-management/",
+      "lessons": [
+        {
+          "id": "s2-m07-l01",
+          "slug": "test-case-management-tools",
+          "order": 1,
+          "url": "/lesson/test-management/test-case-management-tools/"
+        },
+        {
+          "id": "s2-m07-l02",
+          "slug": "test-data-management",
+          "order": 2,
+          "url": "/lesson/test-management/test-data-management/"
+        },
+        {
+          "id": "s2-m07-l03",
+          "slug": "test-environment-management",
+          "order": 3,
+          "url": "/lesson/test-management/test-environment-management/"
+        },
+        {
+          "id": "s2-m07-l04",
+          "slug": "methodology-and-testing",
+          "order": 4,
+          "url": "/lesson/test-management/methodology-and-testing/"
+        },
+        {
+          "id": "s2-m07-l05",
+          "slug": "bdd-and-tdd",
+          "order": 5,
+          "url": "/lesson/test-management/bdd-and-tdd/"
+        },
+        {
+          "id": "s2-m07-l06",
+          "slug": "process-improvement-models",
+          "order": 6,
+          "url": "/lesson/test-management/process-improvement-models/"
+        },
+        {
+          "id": "s2-m07-l07",
+          "slug": "confluence-qa-documentation",
+          "order": 7,
+          "url": "/lesson/test-management/confluence-qa-documentation/"
+        },
+        {
+          "id": "s2-m07-l08",
+          "slug": "qa-in-agile-practice",
+          "order": 8,
+          "url": "/lesson/test-management/qa-in-agile-practice/"
+        },
+        {
+          "id": "s2-m07-l09",
+          "slug": "test-team-and-organization",
+          "order": 9,
+          "url": "/lesson/test-management/test-team-and-organization/"
+        }
+      ]
+    },
+    {
+      "id": "m08",
+      "slug": "iso-29119",
+      "stage": "s2",
+      "order": 5,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m07"
+      ],
+      "url": "/module/iso-29119/",
+      "lessons": [
+        {
+          "id": "s2-m08-l01",
+          "slug": "why-standards-matter",
+          "order": 1,
+          "url": "/lesson/iso-29119/why-standards-matter/"
+        },
+        {
+          "id": "s2-m08-l02",
+          "slug": "part-1-to-4-structure",
+          "order": 2,
+          "url": "/lesson/iso-29119/part-1-to-4-structure/"
+        },
+        {
+          "id": "s2-m08-l03",
+          "slug": "organizational-test-process",
+          "order": 3,
+          "url": "/lesson/iso-29119/organizational-test-process/"
+        },
+        {
+          "id": "s2-m08-l04",
+          "slug": "test-management-process",
+          "order": 4,
+          "url": "/lesson/iso-29119/test-management-process/"
+        },
+        {
+          "id": "s2-m08-l05",
+          "slug": "dynamic-test-process",
+          "order": 5,
+          "url": "/lesson/iso-29119/dynamic-test-process/"
+        },
+        {
+          "id": "s2-m08-l06",
+          "slug": "standard-documents-walkthrough",
+          "order": 6,
+          "url": "/lesson/iso-29119/standard-documents-walkthrough/"
+        },
+        {
+          "id": "s2-m08-l07",
+          "slug": "legacy-ieee-standards",
+          "order": 7,
+          "url": "/lesson/iso-29119/legacy-ieee-standards/"
+        }
+      ]
+    },
+    {
+      "id": "m25",
+      "slug": "quality-safety-standards",
+      "stage": "s2",
+      "order": 6,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m08"
+      ],
+      "url": "/module/quality-safety-standards/",
+      "lessons": [
+        {
+          "id": "s2-m25-l01",
+          "slug": "standards-landscape",
+          "order": 1,
+          "url": "/lesson/quality-safety-standards/standards-landscape/"
+        },
+        {
+          "id": "s2-m25-l02",
+          "slug": "iso-25010-quality-model",
+          "order": 2,
+          "url": "/lesson/quality-safety-standards/iso-25010-quality-model/"
+        },
+        {
+          "id": "s2-m25-l03",
+          "slug": "iso-25023-12119-certification",
+          "order": 3,
+          "url": "/lesson/quality-safety-standards/iso-25023-12119-certification/"
+        },
+        {
+          "id": "s2-m25-l04",
+          "slug": "automotive-medical-safety",
+          "order": 4,
+          "url": "/lesson/quality-safety-standards/automotive-medical-safety/"
+        },
+        {
+          "id": "s2-m25-l05",
+          "slug": "aerospace-railway-nuclear",
+          "order": 5,
+          "url": "/lesson/quality-safety-standards/aerospace-railway-nuclear/"
+        },
+        {
+          "id": "s2-m25-l06",
+          "slug": "process-assessment-static-standards",
+          "order": 6,
+          "url": "/lesson/quality-safety-standards/process-assessment-static-standards/"
+        },
+        {
+          "id": "s2-m25-l07",
+          "slug": "test-reports-kolas-gs",
+          "order": 7,
+          "url": "/lesson/quality-safety-standards/test-reports-kolas-gs/"
+        },
+        {
+          "id": "s2-m25-l08",
+          "slug": "automotive-cybersecurity",
+          "order": 8,
+          "url": "/lesson/quality-safety-standards/automotive-cybersecurity/"
+        }
+      ]
+    },
+    {
+      "id": "m26",
+      "slug": "cxo-quality-communication",
+      "stage": "s2",
+      "order": 7,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m04",
+        "m06"
+      ],
+      "url": "/module/cxo-quality-communication/",
+      "lessons": [
+        {
+          "id": "s2-m26-l01",
+          "slug": "cxo-map",
+          "order": 1,
+          "url": "/lesson/cxo-quality-communication/cxo-map/"
+        },
+        {
+          "id": "s2-m26-l02",
+          "slug": "ceo-and-regional-head",
+          "order": 2,
+          "url": "/lesson/cxo-quality-communication/ceo-and-regional-head/"
+        },
+        {
+          "id": "s2-m26-l03",
+          "slug": "cso-cfo-strategy-finance",
+          "order": 3,
+          "url": "/lesson/cxo-quality-communication/cso-cfo-strategy-finance/"
+        },
+        {
+          "id": "s2-m26-l04",
+          "slug": "ciso-cio-cdo",
+          "order": 4,
+          "url": "/lesson/cxo-quality-communication/ciso-cio-cdo/"
+        },
+        {
+          "id": "s2-m26-l05",
+          "slug": "cro-cmo-cco",
+          "order": 5,
+          "url": "/lesson/cxo-quality-communication/cro-cmo-cco/"
+        },
+        {
+          "id": "s2-m26-l06",
+          "slug": "coo-chro-emerging-clevels",
+          "order": 6,
+          "url": "/lesson/cxo-quality-communication/coo-chro-emerging-clevels/"
+        },
+        {
+          "id": "s2-m26-l07",
+          "slug": "reporting-quality-to-executives",
+          "order": 7,
+          "url": "/lesson/cxo-quality-communication/reporting-quality-to-executives/"
+        }
+      ]
+    },
+    {
+      "id": "m27",
+      "slug": "startup-funding-qa",
+      "stage": "s2",
+      "order": 8,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m26"
+      ],
+      "url": "/module/startup-funding-qa/",
+      "lessons": [
+        {
+          "id": "s2-m27-l01",
+          "slug": "funding-rounds-map",
+          "order": 1,
+          "url": "/lesson/startup-funding-qa/funding-rounds-map/"
+        },
+        {
+          "id": "s2-m27-l02",
+          "slug": "preseed-seed-mvp-quality",
+          "order": 2,
+          "url": "/lesson/startup-funding-qa/preseed-seed-mvp-quality/"
+        },
+        {
+          "id": "s2-m27-l03",
+          "slug": "series-a-metric-quality",
+          "order": 3,
+          "url": "/lesson/startup-funding-qa/series-a-metric-quality/"
+        },
+        {
+          "id": "s2-m27-l04",
+          "slug": "series-b-scaling-quality",
+          "order": 4,
+          "url": "/lesson/startup-funding-qa/series-b-scaling-quality/"
+        },
+        {
+          "id": "s2-m27-l05",
+          "slug": "due-diligence-and-exit",
+          "order": 5,
+          "url": "/lesson/startup-funding-qa/due-diligence-and-exit/"
+        },
+        {
+          "id": "s2-m27-l06",
+          "slug": "korea-funding-ecosystem",
+          "order": 6,
+          "url": "/lesson/startup-funding-qa/korea-funding-ecosystem/"
+        },
+        {
+          "id": "s2-m27-l07",
+          "slug": "runway-and-qa-budget",
+          "order": 7,
+          "url": "/lesson/startup-funding-qa/runway-and-qa-budget/"
+        }
+      ]
+    },
+    {
+      "id": "m28",
+      "slug": "ict-standard-maps",
+      "stage": "s2",
+      "order": 9,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25"
+      ],
+      "url": "/module/ict-standard-maps/",
+      "lessons": [
+        {
+          "id": "s2-m28-l01",
+          "slug": "reading-tta-standard-maps",
+          "order": 1,
+          "url": "/lesson/ict-standard-maps/reading-tta-standard-maps/"
+        },
+        {
+          "id": "s2-m28-l02",
+          "slug": "conformance-interoperability-testing",
+          "order": 2,
+          "url": "/lesson/ict-standard-maps/conformance-interoperability-testing/"
+        },
+        {
+          "id": "s2-m28-l03",
+          "slug": "iot-cloud-edge-standards",
+          "order": 3,
+          "url": "/lesson/ict-standard-maps/iot-cloud-edge-standards/"
+        },
+        {
+          "id": "s2-m28-l04",
+          "slug": "blockchain-metaverse-device-standards",
+          "order": 4,
+          "url": "/lesson/ict-standard-maps/blockchain-metaverse-device-standards/"
+        },
+        {
+          "id": "s2-m28-l05",
+          "slug": "smart-mobility-standards",
+          "order": 5,
+          "url": "/lesson/ict-standard-maps/smart-mobility-standards/"
+        },
+        {
+          "id": "s2-m28-l06",
+          "slug": "smartcity-factory-digitaltwin-standards",
+          "order": 6,
+          "url": "/lesson/ict-standard-maps/smartcity-factory-digitaltwin-standards/"
+        },
+        {
+          "id": "s2-m28-l07",
+          "slug": "public-safety-uam-maritime-standards",
+          "order": 7,
+          "url": "/lesson/ict-standard-maps/public-safety-uam-maritime-standards/"
+        },
+        {
+          "id": "s2-m28-l08",
+          "slug": "standard-traceability-test-plan",
+          "order": 8,
+          "url": "/lesson/ict-standard-maps/standard-traceability-test-plan/"
+        }
+      ]
+    },
+    {
+      "id": "m30",
+      "slug": "standard-terminology-alignment",
+      "stage": "s2",
+      "order": 10,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m06",
+        "m25"
+      ],
+      "url": "/module/standard-terminology-alignment/",
+      "lessons": [
+        {
+          "id": "s2-m30-l01",
+          "slug": "terminology-gap",
+          "order": 1,
+          "url": "/lesson/standard-terminology-alignment/terminology-gap/"
+        },
+        {
+          "id": "s2-m30-l02",
+          "slug": "iso-25010-2023-revision",
+          "order": 2,
+          "url": "/lesson/standard-terminology-alignment/iso-25010-2023-revision/"
+        },
+        {
+          "id": "s2-m30-l03",
+          "slug": "compatibility-characteristic",
+          "order": 3,
+          "url": "/lesson/standard-terminology-alignment/compatibility-characteristic/"
+        },
+        {
+          "id": "s2-m30-l04",
+          "slug": "cross-browser-is-adaptability",
+          "order": 4,
+          "url": "/lesson/standard-terminology-alignment/cross-browser-is-adaptability/"
+        },
+        {
+          "id": "s2-m30-l05",
+          "slug": "measures-and-test-report-naming",
+          "order": 5,
+          "url": "/lesson/standard-terminology-alignment/measures-and-test-report-naming/"
+        },
+        {
+          "id": "s2-m30-l06",
+          "slug": "bug-defect-anomaly",
+          "order": 6,
+          "url": "/lesson/standard-terminology-alignment/bug-defect-anomaly/"
+        },
+        {
+          "id": "s2-m30-l07",
+          "slug": "severity-vs-priority-fields",
+          "order": 7,
+          "url": "/lesson/standard-terminology-alignment/severity-vs-priority-fields/"
+        },
+        {
+          "id": "s2-m30-l08",
+          "slug": "team-glossary-and-migration",
+          "order": 8,
+          "url": "/lesson/standard-terminology-alignment/team-glossary-and-migration/"
+        }
+      ]
+    },
+    {
+      "id": "m31",
+      "slug": "test-report-practice",
+      "stage": "s2",
+      "order": 11,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25"
+      ],
+      "url": "/module/test-report-practice/",
+      "lessons": [
+        {
+          "id": "s2-m31-l01",
+          "slug": "scope-and-test-plan",
+          "order": 1,
+          "url": "/lesson/test-report-practice/scope-and-test-plan/"
+        },
+        {
+          "id": "s2-m31-l02",
+          "slug": "test-environment-documentation",
+          "order": 2,
+          "url": "/lesson/test-report-practice/test-environment-documentation/"
+        },
+        {
+          "id": "s2-m31-l03",
+          "slug": "acceptance-criteria-and-verdict",
+          "order": 3,
+          "url": "/lesson/test-report-practice/acceptance-criteria-and-verdict/"
+        },
+        {
+          "id": "s2-m31-l04",
+          "slug": "statistics-for-performance-results",
+          "order": 4,
+          "url": "/lesson/test-report-practice/statistics-for-performance-results/"
+        },
+        {
+          "id": "s2-m31-l05",
+          "slug": "report-types-legal-effect",
+          "order": 5,
+          "url": "/lesson/test-report-practice/report-types-legal-effect/"
+        },
+        {
+          "id": "s2-m31-l06",
+          "slug": "errors-claims-and-reissue",
+          "order": 6,
+          "url": "/lesson/test-report-practice/errors-claims-and-reissue/"
+        }
+      ]
+    },
+    {
+      "id": "m32",
+      "slug": "kolas-iso-17025",
+      "stage": "s2",
+      "order": 12,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m31"
+      ],
+      "url": "/module/kolas-iso-17025/",
+      "lessons": [
+        {
+          "id": "s2-m32-l01",
+          "slug": "accreditation-and-17025-structure",
+          "order": 1,
+          "url": "/lesson/kolas-iso-17025/accreditation-and-17025-structure/"
+        },
+        {
+          "id": "s2-m32-l02",
+          "slug": "lab-quality-system-documents",
+          "order": 2,
+          "url": "/lesson/kolas-iso-17025/lab-quality-system-documents/"
+        },
+        {
+          "id": "s2-m32-l03",
+          "slug": "uncertainty-and-proficiency-testing",
+          "order": 3,
+          "url": "/lesson/kolas-iso-17025/uncertainty-and-proficiency-testing/"
+        },
+        {
+          "id": "s2-m32-l04",
+          "slug": "raw-data-and-record-retention",
+          "order": 4,
+          "url": "/lesson/kolas-iso-17025/raw-data-and-record-retention/"
+        },
+        {
+          "id": "s2-m32-l05",
+          "slug": "nonconformity-and-internal-audit",
+          "order": 5,
+          "url": "/lesson/kolas-iso-17025/nonconformity-and-internal-audit/"
+        },
+        {
+          "id": "s2-m32-l06",
+          "slug": "kolas-report-format-and-mark",
+          "order": 6,
+          "url": "/lesson/kolas-iso-17025/kolas-report-format-and-mark/"
+        },
+        {
+          "id": "s2-m32-l07",
+          "slug": "reading-sw-accreditation-scope",
+          "order": 7,
+          "url": "/lesson/kolas-iso-17025/reading-sw-accreditation-scope/"
+        }
+      ]
+    },
+    {
+      "id": "m33",
+      "slug": "gs-certification-practice",
+      "stage": "s2",
+      "order": 13,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25",
+        "m31"
+      ],
+      "url": "/module/gs-certification-practice/",
+      "lessons": [
+        {
+          "id": "s2-m33-l01",
+          "slug": "gs-certification-process",
+          "order": 1,
+          "url": "/lesson/gs-certification-practice/gs-certification-process/"
+        },
+        {
+          "id": "s2-m33-l02",
+          "slug": "choosing-test-institute",
+          "order": 2,
+          "url": "/lesson/gs-certification-practice/choosing-test-institute/"
+        },
+        {
+          "id": "s2-m33-l03",
+          "slug": "product-description-and-user-docs",
+          "order": 3,
+          "url": "/lesson/gs-certification-practice/product-description-and-user-docs/"
+        },
+        {
+          "id": "s2-m33-l04",
+          "slug": "measuring-25023-in-practice",
+          "order": 4,
+          "url": "/lesson/gs-certification-practice/measuring-25023-in-practice/"
+        },
+        {
+          "id": "s2-m33-l05",
+          "slug": "defect-rounds-and-schedule",
+          "order": 5,
+          "url": "/lesson/gs-certification-practice/defect-rounds-and-schedule/"
+        },
+        {
+          "id": "s2-m33-l06",
+          "slug": "post-certification-procurement",
+          "order": 6,
+          "url": "/lesson/gs-certification-practice/post-certification-procurement/"
+        }
+      ]
+    },
+    {
+      "id": "m34",
+      "slug": "product-cybersecurity-standards",
+      "stage": "s2",
+      "order": 14,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25",
+        "m31"
+      ],
+      "url": "/module/product-cybersecurity-standards/",
+      "lessons": [
+        {
+          "id": "s2-m34-l01",
+          "slug": "regulation-to-standard-red-cra",
+          "order": 1,
+          "url": "/lesson/product-cybersecurity-standards/regulation-to-standard-red-cra/"
+        },
+        {
+          "id": "s2-m34-l02",
+          "slug": "etsi-en-303-645-baseline",
+          "order": 2,
+          "url": "/lesson/product-cybersecurity-standards/etsi-en-303-645-baseline/"
+        },
+        {
+          "id": "s2-m34-l03",
+          "slug": "en-18031-1-mechanisms",
+          "order": 3,
+          "url": "/lesson/product-cybersecurity-standards/en-18031-1-mechanisms/"
+        },
+        {
+          "id": "s2-m34-l04",
+          "slug": "en-18031-2-3-privacy-financial",
+          "order": 4,
+          "url": "/lesson/product-cybersecurity-standards/en-18031-2-3-privacy-financial/"
+        },
+        {
+          "id": "s2-m34-l05",
+          "slug": "iec-62443-4-2-components",
+          "order": 5,
+          "url": "/lesson/product-cybersecurity-standards/iec-62443-4-2-components/"
+        },
+        {
+          "id": "s2-m34-l06",
+          "slug": "iec-62443-3-3-systems",
+          "order": 6,
+          "url": "/lesson/product-cybersecurity-standards/iec-62443-3-3-systems/"
+        }
+      ]
+    },
+    {
+      "id": "m35",
+      "slug": "functional-safety-software-testing",
+      "stage": "s2",
+      "order": 15,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25",
+        "m31"
+      ],
+      "url": "/module/functional-safety-software-testing/",
+      "lessons": [
+        {
+          "id": "s2-m35-l01",
+          "slug": "iec-61508-3-technique-tables",
+          "order": 1,
+          "url": "/lesson/functional-safety-software-testing/iec-61508-3-technique-tables/"
+        },
+        {
+          "id": "s2-m35-l02",
+          "slug": "iso-26262-6-unit-integration-verification",
+          "order": 2,
+          "url": "/lesson/functional-safety-software-testing/iso-26262-6-unit-integration-verification/"
+        },
+        {
+          "id": "s2-m35-l03",
+          "slug": "iec-62279-en-50716-railway",
+          "order": 3,
+          "url": "/lesson/functional-safety-software-testing/iec-62279-en-50716-railway/"
+        },
+        {
+          "id": "s2-m35-l04",
+          "slug": "misra-c-guidelines-and-editions",
+          "order": 4,
+          "url": "/lesson/functional-safety-software-testing/misra-c-guidelines-and-editions/"
+        },
+        {
+          "id": "s2-m35-l05",
+          "slug": "static-analysis-compliance-matrix",
+          "order": 5,
+          "url": "/lesson/functional-safety-software-testing/static-analysis-compliance-matrix/"
+        },
+        {
+          "id": "s2-m35-l06",
+          "slug": "tool-confidence-and-safety-test-report",
+          "order": 6,
+          "url": "/lesson/functional-safety-software-testing/tool-confidence-and-safety-test-report/"
+        },
+        {
+          "id": "s2-m35-l07",
+          "slug": "automotive-spice-4-assessment-readiness",
+          "order": 7,
+          "url": "/lesson/functional-safety-software-testing/automotive-spice-4-assessment-readiness/"
+        }
+      ]
+    },
+    {
+      "id": "m37",
+      "slug": "it-service-management-operations",
+      "stage": "s2",
+      "order": 16,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m06",
+        "m07"
+      ],
+      "url": "/module/it-service-management-operations/",
+      "lessons": [
+        {
+          "id": "s2-m37-l01",
+          "slug": "itsm-and-qa",
+          "order": 1,
+          "url": "/lesson/it-service-management-operations/itsm-and-qa/"
+        },
+        {
+          "id": "s2-m37-l02",
+          "slug": "itil-4-framework",
+          "order": 2,
+          "url": "/lesson/it-service-management-operations/itil-4-framework/"
+        },
+        {
+          "id": "s2-m37-l03",
+          "slug": "incident-problem-change",
+          "order": 3,
+          "url": "/lesson/it-service-management-operations/incident-problem-change/"
+        },
+        {
+          "id": "s2-m37-l04",
+          "slug": "iso-iec-20000-1-sms",
+          "order": 4,
+          "url": "/lesson/it-service-management-operations/iso-iec-20000-1-sms/"
+        },
+        {
+          "id": "s2-m37-l05",
+          "slug": "iso-9001-cmmi-integration",
+          "order": 5,
+          "url": "/lesson/it-service-management-operations/iso-9001-cmmi-integration/"
+        },
+        {
+          "id": "s2-m37-l06",
+          "slug": "servicenow-zendesk-implementation",
+          "order": 6,
+          "url": "/lesson/it-service-management-operations/servicenow-zendesk-implementation/"
+        },
+        {
+          "id": "s2-m37-l07",
+          "slug": "itil-foundation-certification",
+          "order": 7,
+          "url": "/lesson/it-service-management-operations/itil-foundation-certification/"
+        },
+        {
+          "id": "s2-m37-l08",
+          "slug": "itsm-tool-hands-on",
+          "order": 8,
+          "url": "/lesson/it-service-management-operations/itsm-tool-hands-on/"
+        },
+        {
+          "id": "s2-m37-l09",
+          "slug": "monitoring-event-management-observability",
+          "order": 9,
+          "url": "/lesson/it-service-management-operations/monitoring-event-management-observability/"
+        },
+        {
+          "id": "s2-m37-l10",
+          "slug": "siam-multi-supplier",
+          "order": 10,
+          "url": "/lesson/it-service-management-operations/siam-multi-supplier/"
+        },
+        {
+          "id": "s2-m37-l11",
+          "slug": "itil-advanced-and-ai-governance",
+          "order": 11,
+          "url": "/lesson/it-service-management-operations/itil-advanced-and-ai-governance/"
+        }
+      ]
+    },
+    {
+      "id": "m40",
+      "slug": "medical-device-software-verification",
+      "stage": "s2",
+      "order": 17,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m25",
+        "m02"
+      ],
+      "url": "/module/medical-device-software-verification/",
+      "lessons": [
+        {
+          "id": "s2-m40-l01",
+          "slug": "iec-62304-class-driven-deliverables",
+          "order": 1,
+          "url": "/lesson/medical-device-software-verification/iec-62304-class-driven-deliverables/"
+        },
+        {
+          "id": "s2-m40-l02",
+          "slug": "iso-14971-risk-controls-to-tests",
+          "order": 2,
+          "url": "/lesson/medical-device-software-verification/iso-14971-risk-controls-to-tests/"
+        },
+        {
+          "id": "s2-m40-l03",
+          "slug": "iec-62366-usability-engineering",
+          "order": 3,
+          "url": "/lesson/medical-device-software-verification/iec-62366-usability-engineering/"
+        },
+        {
+          "id": "s2-m40-l04",
+          "slug": "csa-part11-qms-software-validation",
+          "order": 4,
+          "url": "/lesson/medical-device-software-verification/csa-part11-qms-software-validation/"
+        },
+        {
+          "id": "s2-m40-l05",
+          "slug": "medical-device-cybersecurity-testing",
+          "order": 5,
+          "url": "/lesson/medical-device-software-verification/medical-device-cybersecurity-testing/"
+        },
+        {
+          "id": "s2-m40-l06",
+          "slug": "mfds-digital-medical-device-approval",
+          "order": 6,
+          "url": "/lesson/medical-device-software-verification/mfds-digital-medical-device-approval/"
+        }
+      ]
+    },
+    {
+      "id": "m41",
+      "slug": "financial-it-qa",
+      "stage": "s2",
+      "order": 18,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m04",
+        "m16"
+      ],
+      "url": "/module/financial-it-qa/",
+      "lessons": [
+        {
+          "id": "s2-m41-l01",
+          "slug": "financial-it-regulation-for-qa",
+          "order": 1,
+          "url": "/lesson/financial-it-qa/financial-it-regulation-for-qa/"
+        },
+        {
+          "id": "s2-m41-l02",
+          "slug": "ledger-integrity-and-money-calculation",
+          "order": 2,
+          "url": "/lesson/financial-it-qa/ledger-integrity-and-money-calculation/"
+        },
+        {
+          "id": "s2-m41-l03",
+          "slug": "core-banking-modernization-testing",
+          "order": 3,
+          "url": "/lesson/financial-it-qa/core-banking-modernization-testing/"
+        },
+        {
+          "id": "s2-m41-l04",
+          "slug": "pci-dss-payment-testing",
+          "order": 4,
+          "url": "/lesson/financial-it-qa/pci-dss-payment-testing/"
+        },
+        {
+          "id": "s2-m41-l05",
+          "slug": "financial-cloud-and-network-separation",
+          "order": 5,
+          "url": "/lesson/financial-it-qa/financial-cloud-and-network-separation/"
+        },
+        {
+          "id": "s2-m41-l06",
+          "slug": "financial-ai-and-open-api-verification",
+          "order": 6,
+          "url": "/lesson/financial-it-qa/financial-ai-and-open-api-verification/"
+        }
+      ]
+    },
+    {
+      "id": "m42",
+      "slug": "qa-career-roadmap",
+      "stage": "s2",
+      "order": 19,
+      "level": "입문",
+      "status": "published",
+      "prerequisites": [
+        "m01"
+      ],
+      "url": "/module/qa-career-roadmap/",
+      "lessons": [
+        {
+          "id": "s2-m42-l01",
+          "slug": "career-map-foundation-and-four-tracks",
+          "order": 1,
+          "url": "/lesson/qa-career-roadmap/career-map-foundation-and-four-tracks/"
+        },
+        {
+          "id": "s2-m42-l02",
+          "slug": "tester-to-test-engineer",
+          "order": 2,
+          "url": "/lesson/qa-career-roadmap/tester-to-test-engineer/"
+        },
+        {
+          "id": "s2-m42-l03",
+          "slug": "role-catalog-by-deliverables",
+          "order": 3,
+          "url": "/lesson/qa-career-roadmap/role-catalog-by-deliverables/"
+        },
+        {
+          "id": "s2-m42-l04",
+          "slug": "work-style-and-path-selection",
+          "order": 4,
+          "url": "/lesson/qa-career-roadmap/work-style-and-path-selection/"
+        },
+        {
+          "id": "s2-m42-l05",
+          "slug": "role-transition-by-evidence",
+          "order": 5,
+          "url": "/lesson/qa-career-roadmap/role-transition-by-evidence/"
+        },
+        {
+          "id": "s2-m42-l06",
+          "slug": "skills-frameworks-and-career-portfolio",
+          "order": 6,
+          "url": "/lesson/qa-career-roadmap/skills-frameworks-and-career-portfolio/"
+        },
+        {
+          "id": "s2-m42-l07",
+          "slug": "first-90-days-onboarding-practicum",
+          "order": 7,
+          "url": "/lesson/qa-career-roadmap/first-90-days-onboarding-practicum/"
+        },
+        {
+          "id": "s2-m42-l08",
+          "slug": "reading-ai-qa-job-postings",
+          "order": 8,
+          "url": "/lesson/qa-career-roadmap/reading-ai-qa-job-postings/"
+        }
+      ]
+    },
+    {
+      "id": "m43",
+      "slug": "test-lead-practice",
+      "stage": "s2",
+      "order": 20,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m04",
+        "m06"
+      ],
+      "url": "/module/test-lead-practice/",
+      "lessons": [
+        {
+          "id": "s2-m43-l01",
+          "slug": "from-tester-to-test-lead",
+          "order": 1,
+          "url": "/lesson/test-lead-practice/from-tester-to-test-lead/"
+        },
+        {
+          "id": "s2-m43-l02",
+          "slug": "review-criteria-for-testware",
+          "order": 2,
+          "url": "/lesson/test-lead-practice/review-criteria-for-testware/"
+        },
+        {
+          "id": "s2-m43-l03",
+          "slug": "feedback-and-coaching",
+          "order": 3,
+          "url": "/lesson/test-lead-practice/feedback-and-coaching/"
+        },
+        {
+          "id": "s2-m43-l04",
+          "slug": "work-allocation-and-blockers",
+          "order": 4,
+          "url": "/lesson/test-lead-practice/work-allocation-and-blockers/"
+        },
+        {
+          "id": "s2-m43-l05",
+          "slug": "progress-defect-risk-tracking",
+          "order": 5,
+          "url": "/lesson/test-lead-practice/progress-defect-risk-tracking/"
+        },
+        {
+          "id": "s2-m43-l06",
+          "slug": "meeting-facilitation-and-disagreement",
+          "order": 6,
+          "url": "/lesson/test-lead-practice/meeting-facilitation-and-disagreement/"
+        },
+        {
+          "id": "s2-m43-l07",
+          "slug": "status-reporting-for-decisions",
+          "order": 7,
+          "url": "/lesson/test-lead-practice/status-reporting-for-decisions/"
+        }
+      ]
+    },
+    {
+      "id": "m44",
+      "slug": "qa-organization-consulting-pm",
+      "stage": "s2",
+      "order": 21,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m04",
+        "m07",
+        "m26"
+      ],
+      "url": "/module/qa-organization-consulting-pm/",
+      "lessons": [
+        {
+          "id": "s2-m44-l01",
+          "slug": "test-manager-strategy-to-resources",
+          "order": 1,
+          "url": "/lesson/qa-organization-consulting-pm/test-manager-strategy-to-resources/"
+        },
+        {
+          "id": "s2-m44-l02",
+          "slug": "qmo-quality-operating-model",
+          "order": 2,
+          "url": "/lesson/qa-organization-consulting-pm/qmo-quality-operating-model/"
+        },
+        {
+          "id": "s2-m44-l03",
+          "slug": "portfolio-quality-metrics",
+          "order": 3,
+          "url": "/lesson/qa-organization-consulting-pm/portfolio-quality-metrics/"
+        },
+        {
+          "id": "s2-m44-l04",
+          "slug": "process-assessment-interviews-evidence",
+          "order": 4,
+          "url": "/lesson/qa-organization-consulting-pm/process-assessment-interviews-evidence/"
+        },
+        {
+          "id": "s2-m44-l05",
+          "slug": "improvement-roadmap-and-change-management",
+          "order": 5,
+          "url": "/lesson/qa-organization-consulting-pm/improvement-roadmap-and-change-management/"
+        },
+        {
+          "id": "s2-m44-l06",
+          "slug": "project-management-for-quality-people",
+          "order": 6,
+          "url": "/lesson/qa-organization-consulting-pm/project-management-for-quality-people/"
+        },
+        {
+          "id": "s2-m44-l07",
+          "slug": "change-impact-decision-one-pager",
+          "order": 7,
+          "url": "/lesson/qa-organization-consulting-pm/change-impact-decision-one-pager/"
+        },
+        {
+          "id": "s2-m44-l08",
+          "slug": "test-effort-estimation-advanced",
+          "order": 8,
+          "url": "/lesson/qa-organization-consulting-pm/test-effort-estimation-advanced/"
+        }
+      ]
+    },
+    {
+      "id": "m45",
+      "slug": "product-quality-business-analysis",
+      "stage": "s2",
+      "order": 22,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m02",
+        "m06"
+      ],
+      "url": "/module/product-quality-business-analysis/",
+      "lessons": [
+        {
+          "id": "s2-m45-l01",
+          "slug": "product-quality-engineer-role",
+          "order": 1,
+          "url": "/lesson/product-quality-business-analysis/product-quality-engineer-role/"
+        },
+        {
+          "id": "s2-m45-l02",
+          "slug": "user-journey-risk-mapping",
+          "order": 2,
+          "url": "/lesson/product-quality-business-analysis/user-journey-risk-mapping/"
+        },
+        {
+          "id": "s2-m45-l03",
+          "slug": "voc-and-quality-data-analysis",
+          "order": 3,
+          "url": "/lesson/product-quality-business-analysis/voc-and-quality-data-analysis/"
+        },
+        {
+          "id": "s2-m45-l04",
+          "slug": "product-metrics-heart-gsm",
+          "order": 4,
+          "url": "/lesson/product-quality-business-analysis/product-metrics-heart-gsm/"
+        },
+        {
+          "id": "s2-m45-l05",
+          "slug": "business-analysis-elicitation",
+          "order": 5,
+          "url": "/lesson/product-quality-business-analysis/business-analysis-elicitation/"
+        },
+        {
+          "id": "s2-m45-l06",
+          "slug": "policy-rules-exceptions-as-requirements",
+          "order": 6,
+          "url": "/lesson/product-quality-business-analysis/policy-rules-exceptions-as-requirements/"
+        },
+        {
+          "id": "s2-m45-l07",
+          "slug": "prioritization-and-improvement-proposal",
+          "order": 7,
+          "url": "/lesson/product-quality-business-analysis/prioritization-and-improvement-proposal/"
+        },
+        {
+          "id": "s2-m45-l08",
+          "slug": "sql-and-product-analytics",
+          "order": 8,
+          "url": "/lesson/product-quality-business-analysis/sql-and-product-analytics/"
+        },
+        {
+          "id": "s2-m45-l09",
+          "slug": "prototyping-and-user-interviews",
+          "order": 9,
+          "url": "/lesson/product-quality-business-analysis/prototyping-and-user-interviews/"
+        }
+      ]
+    },
+    {
+      "id": "m48",
+      "slug": "agile-testing-practice",
+      "stage": "s2",
+      "order": 23,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m07",
+        "m05"
+      ],
+      "url": "/module/agile-testing-practice/",
+      "lessons": [
+        {
+          "id": "s2-m48-l01",
+          "slug": "agile-testing-quadrants",
+          "order": 1,
+          "url": "/lesson/agile-testing-practice/agile-testing-quadrants/"
+        },
+        {
+          "id": "s2-m48-l02",
+          "slug": "definition-of-done",
+          "order": 2,
+          "url": "/lesson/agile-testing-practice/definition-of-done/"
+        },
+        {
+          "id": "s2-m48-l03",
+          "slug": "refinement-questions-and-slicing",
+          "order": 3,
+          "url": "/lesson/agile-testing-practice/refinement-questions-and-slicing/"
+        },
+        {
+          "id": "s2-m48-l04",
+          "slug": "pair-and-mob-testing",
+          "order": 4,
+          "url": "/lesson/agile-testing-practice/pair-and-mob-testing/"
+        },
+        {
+          "id": "s2-m48-l05",
+          "slug": "agile-quality-metrics",
+          "order": 5,
+          "url": "/lesson/agile-testing-practice/agile-quality-metrics/"
+        }
+      ]
+    },
+    {
+      "id": "m56",
+      "slug": "acceptance-testing-uat",
+      "stage": "s2",
+      "order": 24,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m02",
+        "m04"
+      ],
+      "url": "/module/acceptance-testing-uat/",
+      "lessons": [
+        {
+          "id": "s2-m56-l01",
+          "slug": "uat-design-and-user-participation",
+          "order": 1,
+          "url": "/lesson/acceptance-testing-uat/uat-design-and-user-participation/"
+        },
+        {
+          "id": "s2-m56-l02",
+          "slug": "atdd-specification-by-example",
+          "order": 2,
+          "url": "/lesson/acceptance-testing-uat/atdd-specification-by-example/"
+        },
+        {
+          "id": "s2-m56-l03",
+          "slug": "public-si-inspection",
+          "order": 3,
+          "url": "/lesson/acceptance-testing-uat/public-si-inspection/"
+        },
+        {
+          "id": "s2-m56-l04",
+          "slug": "rfp-to-acceptance-criteria",
+          "order": 4,
+          "url": "/lesson/acceptance-testing-uat/rfp-to-acceptance-criteria/"
+        }
+      ]
+    },
+    {
+      "id": "m58",
+      "slug": "test-analysis-advanced",
+      "stage": "s2",
+      "order": 25,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m02",
+        "m03",
+        "m04"
+      ],
+      "url": "/module/test-analysis-advanced/",
+      "lessons": [
+        {
+          "id": "s2-m58-l01",
+          "slug": "test-oracle-design",
+          "order": 1,
+          "url": "/lesson/test-analysis-advanced/test-oracle-design/"
+        },
+        {
+          "id": "s2-m58-l02",
+          "slug": "review-techniques-advanced",
+          "order": 2,
+          "url": "/lesson/test-analysis-advanced/review-techniques-advanced/"
+        },
+        {
+          "id": "s2-m58-l03",
+          "slug": "quality-characteristic-analysis",
+          "order": 3,
+          "url": "/lesson/test-analysis-advanced/quality-characteristic-analysis/"
+        },
+        {
+          "id": "s2-m58-l04",
+          "slug": "reliability-maintainability-portability",
+          "order": 4,
+          "url": "/lesson/test-analysis-advanced/reliability-maintainability-portability/"
+        },
+        {
+          "id": "s2-m58-l05",
+          "slug": "domain-analysis-patterns",
+          "order": 5,
+          "url": "/lesson/test-analysis-advanced/domain-analysis-patterns/"
+        },
+        {
+          "id": "s2-m58-l06",
+          "slug": "architecture-based-risk-analysis",
+          "order": 6,
+          "url": "/lesson/test-analysis-advanced/architecture-based-risk-analysis/"
+        }
+      ]
+    },
+    {
+      "id": "m60",
+      "slug": "qa-education-and-coaching",
+      "stage": "s2",
+      "order": 26,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m43",
+        "m44"
+      ],
+      "url": "/module/qa-education-and-coaching/",
+      "lessons": []
+    },
+    {
+      "id": "m64",
+      "slug": "public-enterprise-software-qa",
+      "stage": "s2",
+      "order": 27,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m02",
+        "m04"
+      ],
+      "url": "/module/public-enterprise-software-qa/",
+      "lessons": [
+        {
+          "id": "s2-m64-l01",
+          "slug": "egov-standard-framework",
+          "order": 1,
+          "url": "/lesson/public-enterprise-software-qa/egov-standard-framework/"
+        },
+        {
+          "id": "s2-m64-l02",
+          "slug": "web-standards-and-accessibility-audit",
+          "order": 2,
+          "url": "/lesson/public-enterprise-software-qa/web-standards-and-accessibility-audit/"
+        },
+        {
+          "id": "s2-m64-l03",
+          "slug": "erp-business-rules",
+          "order": 3,
+          "url": "/lesson/public-enterprise-software-qa/erp-business-rules/"
+        },
+        {
+          "id": "s2-m64-l04",
+          "slug": "document-and-collaboration-compatibility",
+          "order": 4,
+          "url": "/lesson/public-enterprise-software-qa/document-and-collaboration-compatibility/"
+        },
+        {
+          "id": "s2-m64-l05",
+          "slug": "isolated-network-test-environment",
+          "order": 5,
+          "url": "/lesson/public-enterprise-software-qa/isolated-network-test-environment/"
+        }
+      ]
+    },
+    {
+      "id": "m66",
+      "slug": "digital-health-qa",
+      "stage": "s2",
+      "order": 28,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m40",
+        "m36"
+      ],
+      "url": "/module/digital-health-qa/",
+      "lessons": []
+    },
+    {
+      "id": "m09",
+      "slug": "dev-knowledge",
+      "stage": "s3",
+      "order": 1,
+      "level": "입문",
+      "status": "published",
+      "prerequisites": [],
+      "url": "/module/dev-knowledge/",
+      "lessons": [
+        {
+          "id": "s3-m09-l01",
+          "slug": "reading-code-basics",
+          "order": 1,
+          "url": "/lesson/dev-knowledge/reading-code-basics/"
+        },
+        {
+          "id": "s3-m09-l02",
+          "slug": "web-and-http",
+          "order": 2,
+          "url": "/lesson/dev-knowledge/web-and-http/"
+        },
+        {
+          "id": "s3-m09-l03",
+          "slug": "authentication-and-authorization",
+          "order": 3,
+          "url": "/lesson/dev-knowledge/authentication-and-authorization/"
+        },
+        {
+          "id": "s3-m09-l04",
+          "slug": "operating-system-basics",
+          "order": 4,
+          "url": "/lesson/dev-knowledge/operating-system-basics/"
+        },
+        {
+          "id": "s3-m09-l05",
+          "slug": "sql-basics",
+          "order": 5,
+          "url": "/lesson/dev-knowledge/sql-basics/"
+        },
+        {
+          "id": "s3-m09-l06",
+          "slug": "networking-basics",
+          "order": 6,
+          "url": "/lesson/dev-knowledge/networking-basics/"
+        },
+        {
+          "id": "s3-m09-l07",
+          "slug": "git-version-control",
+          "order": 7,
+          "url": "/lesson/dev-knowledge/git-version-control/"
+        },
+        {
+          "id": "s3-m09-l08",
+          "slug": "reading-risk-in-pr-diffs",
+          "order": 8,
+          "url": "/lesson/dev-knowledge/reading-risk-in-pr-diffs/"
+        },
+        {
+          "id": "s3-m09-l09",
+          "slug": "judging-testability",
+          "order": 9,
+          "url": "/lesson/dev-knowledge/judging-testability/"
+        },
+        {
+          "id": "s3-m09-l10",
+          "slug": "intercepting-network-traffic",
+          "order": 10,
+          "url": "/lesson/dev-knowledge/intercepting-network-traffic/"
+        },
+        {
+          "id": "s3-m09-l11",
+          "slug": "git-for-qa-workflow",
+          "order": 11,
+          "url": "/lesson/dev-knowledge/git-for-qa-workflow/"
+        },
+        {
+          "id": "s3-m09-l12",
+          "slug": "chrome-devtools-for-qa",
+          "order": 12,
+          "url": "/lesson/dev-knowledge/chrome-devtools-for-qa/"
+        }
+      ]
+    },
+    {
+      "id": "m10",
+      "slug": "unit-integration-testing",
+      "stage": "s3",
+      "order": 2,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m09"
+      ],
+      "url": "/module/unit-integration-testing/",
+      "lessons": [
+        {
+          "id": "s3-m10-l01",
+          "slug": "what-is-unit-testing",
+          "order": 1,
+          "url": "/lesson/unit-integration-testing/what-is-unit-testing/"
+        },
+        {
+          "id": "s3-m10-l02",
+          "slug": "xunit-frameworks",
+          "order": 2,
+          "url": "/lesson/unit-integration-testing/xunit-frameworks/"
+        },
+        {
+          "id": "s3-m10-l03",
+          "slug": "mocks-stubs-spies",
+          "order": 3,
+          "url": "/lesson/unit-integration-testing/mocks-stubs-spies/"
+        },
+        {
+          "id": "s3-m10-l04",
+          "slug": "handling-nondeterminism",
+          "order": 4,
+          "url": "/lesson/unit-integration-testing/handling-nondeterminism/"
+        },
+        {
+          "id": "s3-m10-l05",
+          "slug": "coverage-report-pitfalls",
+          "order": 5,
+          "url": "/lesson/unit-integration-testing/coverage-report-pitfalls/"
+        },
+        {
+          "id": "s3-m10-l06",
+          "slug": "frontend-component-testing",
+          "order": 6,
+          "url": "/lesson/unit-integration-testing/frontend-component-testing/"
+        }
+      ]
+    },
+    {
+      "id": "m53",
+      "slug": "structural-testing-practice",
+      "stage": "s3",
+      "order": 3,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m10"
+      ],
+      "url": "/module/structural-testing-practice/",
+      "lessons": [
+        {
+          "id": "s3-m53-l01",
+          "slug": "coverage-tools-in-practice",
+          "order": 1,
+          "url": "/lesson/structural-testing-practice/coverage-tools-in-practice/"
+        },
+        {
+          "id": "s3-m53-l02",
+          "slug": "path-and-data-flow-testing",
+          "order": 2,
+          "url": "/lesson/structural-testing-practice/path-and-data-flow-testing/"
+        },
+        {
+          "id": "s3-m53-l03",
+          "slug": "mutation-testing",
+          "order": 3,
+          "url": "/lesson/structural-testing-practice/mutation-testing/"
+        },
+        {
+          "id": "s3-m53-l04",
+          "slug": "static-dynamic-analysis-advanced",
+          "order": 4,
+          "url": "/lesson/structural-testing-practice/static-dynamic-analysis-advanced/"
+        },
+        {
+          "id": "s3-m53-l05",
+          "slug": "code-review-as-test-activity",
+          "order": 5,
+          "url": "/lesson/structural-testing-practice/code-review-as-test-activity/"
+        }
+      ]
+    },
+    {
+      "id": "m61",
+      "slug": "data-checking-sql-logs-analytics",
+      "stage": "s3",
+      "order": 4,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m12"
+      ],
+      "url": "/module/data-checking-sql-logs-analytics/",
+      "lessons": [
+        {
+          "id": "s3-m61-l01",
+          "slug": "sql-for-verification",
+          "order": 1,
+          "url": "/lesson/data-checking-sql-logs-analytics/sql-for-verification/"
+        },
+        {
+          "id": "s3-m61-l02",
+          "slug": "data-integrity-queries",
+          "order": 2,
+          "url": "/lesson/data-checking-sql-logs-analytics/data-integrity-queries/"
+        },
+        {
+          "id": "s3-m61-l03",
+          "slug": "reading-logs",
+          "order": 3,
+          "url": "/lesson/data-checking-sql-logs-analytics/reading-logs/"
+        },
+        {
+          "id": "s3-m61-l04",
+          "slug": "logs-as-defect-evidence",
+          "order": 4,
+          "url": "/lesson/data-checking-sql-logs-analytics/logs-as-defect-evidence/"
+        },
+        {
+          "id": "s3-m61-l05",
+          "slug": "analytics-tag-verification",
+          "order": 5,
+          "url": "/lesson/data-checking-sql-logs-analytics/analytics-tag-verification/"
+        },
+        {
+          "id": "s3-m61-l06",
+          "slug": "collected-data-quality",
+          "order": 6,
+          "url": "/lesson/data-checking-sql-logs-analytics/collected-data-quality/"
+        }
+      ]
+    },
+    {
+      "id": "m11",
+      "slug": "automation-strategy",
+      "stage": "s4",
+      "order": 1,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m03",
+        "m04"
+      ],
+      "url": "/module/automation-strategy/",
+      "lessons": [
+        {
+          "id": "s4-m11-l01",
+          "slug": "automation-pyramid",
+          "order": 1,
+          "url": "/lesson/automation-strategy/automation-pyramid/"
+        },
+        {
+          "id": "s4-m11-l02",
+          "slug": "what-to-automate",
+          "order": 2,
+          "url": "/lesson/automation-strategy/what-to-automate/"
+        },
+        {
+          "id": "s4-m11-l03",
+          "slug": "automation-roi",
+          "order": 3,
+          "url": "/lesson/automation-strategy/automation-roi/"
+        },
+        {
+          "id": "s4-m11-l04",
+          "slug": "automation-technical-debt",
+          "order": 4,
+          "url": "/lesson/automation-strategy/automation-technical-debt/"
+        },
+        {
+          "id": "s4-m11-l05",
+          "slug": "building-automation-strategy",
+          "order": 5,
+          "url": "/lesson/automation-strategy/building-automation-strategy/"
+        },
+        {
+          "id": "s4-m11-l06",
+          "slug": "automation-framework-types",
+          "order": 6,
+          "url": "/lesson/automation-strategy/automation-framework-types/"
+        }
+      ]
+    },
+    {
+      "id": "m12",
+      "slug": "api-contract-testing",
+      "stage": "s4",
+      "order": 2,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m11"
+      ],
+      "url": "/module/api-contract-testing/",
+      "lessons": [
+        {
+          "id": "s4-m12-l01",
+          "slug": "why-api-testing",
+          "order": 1,
+          "url": "/lesson/api-contract-testing/why-api-testing/"
+        },
+        {
+          "id": "s4-m12-l02",
+          "slug": "getting-started-with-postman",
+          "order": 2,
+          "url": "/lesson/api-contract-testing/getting-started-with-postman/"
+        },
+        {
+          "id": "s4-m12-l03",
+          "slug": "moving-to-code-based-automation",
+          "order": 3,
+          "url": "/lesson/api-contract-testing/moving-to-code-based-automation/"
+        },
+        {
+          "id": "s4-m12-l04",
+          "slug": "contract-testing-with-openapi",
+          "order": 4,
+          "url": "/lesson/api-contract-testing/contract-testing-with-openapi/"
+        },
+        {
+          "id": "s4-m12-l05",
+          "slug": "consumer-driven-contracts-with-pact",
+          "order": 5,
+          "url": "/lesson/api-contract-testing/consumer-driven-contracts-with-pact/"
+        },
+        {
+          "id": "s4-m12-l06",
+          "slug": "graphql-testing",
+          "order": 6,
+          "url": "/lesson/api-contract-testing/graphql-testing/"
+        },
+        {
+          "id": "s4-m12-l07",
+          "slug": "soapui-and-legacy-api-tools",
+          "order": 7,
+          "url": "/lesson/api-contract-testing/soapui-and-legacy-api-tools/"
+        },
+        {
+          "id": "s4-m12-l08",
+          "slug": "api-test-coverage",
+          "order": 8,
+          "url": "/lesson/api-contract-testing/api-test-coverage/"
+        }
+      ]
+    },
+    {
+      "id": "m13",
+      "slug": "ui-automation",
+      "stage": "s4",
+      "order": 3,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m11"
+      ],
+      "url": "/module/ui-automation/",
+      "lessons": [
+        {
+          "id": "s4-m13-l01",
+          "slug": "why-ui-automation",
+          "order": 1,
+          "url": "/lesson/ui-automation/why-ui-automation/"
+        },
+        {
+          "id": "s4-m13-l02",
+          "slug": "getting-started-with-playwright",
+          "order": 2,
+          "url": "/lesson/ui-automation/getting-started-with-playwright/"
+        },
+        {
+          "id": "s4-m13-l03",
+          "slug": "resilient-locators",
+          "order": 3,
+          "url": "/lesson/ui-automation/resilient-locators/"
+        },
+        {
+          "id": "s4-m13-l04",
+          "slug": "page-object-model",
+          "order": 4,
+          "url": "/lesson/ui-automation/page-object-model/"
+        },
+        {
+          "id": "s4-m13-l05",
+          "slug": "wait-strategies",
+          "order": 5,
+          "url": "/lesson/ui-automation/wait-strategies/"
+        },
+        {
+          "id": "s4-m13-l06",
+          "slug": "taming-flaky-ui-tests",
+          "order": 6,
+          "url": "/lesson/ui-automation/taming-flaky-ui-tests/"
+        },
+        {
+          "id": "s4-m13-l07",
+          "slug": "mobile-automation-with-appium",
+          "order": 7,
+          "url": "/lesson/ui-automation/mobile-automation-with-appium/"
+        },
+        {
+          "id": "s4-m13-l08",
+          "slug": "cross-browser-device-strategy",
+          "order": 8,
+          "url": "/lesson/ui-automation/cross-browser-device-strategy/"
+        },
+        {
+          "id": "s4-m13-l09",
+          "slug": "cypress-vs-playwright",
+          "order": 9,
+          "url": "/lesson/ui-automation/cypress-vs-playwright/"
+        },
+        {
+          "id": "s4-m13-l10",
+          "slug": "api-fixture-test-data",
+          "order": 10,
+          "url": "/lesson/ui-automation/api-fixture-test-data/"
+        }
+      ]
+    },
+    {
+      "id": "m14",
+      "slug": "ci-cd-continuous-testing",
+      "stage": "s4",
+      "order": 4,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m12",
+        "m13"
+      ],
+      "url": "/module/ci-cd-continuous-testing/",
+      "lessons": [
+        {
+          "id": "s4-m14-l01",
+          "slug": "what-is-ci-cd",
+          "order": 1,
+          "url": "/lesson/ci-cd-continuous-testing/what-is-ci-cd/"
+        },
+        {
+          "id": "s4-m14-l02",
+          "slug": "github-actions-workflows",
+          "order": 2,
+          "url": "/lesson/ci-cd-continuous-testing/github-actions-workflows/"
+        },
+        {
+          "id": "s4-m14-l03",
+          "slug": "reproducing-environments-with-docker",
+          "order": 3,
+          "url": "/lesson/ci-cd-continuous-testing/reproducing-environments-with-docker/"
+        },
+        {
+          "id": "s4-m14-l04",
+          "slug": "designing-quality-gates",
+          "order": 4,
+          "url": "/lesson/ci-cd-continuous-testing/designing-quality-gates/"
+        },
+        {
+          "id": "s4-m14-l05",
+          "slug": "reducing-false-alarms",
+          "order": 5,
+          "url": "/lesson/ci-cd-continuous-testing/reducing-false-alarms/"
+        },
+        {
+          "id": "s4-m14-l06",
+          "slug": "observability-for-tracking-failures",
+          "order": 6,
+          "url": "/lesson/ci-cd-continuous-testing/observability-for-tracking-failures/"
+        },
+        {
+          "id": "s4-m14-l07",
+          "slug": "slo-sli-quality-in-production",
+          "order": 7,
+          "url": "/lesson/ci-cd-continuous-testing/slo-sli-quality-in-production/"
+        }
+      ]
+    },
+    {
+      "id": "m15",
+      "slug": "rpa-legacy-desktop",
+      "stage": "s4",
+      "order": 5,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m11"
+      ],
+      "url": "/module/rpa-legacy-desktop/",
+      "lessons": [
+        {
+          "id": "s4-m15-l01",
+          "slug": "what-is-rpa",
+          "order": 1,
+          "url": "/lesson/rpa-legacy-desktop/what-is-rpa/"
+        },
+        {
+          "id": "s4-m15-l02",
+          "slug": "enterprise-codeless-tools",
+          "order": 2,
+          "url": "/lesson/rpa-legacy-desktop/enterprise-codeless-tools/"
+        },
+        {
+          "id": "s4-m15-l03",
+          "slug": "image-and-coordinate-automation",
+          "order": 3,
+          "url": "/lesson/rpa-legacy-desktop/image-and-coordinate-automation/"
+        },
+        {
+          "id": "s4-m15-l04",
+          "slug": "automating-legacy-systems",
+          "order": 4,
+          "url": "/lesson/rpa-legacy-desktop/automating-legacy-systems/"
+        },
+        {
+          "id": "s4-m15-l05",
+          "slug": "choosing-the-right-tool",
+          "order": 5,
+          "url": "/lesson/rpa-legacy-desktop/choosing-the-right-tool/"
+        },
+        {
+          "id": "s4-m15-l06",
+          "slug": "cross-platform-tool-selection-guide",
+          "order": 6,
+          "url": "/lesson/rpa-legacy-desktop/cross-platform-tool-selection-guide/"
+        }
+      ]
+    },
+    {
+      "id": "m54",
+      "slug": "model-based-testing-practice",
+      "stage": "s4",
+      "order": 6,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m03",
+        "m11"
+      ],
+      "url": "/module/model-based-testing-practice/",
+      "lessons": [
+        {
+          "id": "s4-m54-l01",
+          "slug": "model-notations-and-quality",
+          "order": 1,
+          "url": "/lesson/model-based-testing-practice/model-notations-and-quality/"
+        },
+        {
+          "id": "s4-m54-l02",
+          "slug": "test-generation-and-model-coverage",
+          "order": 2,
+          "url": "/lesson/model-based-testing-practice/test-generation-and-model-coverage/"
+        },
+        {
+          "id": "s4-m54-l03",
+          "slug": "mbt-tools-hands-on",
+          "order": 3,
+          "url": "/lesson/model-based-testing-practice/mbt-tools-hands-on/"
+        },
+        {
+          "id": "s4-m54-l04",
+          "slug": "requirements-to-model-and-maintenance",
+          "order": 4,
+          "url": "/lesson/model-based-testing-practice/requirements-to-model-and-maintenance/"
+        }
+      ]
+    },
+    {
+      "id": "m55",
+      "slug": "test-automation-architecture",
+      "stage": "s4",
+      "order": 7,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m11",
+        "m13",
+        "m14"
+      ],
+      "url": "/module/test-automation-architecture/",
+      "lessons": [
+        {
+          "id": "s4-m55-l01",
+          "slug": "gtaa-layers-and-components",
+          "order": 1,
+          "url": "/lesson/test-automation-architecture/gtaa-layers-and-components/"
+        },
+        {
+          "id": "s4-m55-l02",
+          "slug": "building-a-framework-from-scratch",
+          "order": 2,
+          "url": "/lesson/test-automation-architecture/building-a-framework-from-scratch/"
+        }
+      ]
+    },
+    {
+      "id": "m59",
+      "slug": "testops-execution-and-observability",
+      "stage": "s4",
+      "order": 8,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m13",
+        "m14"
+      ],
+      "url": "/module/testops-execution-and-observability/",
+      "lessons": []
+    },
+    {
+      "id": "m16",
+      "slug": "nonfunctional-testing",
+      "stage": "s5",
+      "order": 1,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m09"
+      ],
+      "url": "/module/nonfunctional-testing/",
+      "lessons": [
+        {
+          "id": "s5-m16-l01",
+          "slug": "what-is-nonfunctional-testing",
+          "order": 1,
+          "url": "/lesson/nonfunctional-testing/what-is-nonfunctional-testing/"
+        },
+        {
+          "id": "s5-m16-l02",
+          "slug": "types-of-performance-testing",
+          "order": 2,
+          "url": "/lesson/nonfunctional-testing/types-of-performance-testing/"
+        },
+        {
+          "id": "s5-m16-l03",
+          "slug": "load-testing-with-k6",
+          "order": 3,
+          "url": "/lesson/nonfunctional-testing/load-testing-with-k6/"
+        },
+        {
+          "id": "s5-m16-l04",
+          "slug": "core-web-vitals",
+          "order": 4,
+          "url": "/lesson/nonfunctional-testing/core-web-vitals/"
+        },
+        {
+          "id": "s5-m16-l05",
+          "slug": "owasp-top-10",
+          "order": 5,
+          "url": "/lesson/nonfunctional-testing/owasp-top-10/"
+        },
+        {
+          "id": "s5-m16-l06",
+          "slug": "sast-dast-sca",
+          "order": 6,
+          "url": "/lesson/nonfunctional-testing/sast-dast-sca/"
+        },
+        {
+          "id": "s5-m16-l07",
+          "slug": "wcag-accessibility",
+          "order": 7,
+          "url": "/lesson/nonfunctional-testing/wcag-accessibility/"
+        },
+        {
+          "id": "s5-m16-l08",
+          "slug": "visual-regression-and-compatibility",
+          "order": 8,
+          "url": "/lesson/nonfunctional-testing/visual-regression-and-compatibility/"
+        },
+        {
+          "id": "s5-m16-l09",
+          "slug": "jmeter-performance-testing",
+          "order": 9,
+          "url": "/lesson/nonfunctional-testing/jmeter-performance-testing/"
+        },
+        {
+          "id": "s5-m16-l10",
+          "slug": "sql-injection-hands-on",
+          "order": 10,
+          "url": "/lesson/nonfunctional-testing/sql-injection-hands-on/"
+        },
+        {
+          "id": "s5-m16-l11",
+          "slug": "usability-testing",
+          "order": 11,
+          "url": "/lesson/nonfunctional-testing/usability-testing/"
+        },
+        {
+          "id": "s5-m16-l12",
+          "slug": "owasp-zap-burp-suite",
+          "order": 12,
+          "url": "/lesson/nonfunctional-testing/owasp-zap-burp-suite/"
+        },
+        {
+          "id": "s5-m16-l13",
+          "slug": "sqlmap-automated-injection",
+          "order": 13,
+          "url": "/lesson/nonfunctional-testing/sqlmap-automated-injection/"
+        },
+        {
+          "id": "s5-m16-l14",
+          "slug": "xss-csrf-session-hands-on",
+          "order": 14,
+          "url": "/lesson/nonfunctional-testing/xss-csrf-session-hands-on/"
+        }
+      ]
+    },
+    {
+      "id": "m17",
+      "slug": "mobile-testing",
+      "stage": "s5",
+      "order": 2,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m13",
+        "m16"
+      ],
+      "url": "/module/mobile-testing/",
+      "lessons": [
+        {
+          "id": "s5-m17-l01",
+          "slug": "why-mobile-testing-is-different",
+          "order": 1,
+          "url": "/lesson/mobile-testing/why-mobile-testing-is-different/"
+        },
+        {
+          "id": "s5-m17-l02",
+          "slug": "android-ios-platform-checkpoints",
+          "order": 2,
+          "url": "/lesson/mobile-testing/android-ios-platform-checkpoints/"
+        },
+        {
+          "id": "s5-m17-l03",
+          "slug": "handling-os-updates",
+          "order": 3,
+          "url": "/lesson/mobile-testing/handling-os-updates/"
+        },
+        {
+          "id": "s5-m17-l04",
+          "slug": "performance-and-crash-monitoring",
+          "order": 4,
+          "url": "/lesson/mobile-testing/performance-and-crash-monitoring/"
+        },
+        {
+          "id": "s5-m17-l05",
+          "slug": "real-devices-vs-emulators",
+          "order": 5,
+          "url": "/lesson/mobile-testing/real-devices-vs-emulators/"
+        }
+      ]
+    },
+    {
+      "id": "m29",
+      "slug": "network-degradation-testing",
+      "stage": "s5",
+      "order": 3,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m16",
+        "m17"
+      ],
+      "url": "/module/network-degradation-testing/",
+      "lessons": [
+        {
+          "id": "s5-m29-l01",
+          "slug": "network-state-model",
+          "order": 1,
+          "url": "/lesson/network-degradation-testing/network-state-model/"
+        },
+        {
+          "id": "s5-m29-l02",
+          "slug": "why-simulation-fails",
+          "order": 2,
+          "url": "/lesson/network-degradation-testing/why-simulation-fails/"
+        },
+        {
+          "id": "s5-m29-l03",
+          "slug": "ondevice-throttling",
+          "order": 3,
+          "url": "/lesson/network-degradation-testing/ondevice-throttling/"
+        },
+        {
+          "id": "s5-m29-l04",
+          "slug": "proxy-throttling",
+          "order": 4,
+          "url": "/lesson/network-degradation-testing/proxy-throttling/"
+        },
+        {
+          "id": "s5-m29-l05",
+          "slug": "linux-ap-tc-netem",
+          "order": 5,
+          "url": "/lesson/network-degradation-testing/linux-ap-tc-netem/"
+        },
+        {
+          "id": "s5-m29-l06",
+          "slug": "limited-service-recipes",
+          "order": 6,
+          "url": "/lesson/network-degradation-testing/limited-service-recipes/"
+        },
+        {
+          "id": "s5-m29-l07",
+          "slug": "degradation-checkpoints",
+          "order": 7,
+          "url": "/lesson/network-degradation-testing/degradation-checkpoints/"
+        },
+        {
+          "id": "s5-m29-l08",
+          "slug": "testcase-design-and-automation",
+          "order": 8,
+          "url": "/lesson/network-degradation-testing/testcase-design-and-automation/"
+        }
+      ]
+    },
+    {
+      "id": "m39",
+      "slug": "cloud-ai-infrastructure-qa",
+      "stage": "s5",
+      "order": 4,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m12",
+        "m14",
+        "m16"
+      ],
+      "url": "/module/cloud-ai-infrastructure-qa/",
+      "lessons": [
+        {
+          "id": "s5-m39-l01",
+          "slug": "infrastructure-platform-qa-fundamentals",
+          "order": 1,
+          "url": "/lesson/cloud-ai-infrastructure-qa/infrastructure-platform-qa-fundamentals/"
+        },
+        {
+          "id": "s5-m39-l02",
+          "slug": "kubernetes-platform-verification",
+          "order": 2,
+          "url": "/lesson/cloud-ai-infrastructure-qa/kubernetes-platform-verification/"
+        },
+        {
+          "id": "s5-m39-l03",
+          "slug": "openstack-private-cloud-verification",
+          "order": 3,
+          "url": "/lesson/cloud-ai-infrastructure-qa/openstack-private-cloud-verification/"
+        },
+        {
+          "id": "s5-m39-l04",
+          "slug": "gitops-argocd-deployment-verification",
+          "order": 4,
+          "url": "/lesson/cloud-ai-infrastructure-qa/gitops-argocd-deployment-verification/"
+        },
+        {
+          "id": "s5-m39-l05",
+          "slug": "gpu-training-workload-verification",
+          "order": 5,
+          "url": "/lesson/cloud-ai-infrastructure-qa/gpu-training-workload-verification/"
+        },
+        {
+          "id": "s5-m39-l06",
+          "slug": "inference-serving-performance",
+          "order": 6,
+          "url": "/lesson/cloud-ai-infrastructure-qa/inference-serving-performance/"
+        },
+        {
+          "id": "s5-m39-l07",
+          "slug": "chaos-reliability-testing",
+          "order": 7,
+          "url": "/lesson/cloud-ai-infrastructure-qa/chaos-reliability-testing/"
+        },
+        {
+          "id": "s5-m39-l08",
+          "slug": "agent-execution-platform-verification",
+          "order": 8,
+          "url": "/lesson/cloud-ai-infrastructure-qa/agent-execution-platform-verification/"
+        },
+        {
+          "id": "s5-m39-l09",
+          "slug": "cloud-certification-and-delivery-verification",
+          "order": 9,
+          "url": "/lesson/cloud-ai-infrastructure-qa/cloud-certification-and-delivery-verification/"
+        }
+      ]
+    },
+    {
+      "id": "m46",
+      "slug": "embedded-system-verification",
+      "stage": "s5",
+      "order": 5,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m16"
+      ],
+      "url": "/module/embedded-system-verification/",
+      "lessons": [
+        {
+          "id": "s5-m46-l01",
+          "slug": "embedded-anatomy-for-testers",
+          "order": 1,
+          "url": "/lesson/embedded-system-verification/embedded-anatomy-for-testers/"
+        },
+        {
+          "id": "s5-m46-l02",
+          "slug": "serial-protocols-uart-spi-i2c",
+          "order": 2,
+          "url": "/lesson/embedded-system-verification/serial-protocols-uart-spi-i2c/"
+        },
+        {
+          "id": "s5-m46-l03",
+          "slug": "can-canfd-canxl-and-uds",
+          "order": 3,
+          "url": "/lesson/embedded-system-verification/can-canfd-canxl-and-uds/"
+        },
+        {
+          "id": "s5-m46-l04",
+          "slug": "oscilloscope-logic-analyzer-evidence",
+          "order": 4,
+          "url": "/lesson/embedded-system-verification/oscilloscope-logic-analyzer-evidence/"
+        },
+        {
+          "id": "s5-m46-l05",
+          "slug": "xil-mil-sil-pil-hil",
+          "order": 5,
+          "url": "/lesson/embedded-system-verification/xil-mil-sil-pil-hil/"
+        },
+        {
+          "id": "s5-m46-l06",
+          "slug": "fault-injection-power-timing",
+          "order": 6,
+          "url": "/lesson/embedded-system-verification/fault-injection-power-timing/"
+        },
+        {
+          "id": "s5-m46-l07",
+          "slug": "firmware-update-and-field-evidence",
+          "order": 7,
+          "url": "/lesson/embedded-system-verification/firmware-update-and-field-evidence/"
+        }
+      ]
+    },
+    {
+      "id": "m47",
+      "slug": "game-qa",
+      "stage": "s5",
+      "order": 6,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m05",
+        "m06",
+        "m16"
+      ],
+      "url": "/module/game-qa/",
+      "lessons": [
+        {
+          "id": "s5-m47-l01",
+          "slug": "why-game-qa-differs",
+          "order": 1,
+          "url": "/lesson/game-qa/why-game-qa-differs/"
+        },
+        {
+          "id": "s5-m47-l02",
+          "slug": "gameplay-balance-blocker-classification",
+          "order": 2,
+          "url": "/lesson/game-qa/gameplay-balance-blocker-classification/"
+        },
+        {
+          "id": "s5-m47-l03",
+          "slug": "graphics-audio-controls-level-testing",
+          "order": 3,
+          "url": "/lesson/game-qa/graphics-audio-controls-level-testing/"
+        },
+        {
+          "id": "s5-m47-l04",
+          "slug": "platform-certification-and-rating",
+          "order": 4,
+          "url": "/lesson/game-qa/platform-certification-and-rating/"
+        },
+        {
+          "id": "s5-m47-l05",
+          "slug": "multiplayer-netcode-cheat-and-load",
+          "order": 5,
+          "url": "/lesson/game-qa/multiplayer-netcode-cheat-and-load/"
+        },
+        {
+          "id": "s5-m47-l06",
+          "slug": "loot-box-probability-verification",
+          "order": 6,
+          "url": "/lesson/game-qa/loot-box-probability-verification/"
+        },
+        {
+          "id": "s5-m47-l07",
+          "slug": "localization-crowd-testing-live-ops",
+          "order": 7,
+          "url": "/lesson/game-qa/localization-crowd-testing-live-ops/"
+        }
+      ]
+    },
+    {
+      "id": "m49",
+      "slug": "usability-accessibility-testing",
+      "stage": "s5",
+      "order": 7,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m16",
+        "m05"
+      ],
+      "url": "/module/usability-accessibility-testing/",
+      "lessons": [
+        {
+          "id": "s5-m49-l01",
+          "slug": "heuristic-evaluation",
+          "order": 1,
+          "url": "/lesson/usability-accessibility-testing/heuristic-evaluation/"
+        },
+        {
+          "id": "s5-m49-l02",
+          "slug": "usability-test-sessions",
+          "order": 2,
+          "url": "/lesson/usability-accessibility-testing/usability-test-sessions/"
+        },
+        {
+          "id": "s5-m49-l03",
+          "slug": "sus-and-usability-metrics",
+          "order": 3,
+          "url": "/lesson/usability-accessibility-testing/sus-and-usability-metrics/"
+        },
+        {
+          "id": "s5-m49-l04",
+          "slug": "iso-9241-human-centred-design",
+          "order": 4,
+          "url": "/lesson/usability-accessibility-testing/iso-9241-human-centred-design/"
+        },
+        {
+          "id": "s5-m49-l05",
+          "slug": "wcag-2-2-verification",
+          "order": 5,
+          "url": "/lesson/usability-accessibility-testing/wcag-2-2-verification/"
+        },
+        {
+          "id": "s5-m49-l06",
+          "slug": "screen-reader-testing",
+          "order": 6,
+          "url": "/lesson/usability-accessibility-testing/screen-reader-testing/"
+        },
+        {
+          "id": "s5-m49-l07",
+          "slug": "ab-test-quality-verification",
+          "order": 7,
+          "url": "/lesson/usability-accessibility-testing/ab-test-quality-verification/"
+        }
+      ]
+    },
+    {
+      "id": "m50",
+      "slug": "security-testing-advanced",
+      "stage": "s5",
+      "order": 8,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m16",
+        "m23"
+      ],
+      "url": "/module/security-testing-advanced/",
+      "lessons": [
+        {
+          "id": "s5-m50-l01",
+          "slug": "threat-modeling",
+          "order": 1,
+          "url": "/lesson/security-testing-advanced/threat-modeling/"
+        },
+        {
+          "id": "s5-m50-l02",
+          "slug": "authn-authz-bypass-scenarios",
+          "order": 2,
+          "url": "/lesson/security-testing-advanced/authn-authz-bypass-scenarios/"
+        },
+        {
+          "id": "s5-m50-l03",
+          "slug": "api-security-top-10",
+          "order": 3,
+          "url": "/lesson/security-testing-advanced/api-security-top-10/"
+        },
+        {
+          "id": "s5-m50-l04",
+          "slug": "mobile-app-security-masvs",
+          "order": 4,
+          "url": "/lesson/security-testing-advanced/mobile-app-security-masvs/"
+        },
+        {
+          "id": "s5-m50-l05",
+          "slug": "penetration-test-process",
+          "order": 5,
+          "url": "/lesson/security-testing-advanced/penetration-test-process/"
+        },
+        {
+          "id": "s5-m50-l06",
+          "slug": "korean-security-compliance",
+          "order": 6,
+          "url": "/lesson/security-testing-advanced/korean-security-compliance/"
+        }
+      ]
+    },
+    {
+      "id": "m51",
+      "slug": "performance-testing-advanced",
+      "stage": "s5",
+      "order": 9,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m16",
+        "m21"
+      ],
+      "url": "/module/performance-testing-advanced/",
+      "lessons": [
+        {
+          "id": "s5-m51-l01",
+          "slug": "workload-modeling",
+          "order": 1,
+          "url": "/lesson/performance-testing-advanced/workload-modeling/"
+        },
+        {
+          "id": "s5-m51-l02",
+          "slug": "capacity-planning-and-requirements",
+          "order": 2,
+          "url": "/lesson/performance-testing-advanced/capacity-planning-and-requirements/"
+        },
+        {
+          "id": "s5-m51-l03",
+          "slug": "bottleneck-analysis",
+          "order": 3,
+          "url": "/lesson/performance-testing-advanced/bottleneck-analysis/"
+        },
+        {
+          "id": "s5-m51-l04",
+          "slug": "performance-reporting-and-tuning-cycle",
+          "order": 4,
+          "url": "/lesson/performance-testing-advanced/performance-reporting-and-tuning-cycle/"
+        }
+      ]
+    },
+    {
+      "id": "m52",
+      "slug": "mobile-testing-advanced",
+      "stage": "s5",
+      "order": 10,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m17",
+        "m13"
+      ],
+      "url": "/module/mobile-testing-advanced/",
+      "lessons": [
+        {
+          "id": "s5-m52-l01",
+          "slug": "store-review-and-rejections",
+          "order": 1,
+          "url": "/lesson/mobile-testing-advanced/store-review-and-rejections/"
+        },
+        {
+          "id": "s5-m52-l02",
+          "slug": "permissions-and-privacy",
+          "order": 2,
+          "url": "/lesson/mobile-testing-advanced/permissions-and-privacy/"
+        },
+        {
+          "id": "s5-m52-l03",
+          "slug": "deeplink-push-background",
+          "order": 3,
+          "url": "/lesson/mobile-testing-advanced/deeplink-push-background/"
+        },
+        {
+          "id": "s5-m52-l04",
+          "slug": "device-farm-matrix",
+          "order": 4,
+          "url": "/lesson/mobile-testing-advanced/device-farm-matrix/"
+        },
+        {
+          "id": "s5-m52-l05",
+          "slug": "appium-advanced",
+          "order": 5,
+          "url": "/lesson/mobile-testing-advanced/appium-advanced/"
+        },
+        {
+          "id": "s5-m52-l06",
+          "slug": "mobile-accessibility",
+          "order": 6,
+          "url": "/lesson/mobile-testing-advanced/mobile-accessibility/"
+        }
+      ]
+    },
+    {
+      "id": "m62",
+      "slug": "smart-factory-qa",
+      "stage": "s5",
+      "order": 11,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m46",
+        "m16"
+      ],
+      "url": "/module/smart-factory-qa/",
+      "lessons": []
+    },
+    {
+      "id": "m63",
+      "slug": "defense-aerospace-software-verification",
+      "stage": "s5",
+      "order": 12,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m35",
+        "m46"
+      ],
+      "url": "/module/defense-aerospace-software-verification/",
+      "lessons": []
+    },
+    {
+      "id": "m65",
+      "slug": "autonomous-driving-and-ivi-qa",
+      "stage": "s5",
+      "order": 13,
+      "level": "고급",
+      "status": "coming-soon",
+      "prerequisites": [
+        "m35",
+        "m46"
+      ],
+      "url": "/module/autonomous-driving-and-ivi-qa/",
+      "lessons": []
+    },
+    {
+      "id": "m18a",
+      "slug": "ai-for-testing",
+      "stage": "s6",
+      "order": 1,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m11",
+        "m13"
+      ],
+      "url": "/module/ai-for-testing/",
+      "lessons": [
+        {
+          "id": "s6-m18a-l01",
+          "slug": "prompt-based-test-case-generation",
+          "order": 1,
+          "url": "/lesson/ai-for-testing/prompt-based-test-case-generation/"
+        },
+        {
+          "id": "s6-m18a-l02",
+          "slug": "ai-defect-classification",
+          "order": 2,
+          "url": "/lesson/ai-for-testing/ai-defect-classification/"
+        },
+        {
+          "id": "s6-m18a-l03",
+          "slug": "self-healing-locators",
+          "order": 3,
+          "url": "/lesson/ai-for-testing/self-healing-locators/"
+        },
+        {
+          "id": "s6-m18a-l04",
+          "slug": "mcp-connecting-agents-to-tools",
+          "order": 4,
+          "url": "/lesson/ai-for-testing/mcp-connecting-agents-to-tools/"
+        },
+        {
+          "id": "s6-m18a-l05",
+          "slug": "what-is-agentic-testing",
+          "order": 5,
+          "url": "/lesson/ai-for-testing/what-is-agentic-testing/"
+        },
+        {
+          "id": "s6-m18a-l06",
+          "slug": "designing-agentic-testing-loop",
+          "order": 6,
+          "url": "/lesson/ai-for-testing/designing-agentic-testing-loop/"
+        },
+        {
+          "id": "s6-m18a-l07",
+          "slug": "claude-code-playwright-mcp-automation",
+          "order": 7,
+          "url": "/lesson/ai-for-testing/claude-code-playwright-mcp-automation/"
+        },
+        {
+          "id": "s6-m18a-l08",
+          "slug": "qa-skills-for-claude",
+          "order": 8,
+          "url": "/lesson/ai-for-testing/qa-skills-for-claude/"
+        },
+        {
+          "id": "s6-m18a-l09",
+          "slug": "transforming-legacy-automation-to-ai-first",
+          "order": 9,
+          "url": "/lesson/ai-for-testing/transforming-legacy-automation-to-ai-first/"
+        },
+        {
+          "id": "s6-m18a-l10",
+          "slug": "computer-use-agents-and-intent-based-tests",
+          "order": 10,
+          "url": "/lesson/ai-for-testing/computer-use-agents-and-intent-based-tests/"
+        },
+        {
+          "id": "s6-m18a-l11",
+          "slug": "llm-fundamentals-and-prompt-engineering",
+          "order": 11,
+          "url": "/lesson/ai-for-testing/llm-fundamentals-and-prompt-engineering/"
+        },
+        {
+          "id": "s6-m18a-l12",
+          "slug": "genai-for-test-analysis-and-monitoring",
+          "order": 12,
+          "url": "/lesson/ai-for-testing/genai-for-test-analysis-and-monitoring/"
+        },
+        {
+          "id": "s6-m18a-l13",
+          "slug": "testing-lead-time-and-speedup-claims",
+          "order": 13,
+          "url": "/lesson/ai-for-testing/testing-lead-time-and-speedup-claims/"
+        },
+        {
+          "id": "s6-m18a-l14",
+          "slug": "autonomous-execution-and-exploration",
+          "order": 14,
+          "url": "/lesson/ai-for-testing/autonomous-execution-and-exploration/"
+        },
+        {
+          "id": "s6-m18a-l15",
+          "slug": "playwright-self-healing-implementation",
+          "order": 15,
+          "url": "/lesson/ai-for-testing/playwright-self-healing-implementation/"
+        }
+      ]
+    },
+    {
+      "id": "m18b",
+      "slug": "testing-ai-systems",
+      "stage": "s6",
+      "order": 2,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m09",
+        "m16"
+      ],
+      "url": "/module/testing-ai-systems/",
+      "lessons": [
+        {
+          "id": "s6-m18b-l01",
+          "slug": "llm-evaluation-overview",
+          "order": 1,
+          "url": "/lesson/testing-ai-systems/llm-evaluation-overview/"
+        },
+        {
+          "id": "s6-m18b-l02",
+          "slug": "hallucination-detection",
+          "order": 2,
+          "url": "/lesson/testing-ai-systems/hallucination-detection/"
+        },
+        {
+          "id": "s6-m18b-l03",
+          "slug": "verifying-rag-systems",
+          "order": 3,
+          "url": "/lesson/testing-ai-systems/verifying-rag-systems/"
+        },
+        {
+          "id": "s6-m18b-l04",
+          "slug": "bias-and-fairness-testing",
+          "order": 4,
+          "url": "/lesson/testing-ai-systems/bias-and-fairness-testing/"
+        },
+        {
+          "id": "s6-m18b-l05",
+          "slug": "statistical-verification-of-nondeterministic-output",
+          "order": 5,
+          "url": "/lesson/testing-ai-systems/statistical-verification-of-nondeterministic-output/"
+        },
+        {
+          "id": "s6-m18b-l06",
+          "slug": "ai-regulation-and-standards",
+          "order": 6,
+          "url": "/lesson/testing-ai-systems/ai-regulation-and-standards/"
+        },
+        {
+          "id": "s6-m18b-l07",
+          "slug": "data-quality-standards-dq-certification",
+          "order": 7,
+          "url": "/lesson/testing-ai-systems/data-quality-standards-dq-certification/"
+        },
+        {
+          "id": "s6-m18b-l08",
+          "slug": "training-data-validation-pipeline",
+          "order": 8,
+          "url": "/lesson/testing-ai-systems/training-data-validation-pipeline/"
+        },
+        {
+          "id": "s6-m18b-l09",
+          "slug": "genai-privacy-security-environmental-cost",
+          "order": 9,
+          "url": "/lesson/testing-ai-systems/genai-privacy-security-environmental-cost/"
+        },
+        {
+          "id": "s6-m18b-l10",
+          "slug": "llm-test-infrastructure-and-adoption",
+          "order": 10,
+          "url": "/lesson/testing-ai-systems/llm-test-infrastructure-and-adoption/"
+        },
+        {
+          "id": "s6-m18b-l11",
+          "slug": "ml-quality-characteristics-and-metrics",
+          "order": 11,
+          "url": "/lesson/testing-ai-systems/ml-quality-characteristics-and-metrics/"
+        }
+      ]
+    },
+    {
+      "id": "m18c",
+      "slug": "ai-cross-check",
+      "stage": "s6",
+      "order": 3,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m10",
+        "m18a"
+      ],
+      "url": "/module/ai-cross-check/",
+      "lessons": [
+        {
+          "id": "s6-m18c-l01",
+          "slug": "why-cross-check-ai-output",
+          "order": 1,
+          "url": "/lesson/ai-cross-check/why-cross-check-ai-output/"
+        },
+        {
+          "id": "s6-m18c-l02",
+          "slug": "finding-hallucinated-apis",
+          "order": 2,
+          "url": "/lesson/ai-cross-check/finding-hallucinated-apis/"
+        },
+        {
+          "id": "s6-m18c-l03",
+          "slug": "finding-fake-tests",
+          "order": 3,
+          "url": "/lesson/ai-cross-check/finding-fake-tests/"
+        },
+        {
+          "id": "s6-m18c-l04",
+          "slug": "finding-coverage-gaps",
+          "order": 4,
+          "url": "/lesson/ai-cross-check/finding-coverage-gaps/"
+        },
+        {
+          "id": "s6-m18c-l05",
+          "slug": "building-a-verification-standard",
+          "order": 5,
+          "url": "/lesson/ai-cross-check/building-a-verification-standard/"
+        },
+        {
+          "id": "s6-m18c-l06",
+          "slug": "agent-harness-and-quality-gates",
+          "order": 6,
+          "url": "/lesson/ai-cross-check/agent-harness-and-quality-gates/"
+        },
+        {
+          "id": "s6-m18c-l07",
+          "slug": "test-orchestration-humans-robots-agents",
+          "order": 7,
+          "url": "/lesson/ai-cross-check/test-orchestration-humans-robots-agents/"
+        }
+      ]
+    },
+    {
+      "id": "m36",
+      "slug": "ai-system-quality-evaluation",
+      "stage": "s6",
+      "order": 4,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m18b",
+        "m25"
+      ],
+      "url": "/module/ai-system-quality-evaluation/",
+      "lessons": [
+        {
+          "id": "s6-m36-l01",
+          "slug": "iso-iec-25059-ai-quality-model",
+          "order": 1,
+          "url": "/lesson/ai-system-quality-evaluation/iso-iec-25059-ai-quality-model/"
+        },
+        {
+          "id": "s6-m36-l02",
+          "slug": "iso-iec-ts-25058-evaluation-guidance",
+          "order": 2,
+          "url": "/lesson/ai-system-quality-evaluation/iso-iec-ts-25058-evaluation-guidance/"
+        },
+        {
+          "id": "s6-m36-l03",
+          "slug": "iso-iec-ts-4213-classification-assessment",
+          "order": 3,
+          "url": "/lesson/ai-system-quality-evaluation/iso-iec-ts-4213-classification-assessment/"
+        },
+        {
+          "id": "s6-m36-l04",
+          "slug": "iso-iec-tr-24027-bias",
+          "order": 4,
+          "url": "/lesson/ai-system-quality-evaluation/iso-iec-tr-24027-bias/"
+        },
+        {
+          "id": "s6-m36-l05",
+          "slug": "iso-iec-tr-24028-trustworthiness",
+          "order": 5,
+          "url": "/lesson/ai-system-quality-evaluation/iso-iec-tr-24028-trustworthiness/"
+        },
+        {
+          "id": "s6-m36-l06",
+          "slug": "korean-data-quality-guides",
+          "order": 6,
+          "url": "/lesson/ai-system-quality-evaluation/korean-data-quality-guides/"
+        }
+      ]
+    },
+    {
+      "id": "m38",
+      "slug": "ai-verification-pipeline",
+      "stage": "s6",
+      "order": 5,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m14",
+        "m18c"
+      ],
+      "url": "/module/ai-verification-pipeline/",
+      "lessons": [
+        {
+          "id": "s6-m38-l01",
+          "slug": "verifiable-criteria-for-ai-judges",
+          "order": 1,
+          "url": "/lesson/ai-verification-pipeline/verifiable-criteria-for-ai-judges/"
+        },
+        {
+          "id": "s6-m38-l02",
+          "slug": "criteria-as-agent-skills",
+          "order": 2,
+          "url": "/lesson/ai-verification-pipeline/criteria-as-agent-skills/"
+        },
+        {
+          "id": "s6-m38-l03",
+          "slug": "calibrating-llm-judges",
+          "order": 3,
+          "url": "/lesson/ai-verification-pipeline/calibrating-llm-judges/"
+        },
+        {
+          "id": "s6-m38-l04",
+          "slug": "three-layer-verification-pipeline",
+          "order": 4,
+          "url": "/lesson/ai-verification-pipeline/three-layer-verification-pipeline/"
+        },
+        {
+          "id": "s6-m38-l05",
+          "slug": "weekly-release-gate-and-evidence",
+          "order": 5,
+          "url": "/lesson/ai-verification-pipeline/weekly-release-gate-and-evidence/"
+        },
+        {
+          "id": "s6-m38-l06",
+          "slug": "quality-metrics-dashboard",
+          "order": 6,
+          "url": "/lesson/ai-verification-pipeline/quality-metrics-dashboard/"
+        },
+        {
+          "id": "s6-m38-l07",
+          "slug": "expanding-to-new-services",
+          "order": 7,
+          "url": "/lesson/ai-verification-pipeline/expanding-to-new-services/"
+        }
+      ]
+    },
+    {
+      "id": "m57",
+      "slug": "ai-testing-advanced",
+      "stage": "s6",
+      "order": 6,
+      "level": "고급",
+      "status": "published",
+      "prerequisites": [
+        "m18b",
+        "m36"
+      ],
+      "url": "/module/ai-testing-advanced/",
+      "lessons": [
+        {
+          "id": "s6-m57-l01",
+          "slug": "ct-ai-syllabus-mapping",
+          "order": 1,
+          "url": "/lesson/ai-testing-advanced/ct-ai-syllabus-mapping/"
+        }
+      ]
+    },
+    {
+      "id": "m19",
+      "slug": "api-testing-tools",
+      "stage": "s7",
+      "order": 1,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m12"
+      ],
+      "url": "/module/api-testing-tools/",
+      "lessons": [
+        {
+          "id": "s7-m19-l01",
+          "slug": "insomnia-quickstart",
+          "order": 1,
+          "url": "/lesson/api-testing-tools/insomnia-quickstart/"
+        },
+        {
+          "id": "s7-m19-l02",
+          "slug": "hoppscotch-thunder-client",
+          "order": 2,
+          "url": "/lesson/api-testing-tools/hoppscotch-thunder-client/"
+        },
+        {
+          "id": "s7-m19-l03",
+          "slug": "apidog-integrated-platform",
+          "order": 3,
+          "url": "/lesson/api-testing-tools/apidog-integrated-platform/"
+        },
+        {
+          "id": "s7-m19-l04",
+          "slug": "charles-proxy-in-practice",
+          "order": 4,
+          "url": "/lesson/api-testing-tools/charles-proxy-in-practice/"
+        },
+        {
+          "id": "s7-m19-l05",
+          "slug": "wireshark-tcpdump-packet-analysis",
+          "order": 5,
+          "url": "/lesson/api-testing-tools/wireshark-tcpdump-packet-analysis/"
+        },
+        {
+          "id": "s7-m19-l06",
+          "slug": "swagger-ui-hands-on",
+          "order": 6,
+          "url": "/lesson/api-testing-tools/swagger-ui-hands-on/"
+        },
+        {
+          "id": "s7-m19-l07",
+          "slug": "swagger-and-postman-workflow",
+          "order": 7,
+          "url": "/lesson/api-testing-tools/swagger-and-postman-workflow/"
+        },
+        {
+          "id": "s7-m19-l08",
+          "slug": "adopting-swagger-in-your-project",
+          "order": 8,
+          "url": "/lesson/api-testing-tools/adopting-swagger-in-your-project/"
+        }
+      ]
+    },
+    {
+      "id": "m20",
+      "slug": "ui-automation-tools",
+      "stage": "s7",
+      "order": 2,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m13"
+      ],
+      "url": "/module/ui-automation-tools/",
+      "lessons": [
+        {
+          "id": "s7-m20-l01",
+          "slug": "selenium-webdriver-quickstart",
+          "order": 1,
+          "url": "/lesson/ui-automation-tools/selenium-webdriver-quickstart/"
+        }
+      ]
+    },
+    {
+      "id": "m21",
+      "slug": "performance-testing-tools",
+      "stage": "s7",
+      "order": 3,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m16"
+      ],
+      "url": "/module/performance-testing-tools/",
+      "lessons": [
+        {
+          "id": "s7-m21-l01",
+          "slug": "locust-python-load-testing",
+          "order": 1,
+          "url": "/lesson/performance-testing-tools/locust-python-load-testing/"
+        },
+        {
+          "id": "s7-m21-l02",
+          "slug": "ngrinder-distributed-testing",
+          "order": 2,
+          "url": "/lesson/performance-testing-tools/ngrinder-distributed-testing/"
+        }
+      ]
+    },
+    {
+      "id": "m22",
+      "slug": "test-management-tools",
+      "stage": "s7",
+      "order": 4,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m06",
+        "m07"
+      ],
+      "url": "/module/test-management-tools/",
+      "lessons": [
+        {
+          "id": "s7-m22-l01",
+          "slug": "xray-zephyr-scale-jira-plugins",
+          "order": 1,
+          "url": "/lesson/test-management-tools/xray-zephyr-scale-jira-plugins/"
+        },
+        {
+          "id": "s7-m22-l02",
+          "slug": "testmo-testiny-modern-alternatives",
+          "order": 2,
+          "url": "/lesson/test-management-tools/testmo-testiny-modern-alternatives/"
+        },
+        {
+          "id": "s7-m22-l03",
+          "slug": "testlink-open-source-option",
+          "order": 3,
+          "url": "/lesson/test-management-tools/testlink-open-source-option/"
+        },
+        {
+          "id": "s7-m22-l04",
+          "slug": "bugzilla-mantisbt-redmine",
+          "order": 4,
+          "url": "/lesson/test-management-tools/bugzilla-mantisbt-redmine/"
+        },
+        {
+          "id": "s7-m22-l05",
+          "slug": "hp-alm-quality-center-enterprise",
+          "order": 5,
+          "url": "/lesson/test-management-tools/hp-alm-quality-center-enterprise/"
+        },
+        {
+          "id": "s7-m22-l06",
+          "slug": "jira-projects-and-work-items",
+          "order": 6,
+          "url": "/lesson/test-management-tools/jira-projects-and-work-items/"
+        },
+        {
+          "id": "s7-m22-l07",
+          "slug": "jql-and-saved-filters",
+          "order": 7,
+          "url": "/lesson/test-management-tools/jql-and-saved-filters/"
+        },
+        {
+          "id": "s7-m22-l08",
+          "slug": "jira-dashboards-and-qa-metrics",
+          "order": 8,
+          "url": "/lesson/test-management-tools/jira-dashboards-and-qa-metrics/"
+        },
+        {
+          "id": "s7-m22-l09",
+          "slug": "confluence-macros-for-qa",
+          "order": 9,
+          "url": "/lesson/test-management-tools/confluence-macros-for-qa/"
+        },
+        {
+          "id": "s7-m22-l10",
+          "slug": "diagrams-for-qa-drawio",
+          "order": 10,
+          "url": "/lesson/test-management-tools/diagrams-for-qa-drawio/"
+        },
+        {
+          "id": "s7-m22-l11",
+          "slug": "testrail-in-practice",
+          "order": 11,
+          "url": "/lesson/test-management-tools/testrail-in-practice/"
+        },
+        {
+          "id": "s7-m22-l12",
+          "slug": "choosing-test-management-tool",
+          "order": 12,
+          "url": "/lesson/test-management-tools/choosing-test-management-tool/"
+        },
+        {
+          "id": "s7-m22-l13",
+          "slug": "zephyr-squad-and-scale-in-practice",
+          "order": 13,
+          "url": "/lesson/test-management-tools/zephyr-squad-and-scale-in-practice/"
+        }
+      ]
+    },
+    {
+      "id": "m23",
+      "slug": "security-testing-tools",
+      "stage": "s7",
+      "order": 5,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m16"
+      ],
+      "url": "/module/security-testing-tools/",
+      "lessons": [
+        {
+          "id": "s7-m23-l01",
+          "slug": "sonarqube-static-analysis",
+          "order": 1,
+          "url": "/lesson/security-testing-tools/sonarqube-static-analysis/"
+        },
+        {
+          "id": "s7-m23-l02",
+          "slug": "fortify-enterprise-security",
+          "order": 2,
+          "url": "/lesson/security-testing-tools/fortify-enterprise-security/"
+        },
+        {
+          "id": "s7-m23-l03",
+          "slug": "ai-security-scanners-and-report-triage",
+          "order": 3,
+          "url": "/lesson/security-testing-tools/ai-security-scanners-and-report-triage/"
+        }
+      ]
+    },
+    {
+      "id": "m24",
+      "slug": "nocode-ai-automation-tools",
+      "stage": "s7",
+      "order": 6,
+      "level": "중급",
+      "status": "published",
+      "prerequisites": [
+        "m11",
+        "m18a"
+      ],
+      "url": "/module/nocode-ai-automation-tools/",
+      "lessons": [
+        {
+          "id": "s7-m24-l01",
+          "slug": "katalon-low-code-automation",
+          "order": 1,
+          "url": "/lesson/nocode-ai-automation-tools/katalon-low-code-automation/"
+        },
+        {
+          "id": "s7-m24-l02",
+          "slug": "autify-ai-self-healing",
+          "order": 2,
+          "url": "/lesson/nocode-ai-automation-tools/autify-ai-self-healing/"
+        },
+        {
+          "id": "s7-m24-l03",
+          "slug": "uipath-test-cloud-agentic-platform",
+          "order": 3,
+          "url": "/lesson/nocode-ai-automation-tools/uipath-test-cloud-agentic-platform/"
+        }
+      ]
+    }
+  ]
+}

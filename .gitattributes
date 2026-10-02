@@ -1,0 +1,11 @@
+# 기본: 모든 텍스트 파일은 LF (Windows 체크아웃 후 컨테이너에서 깨지는 문제 방지)
+* text=auto eol=lf
+# Windows PowerShell 스크립트만 CRLF
+*.ps1 text eol=crlf
+# 바이너리
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pcap binary
+*.woff2 binary
