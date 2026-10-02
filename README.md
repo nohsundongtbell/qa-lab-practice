@@ -48,10 +48,12 @@ winget install -e --id Git.Git
 ```bash
 git clone https://github.com/nohsundongtbell/qa-lab-practice.git
 cd qa-lab-practice
-docker compose up -d --wait
+npm ci
+npm run doctor
+npm run up
 ```
 
-처음에는 이미지를 빌드하느라 몇 분 걸릴 수 있습니다. 끝나면 아래 주소로 접속합니다.
+`npm run doctor`는 Node·Docker·포트 같은 환경을 점검하고, 문제가 있으면 해결 방법을 알려 줍니다. 처음 `npm run up`에는 이미지를 빌드하느라 몇 분 걸릴 수 있습니다. 끝나면 아래 주소로 접속합니다.
 
 | 무엇 | 주소 |
 |---|---|
@@ -74,23 +76,50 @@ docker compose up -d --wait
 | `admin@example.com` | 관리자 | — | 출고·배송 완료 처리 |
 
 ### 4. 첫 랩
-랩은 준비 중입니다(`labs/`). 그동안은 [제품 사양서(SPEC)](apps/shop/SPEC.md)를 읽고 웹과 API를 자유롭게 둘러보세요.
+랩은 준비 중입니다(`labs/`). 랩이 생기면 이렇게 시작합니다.
+
+공통
+
+```bash
+npm run lab
+npm run lab -- <모듈-slug>/<랩-이름>
+```
+
+그동안은 [제품 사양서(SPEC)](apps/shop/SPEC.md)를 읽고 웹과 API를 자유롭게 둘러보세요.
 
 ---
 
 ## 자주 쓰는 명령
 
-| 하고 싶은 일 | 명령 (공통) |
-|---|---|
-| 기동 | `docker compose up -d --wait` |
-| 중지 (데이터 유지) | `docker compose stop` |
-| 중지 + **데이터 초기화** | `docker compose down -v` |
-| API 로그 보기 | `docker compose logs -f api` |
+모든 명령은 macOS와 Windows에서 똑같이 `npm run`으로 실행합니다.
 
-> 다음 단계에서 `npm run up`, `npm run lab -- <slug>`, `npm run check -- <slug>` 같은 통일된 명령을 추가합니다.
+| 하고 싶은 일 | 명령 |
+|---|---|
+| 환경 점검 | `npm run doctor` |
+| 기동 | `npm run up` |
+| 결함 프로필을 정해서 기동 | `npm run up -- --profile beginner` |
+| 중지 (데이터 유지) | `npm run down` |
+| **데이터 초기화** 후 다시 기동 | `npm run reset` |
+| API 로그 보기 | `npm run logs` |
+| API 로그 계속 따라 보기 | `npm run logs -- --follow` |
+| 랩 목록 / 시작 | `npm run lab` / `npm run lab -- <slug>` |
+| 랩 채점 | `npm run check -- <slug>` |
+| 막혔을 때 정답 위치 | `npm run solution -- <slug> --yes` (먼저 README의 힌트를 보세요) |
+
+`npm run logs`는 `--lines 100`(줄 수), `--grep 주문`(문자열 필터) 옵션도 받습니다.
 
 ### 결함 프로필 바꾸기
-랩마다 사용할 결함 수준(프로필)이 정해져 있습니다. 프로필은 저장소 루트의 `.env` 파일로 정합니다.
+랩마다 사용할 결함 수준(프로필)이 정해져 있습니다. 프로필은 `none`, `beginner`, `intermediate`, `advanced`입니다. 랩이 어떤 프로필을 쓰는지는 `npm run lab -- <slug>`가 알려 줍니다.
+
+공통
+
+```bash
+npm run up -- --profile intermediate
+```
+
+프로필을 바꿔도 데이터는 유지됩니다. 데이터까지 처음으로 되돌리려면 `npm run reset`을 쓰세요.
+
+직접 설정하고 싶다면 저장소 루트의 `.env` 파일에서 `DEFECT_PROFILE`을 바꾼 뒤 `npm run up`을 실행해도 됩니다.
 
 macOS / Linux (터미널)
 
@@ -104,10 +133,8 @@ Windows (PowerShell)
 Copy-Item .env.example .env
 ```
 
-`.env`에서 `DEFECT_PROFILE`을 `none`, `beginner`, `intermediate`, `advanced` 중 하나로 바꾼 뒤 다시 기동합니다(공통: `docker compose up -d --wait`). 데이터는 유지됩니다.
-
 ### 포트가 이미 사용 중이라면
-`.env`에서 `WEB_PORT`, `API_PORT`, `DB_PORT`를 바꿉니다. 어떤 프로그램이 포트를 쓰는지 확인하는 방법은 다음과 같습니다.
+`npm run up`이 충돌을 알려 줍니다. `.env`에서 `WEB_PORT`, `API_PORT`, `DB_PORT`를 바꾸면 됩니다. 어떤 프로그램이 포트를 쓰는지 직접 확인하는 방법은 다음과 같습니다.
 
 macOS / Linux (터미널)
 
@@ -129,9 +156,11 @@ Get-NetTCPConnection -LocalPort 8080
 apps/shop/        대상 앱 (api: Fastify + PostgreSQL, web: React)
   SPEC.md         제품 사양서 — 테스트의 기대 결과 근거
 defects/          결함 주입 설정 (⚠️ 스포일러 포함 — 랩을 끝내기 전에는 열지 마세요)
-labs/             랩 (QA-Lab 모듈 slug 별)
+labs/             랩 (labs/<QA-Lab 모듈 slug>/<랩 이름>/)
+templates/        랩 README·lab.yaml 템플릿
+scripts/          Node CLI(npm run 의 실체), 검증·인덱스 생성
 data/             QA-Lab 모듈 목록 스냅샷 (원본 아님)
-docs/             계획·플랫폼 지원·기여 안내
+docs/             계획, 플랫폼 지원, 랩 작성 참조(LAB_SCHEMA.md)
 ```
 
 ## 라이선스

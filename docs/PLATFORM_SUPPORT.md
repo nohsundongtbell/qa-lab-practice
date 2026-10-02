@@ -18,6 +18,9 @@
 | `docker compose down -v` 초기화 | ✅ | `TODO: verify` | `TODO: verify-windows` |
 | 로그 파일 bind mount(`./var/logs`) 쓰기 | ✅ | `TODO: verify` | `TODO: verify-windows` |
 | API 단위·통합 테스트 | ✅ | `TODO: verify` | `TODO: verify-windows` |
+| `npm test` (CLI·검증기·채점 도구 테스트 145개) | ✅ | `TODO: verify` | `TODO: verify-windows` |
+| `npm run doctor` / `up` / `reset` / `down` / `logs` | ✅ | `TODO: verify` | `TODO: verify-windows` |
+| `npm run validate` | ✅ | `TODO: verify` | `TODO: verify-windows` |
 
 ## GitHub Actions 러너 제약
 - GitHub-hosted Windows 러너는 Linux 컨테이너를 실행할 수 없고, macOS(arm64) 러너에는 Docker가 없는 것으로 알고 있다. `TODO: verify` — 공식 문서 확인 필요(작성 환경에서 docs.github.com 접근 불가).
@@ -31,6 +34,10 @@
 - [ ] `git clone` 후 `.sh`·`Dockerfile`·`*.yaml`이 LF로 체크아웃되는지 (`.gitattributes`)
 - [ ] PowerShell 5.1에서 README의 PowerShell 블록 실행
 - [ ] Node가 출력하는 한국어 메시지가 PowerShell/Windows Terminal에서 깨지지 않는지
+- [ ] `npm run doctor` 출력(한국어)과 Docker 미실행 시 안내 문구
+- [ ] `npm run up -- --profile beginner`, `npm run lab -- <slug>`처럼 `--` 뒤 인자가 PowerShell에서 그대로 전달되는지
+- [ ] `npm run logs -- --follow`가 동작하고 Ctrl+C로 끝나는지 (로그 파일을 Node가 읽으므로 `Get-Content -Wait` 불필요)
+- [ ] `npm test`, `npm run validate` 통과
 - [ ] winget 패키지 ID (`Docker.DockerDesktop`, `OpenJS.NodeJS.LTS`, `Git.Git`)
 
 ## 알려진 사항

@@ -1,0 +1,19 @@
+# lab.yaml 템플릿 — 필드 설명은 docs/LAB_SCHEMA.md
+module: test-design                  # QA-Lab 모듈 slug (스냅샷에 있어야 함, 폴더 labs/<module>/ 와 같아야 함)
+lessons: [boundary-value-analysis]   # 그 모듈의 레슨 slug. README 에 모두 링크해야 함
+also_for: []                         # 선택: 같은 랩이 다른 모듈의 레슨에도 걸릴 때 [{ module: ..., lessons: [...] }]
+title_ko: 랩 제목                    # 모듈 설명 복사 금지
+level: beginner                      # beginner | intermediate | advanced
+est_minutes: 60
+requires: [docker, node24]
+platforms: [macos, windows, linux]   # 일부만 지원하면 notes 에 사유·대안 필수
+notes: ""
+tools: []
+sut_profile: beginner                # none | beginner | intermediate | advanced
+tasks:
+  - id: t1
+    goal: 경계값 분석으로 배송비 테스트 케이스를 설계한다   # 행동 동사로 시작
+    check: check/t1.mjs                                     # 기본: Node 스크립트 (OS 공통)
+    # 셸이 꼭 필요하면 쌍으로: { unix: check/t1.sh, windows: check/t1.ps1 }
+    pass: { min_defects: 2 }                                # 관찰 가능한 통과 기준
+status: planned                      # planned | beta | ready

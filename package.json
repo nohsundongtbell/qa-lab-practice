@@ -1,0 +1,31 @@
+{
+  "name": "qa-lab-practice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QA-Lab 강의와 짝을 이루는 한국어 QA 실습 저장소",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "up": "node scripts/cli.mjs up",
+    "down": "node scripts/cli.mjs down",
+    "reset": "node scripts/cli.mjs reset",
+    "lab": "node scripts/cli.mjs lab",
+    "check": "node scripts/cli.mjs check",
+    "solution": "node scripts/cli.mjs solution",
+    "logs": "node scripts/cli.mjs logs",
+    "doctor": "node scripts/cli.mjs doctor",
+    "validate": "node scripts/cli.mjs validate",
+    "build-index": "node scripts/cli.mjs build-index",
+    "snapshot:update": "node scripts/cli.mjs snapshot-update",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "js-yaml": "5.4.2"
+  },
+  "devDependencies": {
+    "vitest": "5.0.3"
+  }
+}

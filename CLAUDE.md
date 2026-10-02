@@ -99,7 +99,16 @@ status: planned|beta|ready
 권장 모델이 바뀌는 지점에서 멈추고 다음 문구로 알린다:
 `⏸ 다음 단계는 [Opus|Sonnet] 권장입니다. /model 로 전환한 뒤 "계속"이라고 입력해 주세요. (이유: ...)`
 
-## 10. 개발 명령 (SUT)
+## 10. 공통 CLI (`scripts/`, 단계 3에서 완성)
+- 진입점 `scripts/cli.mjs`, 명령은 `scripts/commands/<명령>.mjs`(`run(argv)` 가 종료 코드를 돌려줌), 공통 로직은 `scripts/lib/`.
+- 순수 함수 + 의존성 주입으로 짜서 테스트한다(`scripts/**/*.test.mjs`, `npm test`). 새 규칙을 추가하면 **규칙을 망가뜨렸을 때 실패하는 테스트**를 함께 둔다.
+- 랩 규약과 채점 스크립트 규약은 `docs/LAB_SCHEMA.md`, 템플릿은 `templates/`(`LAB_README.md`, `lab.yaml`).
+- `npm run lab` 은 `starter/` 를 `work/`(git 무시)로 복사한다. `npm run check -- <slug> [--from starter|solution]` 가 채점하며 check 스크립트에는 `QA_LAB_*` 환경 변수로 입력을 넘긴다. CI 의 starter 실패/solution 통과 검증도 `--from` 을 쓴다.
+- `npm run validate` 가 검사하는 것: lab.yaml 스키마·slug 존재(스냅샷), check 파일·문법, README 필수 절·힌트 1/2·레슨 링크·앵커 금지·OS 블록 쌍, 결함 카탈로그(모듈 slug, ANSWERS·프로필 대조), 정답표 링크 금지, 파일 이름(ASCII, 120자, 대소문자 충돌), 줄바꿈(LF), package.json 셸 문법 금지, `.sh`↔`.ps1` 쌍. 스냅샷이 없으면 통과시키지 않고 실패한다.
+- `QA_LAB_ROOT` 환경 변수는 임시 저장소를 대상으로 CLI 를 돌리는 테스트용 훅이다.
+- `labs/index.json` 은 `npm run build-index` 로 만들고 커밋한다(`--check` 로 최신 여부를 CI 에서 확인). 시각 정보는 넣지 않는다(결정적 출력).
+
+## 11. 개발 명령 (SUT)
 - API 단위 테스트: `npm --prefix apps/shop/api test`
 - API 통합 테스트: `docker compose up -d --wait db` 후 `npm --prefix apps/shop/api run test:integration` (DB를 초기화함)
 - 결함 추가 절차: `apps/shop/api/README.md`

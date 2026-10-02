@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "repoUrl": "https://github.com/nohsundongtbell/qa-lab-practice",
+  "ref": "main",
+  "snapshot": {
+    "source": "qa-learning-platform_v2 @ main 938cb3b (content/modules.json + content/stages.json + lesson frontmatter)",
+    "generatedAt": "2026-10-02"
+  },
+  "labs": []
+}
