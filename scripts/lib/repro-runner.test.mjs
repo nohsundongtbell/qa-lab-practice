@@ -219,6 +219,8 @@ describe('단계 형식 검사 (오타가 조용히 통과하지 않도록)', ()
     [{ quote: {}, pay: {} }, /동작이 여러 개/],
     [{ http: { path: '/a' }, expect: { stauts: 200 } }, /expect 에 알 수 없는 키/],
     [{ http: { path: '/a' }, password: 'x' }, /password 는 login 에만/],
+    [{ http: { path: '/a' }, expect: { max_ms: 0 } }, /max_ms 는 1 이상의 정수/],
+    [{ http: { path: '/a' }, expect: { max_ms: '100' } }, /max_ms 는 1 이상의 정수/],
     ['문자열', /올바른 형식이 아닙니다/],
   ])('%j', async (step, message) => {
     await expect(run([step], () => ({ status: 200 }))).rejects.toThrow(message)
@@ -228,6 +230,34 @@ describe('단계 형식 검사 (오타가 조용히 통과하지 않도록)', ()
     const f = fakeFetch(() => ({ status: 200 }))
     await expect(runRepro({ steps: [{ http: { path: '/a' } }, { nope: 1 }] }, { baseUrl: 'http://sut.test', fetch: f.fetchImpl })).rejects.toThrow()
     expect(f.calls).toEqual([])
+  })
+})
+
+describe('응답 시간 (expect.max_ms)', () => {
+  /** 응답 본문을 delayMs 뒤에 돌려주는 fetch 대역 */
+  const slowFetch = (delayMs) => async () => ({
+    status: 200,
+    text: () => new Promise((resolve) => setTimeout(() => resolve('{}'), delayMs)),
+  })
+  const runTimed = (maxMs, delayMs) =>
+    runRepro({ steps: [{ products: {}, expect: { status: 200, max_ms: maxMs } }] }, { baseUrl: 'http://sut.test', fetch: slowFetch(delayMs) })
+
+  it('상한 안이면 통과한다', async () => {
+    expect((await runTimed(1000, 0)).passed).toBe(true)
+  })
+
+  it('본문을 다 받을 때까지의 시간이 상한을 넘으면 실패한다', async () => {
+    const r = await runTimed(20, 80)
+    expect(r.passed).toBe(false)
+    expect(r.failures[0]).toMatchObject({ kind: 'time', expected: 20 })
+    expect(r.failures[0].actual).toBeGreaterThanOrEqual(60)
+    expect(r.failures[0].message).toMatch(/응답 시간 기대 ≤ 20ms, 실제 \d+ms/)
+  })
+
+  it('hideActual 이면 실제 시간을 숨긴다', () => {
+    const msg = formatFailure({ kind: 'time', label: 'products', expected: 100, actual: 512 }, { hideActual: true })
+    expect(msg).toContain('기준(100ms)')
+    expect(msg).not.toContain('512')
   })
 })
 

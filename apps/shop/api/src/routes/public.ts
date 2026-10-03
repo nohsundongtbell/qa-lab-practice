@@ -7,6 +7,7 @@ import { evaluateGrade, GRADE_DISCOUNT_RATE } from '../domain/grade.js'
 import { estimateDelivery } from '../domain/calendar.js'
 import { isRemoteArea } from '../domain/shipping.js'
 import { checkEmail, checkName, checkPassword, checkZipcode } from '../domain/validation.js'
+import { isDefectOn } from '../defects/registry.js'
 
 type Body = Record<string, unknown>
 
@@ -58,7 +59,14 @@ export function registerPublicRoutes(app: FastifyInstance, db: Db): void {
     return { token }
   })
 
-  app.get('/api/members/me', async (req) => memberView(await authenticate(db, req)))
+  app.get('/api/members/me', async (req) => {
+    const view = memberView(await authenticate(db, req))
+    if (isDefectOn('DF-015')) {
+      const { totalSpent: _omitted, ...rest } = view
+      return rest
+    }
+    return view
+  })
 
   app.get('/api/members/me/coupons', async (req) => {
     const member = await authenticate(db, req)
@@ -98,6 +106,7 @@ export function registerPublicRoutes(app: FastifyInstance, db: Db): void {
   })
 
   app.get('/api/products', async () => {
+    if (isDefectOn('DF-018')) await db.query('SELECT pg_sleep(0.5)')
     const r = await db.query('SELECT id, name, price, stock FROM products ORDER BY id')
     return r.rows
   })
@@ -106,6 +115,6 @@ export function registerPublicRoutes(app: FastifyInstance, db: Db): void {
     const id = Number((req.params as { id: string }).id)
     const r = await db.query('SELECT id, name, price, stock FROM products WHERE id = $1', [Number.isInteger(id) ? id : -1])
     if (r.rowCount === 0) throw notFound('상품')
-    return r.rows[0]
+    return isDefectOn('DF-013') ? { ...r.rows[0], price: String(r.rows[0].price) } : r.rows[0]
   })
 }

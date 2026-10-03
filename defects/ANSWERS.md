@@ -27,5 +27,16 @@
 | DF-011 | 계산(반올림) | S4 | 등급 할인이 반올림되어 1원 더 할인될 때가 있다 (4,990원 × 1% → 50원) | 할인은 원 단위 미만 내림 → 49원 (SPEC §3) |
 | DF-012 | 데이터 정합성 | S1 | 쿠폰을 쓴 주문의 **저장된 결제 금액**에 쿠폰 할인이 빠져 있다 (주문 상세의 `total`이 각 항목 계산과 맞지 않음) | `total` = subtotal − 할인 + 배송비 (SPEC §3, §7.2) |
 
-## advanced 프로필
-동시성·성능·보안·접근성 결함은 해당 랩을 만들 때 추가한다.
+## advanced 프로필 (intermediate 포함)
+
+| ID | 유형 | 심각도 | 증상 | 기대 동작 (근거) |
+|---|---|---|---|---|
+| DF-013 | API 계약 | S2 | 상품 상세(`GET /api/products/{id}`)의 `price`가 문자열(`"50000"`)이다. 목록은 정상 | `price`는 정수 (openapi.yaml `Product`) |
+| DF-014 | API 계약 | S3 | 없는 주문(`GET /api/orders/{id}`)의 404 응답에 `details`가 없다 | 모든 오류는 `code`·`message`·`details` (SPEC §8, openapi.yaml `Error`) |
+| DF-015 | API 계약 | S2 | 내 정보(`GET /api/members/me`)에 `totalSpent`가 빠져 있다 | 필수 필드 (openapi.yaml `Member`) |
+| DF-016 | API 계약 | S2 | 주문 상세(`GET /api/orders/{id}`)의 `status`가 소문자(`pending`)다. 생성·목록 응답은 대문자 | `OrderStatus` 열거값 (openapi.yaml, SPEC §7.1) |
+| DF-017 | API 계약 | S3 | 금액 미리보기에 잘못된 우편번호(`'123'`)를 보내면 `500 INTERNAL_ERROR` | `400 VALIDATION_ERROR` (openapi.yaml `/api/quote` 응답 목록, SPEC §8) |
+| DF-018 | 성능 | S3 | 상품 목록(`GET /api/products`)이 요청마다 약 0.5초 걸린다 (DB 연결을 붙잡고 기다림 → 동시 사용자가 늘면 대기열) | p95 100ms 이하 (SPEC §9) |
+| DF-019 | 성능(N+1) | S3 | 주문 목록(`GET /api/orders`)이 주문 1건마다 약 80ms씩 느려진다 (주문 수에 비례) | 주문 10건 이하 회원 p95 200ms 이하 (SPEC §9) |
+
+동시성·보안·접근성 결함은 해당 랩을 만들 때 추가한다.

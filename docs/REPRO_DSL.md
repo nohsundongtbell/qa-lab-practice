@@ -54,6 +54,15 @@ expect: { status: 422, json: { code: COUPON_NOT_APPLICABLE, details.reason: MIN_
 
 어떤 필드가 있는지는 API 문서(http://127.0.0.1:3000/docs)에서 확인합니다.
 
+- `max_ms`: 응답 시간 상한(밀리초). 요청을 보낸 뒤 응답 본문을 다 받을 때까지 걸린 시간이 이 값을 넘으면 실패입니다. 기준값은 사양서의 성능 목표(§9)에서 가져옵니다.
+
+```yaml
+- products: {}
+  expect: { status: 200, max_ms: 100 }
+```
+
+> 응답 시간은 내 컴퓨터의 부하에 따라 흔들립니다. 한 번의 요청으로 판정하는 `max_ms`는 "명백히 느린가"를 보는 용도이고, 분포(p95 등)는 성능 테스트 도구로 봅니다.
+
 ## 값 저장 (`save`)과 현재 시각 (`now`)
 ```yaml
 - http: { method: POST, path: /api/orders, json: {} }

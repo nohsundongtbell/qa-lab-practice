@@ -40,6 +40,7 @@
 - 요청별 덮어쓰기: 헤더 `X-QA-Lab-Defects: DF-003,DF-010`(빈 값 또는 `none`이면 결함 없음). 채점기의 결함 귀속에 쓴다.
 - **정답표 분리**: `defects/ANSWERS.md`와 `defects/catalog.yaml`은 어떤 README에서도 링크하지 않는다.
 - 결함마다 catalog의 `repro`(재현 DSL)로 "그 결함만 켜면 재현되고, 나머지를 모두 켜도 그 결함이 꺼져 있으면 재현되지 않는다"를 테스트로 보장한다.
+- `advanced` 프로필 = 계약 위반 DF-013~017(openapi.yaml 과 다른 응답) + 성능 병목 DF-018~019(SPEC §9, repro 는 `expect.max_ms`). 새 결함은 **기존 repro 가 쓰는 필드·경로를 건드리지 않고**, 기존 랩 채점(intermediate 이하 목록)에 영향이 없도록 상위 프로필에만 넣는다. 성능 결함은 `pg_sleep` 으로 DB 연결을 붙잡아 동시 부하에서 대기열이 생기게 한다.
 
 ## 6. 랩 구조
 - 경로: **`labs/<module-slug>/<lab-slug>/`**(2단). 1차는 모듈당 랩 1개, 랩 13개.
@@ -99,7 +100,7 @@ status: planned|beta|ready
 2. SUT 골격 + 결함 주입 + compose 동작 확인 [Opus] — 완료
 3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet] — 완료
 4. 랩 1~3 `ready` [Opus] — 완료, `docs/CONTRIBUTING_LABS.md` 작성 완료 → **사용자 직접 풀이·피드백 대기** (피드백 반영 후 단계 5)
-5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6 완료, 진행 중
+5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6 완료, advanced 카탈로그(DF-013~019) 검수 완료, 진행 중
 6. CI·인덱스 배포 [Sonnet]
 7. QA-Lab 연동 제안서 [Sonnet]
 

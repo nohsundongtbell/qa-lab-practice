@@ -6,7 +6,7 @@
  *
  * 단계 하나에는 "동작" 키가 정확히 하나 있고, 선택적으로 expect / save / now 를 붙인다.
  *   동작: login, logout, http(원시 요청), 그리고 업무 동작(ACTIONS: quote, order, pay, ship …)
- *   expect: { status?, json?: { '점.경로': 기대값 } }
+ *   expect: { status?, json?: { '점.경로': 기대값 }, max_ms?: 응답 시간 상한(밀리초) }
  *   save:   { 변수: '응답 json 경로' }  → 이후 단계에서 {{변수}} 로 쓴다
  *   now:    이 요청의 "현재 시각" (X-QA-Lab-Now, 시간대 포함 ISO-8601)
  * 학습자용 설명: docs/REPRO_DSL.md
@@ -140,6 +140,7 @@ export const ACTIONS = {
 const CONTROL_KEYS = ['login', 'logout', 'http']
 export const STEP_KINDS = [...CONTROL_KEYS, ...Object.keys(ACTIONS)]
 const MODIFIER_KEYS = new Set(['expect', 'save', 'now', 'password'])
+const EXPECT_KEYS = new Set(['status', 'json', 'max_ms'])
 
 /** 단계의 동작 이름을 찾고, 알 수 없는 키를 막는다 (오타가 조용히 통과하지 않도록). */
 export function stepKind(step, stepNo) {
@@ -151,8 +152,12 @@ export function stepKind(step, stepNo) {
   if (unknown.length) throw new ReproError(`${stepNo}번째 단계에 알 수 없는 키가 있습니다: ${unknown.join(', ')} (expect, save, now 만 붙일 수 있습니다)`)
   if (step.password !== undefined && kinds[0] !== 'login') throw new ReproError(`${stepNo}번째 단계: password 는 login 에만 쓸 수 있습니다.`)
   if (step.expect !== undefined) {
-    const bad = Object.keys(step.expect ?? {}).filter((k) => k !== 'status' && k !== 'json')
-    if (bad.length) throw new ReproError(`${stepNo}번째 단계의 expect 에 알 수 없는 키가 있습니다: ${bad.join(', ')} (status, json 만 쓸 수 있습니다)`)
+    const bad = Object.keys(step.expect ?? {}).filter((k) => !EXPECT_KEYS.has(k))
+    if (bad.length) throw new ReproError(`${stepNo}번째 단계의 expect 에 알 수 없는 키가 있습니다: ${bad.join(', ')} (status, json, max_ms 만 쓸 수 있습니다)`)
+    const maxMs = step.expect?.max_ms
+    if (maxMs !== undefined && !(Number.isInteger(maxMs) && maxMs > 0)) {
+      throw new ReproError(`${stepNo}번째 단계의 expect.max_ms 는 1 이상의 정수(밀리초)여야 합니다.`)
+    }
   }
   return kinds[0]
 }
@@ -165,6 +170,7 @@ export function formatFailure(f, { hideActual = false } = {}) {
       ? `${f.label}: ${f.path} 기대값(${JSON.stringify(normalize(f.expected))})이 사양과 다릅니다`
       : `${f.label}: ${f.path} 기대 ${JSON.stringify(normalize(f.expected))}, 실제 ${JSON.stringify(f.actual)}`
   }
+  if (f.kind === 'time') return hideActual ? `${f.label}: 응답 시간이 기준(${f.expected}ms)을 넘었습니다` : `${f.label}: 응답 시간 기대 ≤ ${f.expected}ms, 실제 ${f.actual}ms`
   return f.message
 }
 
@@ -195,19 +201,21 @@ export async function runRepro(repro, opts) {
     const headers = { ...baseHeaders, ...extraHeaders }
     if (json !== undefined) headers['content-type'] = 'application/json'
     let res
+    const started = performance.now()
     try {
       res = await doFetch(new URL(path, opts.baseUrl), { method, headers, body: json === undefined ? undefined : JSON.stringify(json) })
     } catch (err) {
       throw new ReproError(`SUT에 연결할 수 없습니다 (${opts.baseUrl}): ${err.message}`)
     }
     const text = await res.text()
+    const elapsedMs = Math.round(performance.now() - started)
     let body
     try {
       body = text ? JSON.parse(text) : undefined
     } catch {
       body = text
     }
-    return { status: res.status, body }
+    return { status: res.status, body, elapsedMs }
   }
 
   async function loginAs(email, password) {
@@ -287,6 +295,10 @@ export async function runRepro(repro, opts) {
         const f = { step: stepNo, kind: 'json', label, path: p, expected: want, actual: got }
         failures.push({ ...f, message: formatFailure(f) })
       }
+    }
+    if (expect.max_ms !== undefined && r.elapsedMs > expect.max_ms) {
+      const f = { step: stepNo, kind: 'time', label, expected: expect.max_ms, actual: r.elapsedMs }
+      failures.push({ ...f, message: formatFailure(f) })
     }
     // 기대가 어긋나면 이후 단계는 전제가 깨졌으므로 멈춘다.
     if (failures.length > before) break

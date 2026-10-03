@@ -153,7 +153,10 @@ export function registerShopRoutes(app: FastifyInstance, db: Db): void {
     const body = (req.body ?? {}) as Body
     if (!Array.isArray(body.items) || body.items.length === 0) throw validationError('items 는 1개 이상이어야 합니다.')
     const zipcode = body.zipcode === undefined ? { value: member.zipcode } : checkZipcode(body.zipcode)
-    if ('error' in zipcode) throw validationError(zipcode.error)
+    if ('error' in zipcode) {
+      if (isDefectOn('DF-017')) throw new Error(`invalid zipcode: ${String(body.zipcode)}`)
+      throw validationError(zipcode.error)
+    }
     const lines = []
     for (const raw of body.items as Body[]) {
       const qty = checkQuantity(raw?.qty)
@@ -220,13 +223,25 @@ export function registerShopRoutes(app: FastifyInstance, db: Db): void {
     const member = await authenticate(db, req)
     const r = await db.query('SELECT id FROM orders WHERE member_id = $1 ORDER BY id DESC', [member.id])
     const out = []
-    for (const row of r.rows) out.push((await loadOrder(db, row.id))!.view)
+    for (const row of r.rows) {
+      if (isDefectOn('DF-019')) await db.query('SELECT pg_sleep(0.08)')
+      out.push((await loadOrder(db, row.id))!.view)
+    }
     return out
   })
 
-  app.get('/api/orders/:id', async (req) => {
+  app.get('/api/orders/:id', async (req, reply) => {
     const member = await authenticate(db, req)
-    return (await loadOwnOrder(db, member, (req.params as { id: string }).id)).view
+    let order
+    try {
+      order = await loadOwnOrder(db, member, (req.params as { id: string }).id)
+    } catch (err) {
+      if (isDefectOn('DF-014') && err instanceof ApiError && err.status === 404) {
+        return reply.code(404).send({ code: err.code, message: err.message })
+      }
+      throw err
+    }
+    return isDefectOn('DF-016') ? { ...order.view, status: order.view.status.toLowerCase() } : order.view
   })
 
   app.post('/api/orders/:id/pay', async (req) => {

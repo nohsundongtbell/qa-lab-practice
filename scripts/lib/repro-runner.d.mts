@@ -16,7 +16,7 @@ export interface Repro {
 export interface ReproFailure {
   step: number
   message: string
-  kind?: 'status' | 'json' | 'login' | 'save'
+  kind?: 'status' | 'json' | 'time' | 'login' | 'save'
   label?: string
   path?: string
   expected?: unknown
