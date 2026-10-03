@@ -24,7 +24,8 @@ test('장바구니에서 수량을 바꾸면 금액이 바뀌고, 삭제하면 �
   await expect(page.getByRole('status').filter({ hasText: '담았습니다' })).toBeVisible()
   await page.getByRole('link', { name: '장바구니' }).click()
 
-  const qty = page.getByRole('spinbutton', { name: '마우스 패드 수량' })
+  // 상품 목록에도 같은 이름의 수량 입력란이 있다. 장바구니 행 안으로 좁혀야 화면이 바뀌기 전의 입력란을 잡지 않는다.
+  const qty = page.getByTestId('cart-row').getByRole('spinbutton', { name: '마우스 패드 수량' })
   await qty.fill('3')
   await qty.blur()
   // 4,990원 × 3 = 14,970원 + 배송비 3,000원

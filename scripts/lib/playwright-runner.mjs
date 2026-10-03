@@ -65,6 +65,8 @@ export function runPlaywright({ repoRoot, runDir, repeat = 1, timeoutMs = 240_00
  * @returns {'timeout'|'assertion'|'other'}
  */
 export function classifyError(message = '') {
+  // expect(locator) 실패도 호출 로그에 "waiting for getBy…" 가 남는다. 요소를 찾았는데 값이 달랐다면 시간 초과가 아니다.
+  if (/unexpected value/.test(message)) return 'assertion'
   if (/Timeout \d+ms exceeded|waiting for (locator|getBy)|locator\.\w+: Timeout/i.test(message)) return 'timeout'
   if (/expect\(|toHaveText|toBe|toEqual|toContain|toHaveURL|toBeVisible|Expected|Received/.test(message)) return 'assertion'
   return 'other'

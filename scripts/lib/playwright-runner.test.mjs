@@ -36,6 +36,8 @@ describe('classifyError / makeConfig', () => {
     ['Timeout 5000ms exceeded', 'timeout'],
     ['locator.fill: Timeout 30000ms exceeded', 'timeout'],
     ['expect(received).toBe(expected)', 'assertion'],
+    ["expect(locator).toHaveText(expected) failed\nCall log:\n  - waiting for getByTestId('cart-total')\n    14 × locator resolved to <dd>7,990원</dd>\n       - unexpected value \"7,990원\"", 'assertion'],
+    ["expect(locator).toBeVisible() failed\nCall log:\n  - waiting for getByText('없음')", 'timeout'],
     ['ReferenceError: x is not defined', 'other'],
   ])('%s', (msg, kind) => expect(classifyError(msg)).toBe(kind))
 
