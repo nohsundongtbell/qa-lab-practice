@@ -27,6 +27,7 @@ services:
   seed:
     build: ./apps/shop/api
     image: qa-lab-shop-api:local
+    pull_policy: never  # 로컬에서 빌드하는 이미지다. 레지스트리에서 받으려다 "pull access denied" 를 띄우지 않게
     command: ["node", "dist/db/seed.js"]
     environment:
       DATABASE_URL: postgres://shop:shop@db:5432/shop
@@ -37,6 +38,7 @@ services:
 
   api:
     image: qa-lab-shop-api:local
+    pull_policy: never  # seed 가 빌드한 이미지를 같이 쓴다
     environment:
       HOST: 0.0.0.0
       PORT: "3000"
@@ -68,6 +70,7 @@ services:
   web:
     build: ./apps/shop/web
     image: qa-lab-shop-web:local
+    pull_policy: never
     ports:
       - "127.0.0.1:${WEB_PORT:-8080}:80"
     depends_on:
