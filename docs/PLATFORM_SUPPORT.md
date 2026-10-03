@@ -23,7 +23,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 | `docker compose down -v` 초기화 | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 | 로그 파일 bind mount(`./var/logs`) 쓰기 | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 | API 단위·통합 테스트 | ✅ | `TODO: verify` | ✅ (2026-10-03) (단위 94 · 통합 81) |
-| `npm test` (CLI·검증기·채점 도구 테스트) | ✅ | `TODO: verify` | ✅ (2026-10-03) (결함 리포트 랩 파일 누락 1건 제외, 아래 "알려진 사항") |
+| `npm test` (CLI·검증기·채점 도구 테스트) | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 | `npm run doctor` / `up` / `reset` / `down` / `logs` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 | `npm run validate` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 
@@ -60,7 +60,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [ ] 한국어 파일 내용(CSV, YAML)을 Excel·메모장에서 저장한 뒤 채점 (CP949 로 저장된 CSV 도 읽히는지)
 
 ## 알려진 사항
-- (2026-10-03 Windows 확인 중 발견, OS 와 무관) `.gitignore` 의 `*.log`·`reports/` 규칙 때문에 `sql-and-logs/starter/data/*.log` 와 `defect-reports/starter/reports/_TEMPLATE.md`·`solution/reports/*.md` 가 커밋되지 않았다. 작성 환경에는 파일이 남아 있어 테스트가 통과했지만 새로 clone 하면 실패한다. `.gitignore` 에 예외를 추가했고 로그는 `setup/logs.mjs` 로 다시 만들었다. 리포트 템플릿과 모범 리포트 4개는 원본이 작성 환경에만 있다 `TODO: verify` — 원본을 커밋해야 한다.
+- (2026-10-03 Windows 확인 중 발견, OS 와 무관) `.gitignore` 의 `*.log`·`reports/` 규칙 때문에 `sql-and-logs/starter/data/*.log` 와 `defect-reports/starter/reports/_TEMPLATE.md`·`solution/reports/*.md` 가 커밋되지 않았다. 작성 환경에는 파일이 남아 있어 테스트가 통과했지만 새로 clone 하면 실패한다. `.gitignore` 에 예외를 추가했고 로그는 `setup/logs.mjs` 로 다시 만들었다. 리포트 템플릿과 모범 리포트 4개는 작성 환경에서 원본을 커밋했다(1abb564). 앱을 띄운 Windows 에서 `npm test` 600개 전부 통과, 결함 리포트 랩 E2E 통과(2026-10-03).
 - (같은 날 발견, OS 와 무관) Playwright 랩 t2 정답 테스트가 상품 목록의 같은 이름 수량 입력란을 잡는 경합이 있어 빠른 PC 에서 매번 실패했다. 장바구니 행(`cart-row`) 안으로 범위를 좁혀 고쳤다. 채점기가 "값이 다름"을 "시간 초과"로 안내하던 오류 분류도 고쳤다.
 - 저장소 위치(Windows 파일 시스템 또는 WSL 내부)에 따라 bind mount 성능이 다를 수 있다. 정확한 권장 사항은 Docker 공식 문서를 확인해 적는다. `TODO: verify`
 
