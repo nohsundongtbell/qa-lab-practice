@@ -45,6 +45,18 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [ ] `npm test`, `npm run validate` 통과
 - [ ] winget 패키지 ID (`Docker.DockerDesktop`, `OpenJS.NodeJS.LTS`, `Git.Git`)
 
+랩별 항목 (각 랩 README 의 `TODO: verify-windows` 주석과 1:1):
+- [ ] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
+- [ ] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(psql 접속, 로그 파일 보기)
+- [ ] `api-contract-testing/shop-api-contract`: `npx newman run …` 실행, Postman 앱에서 컬렉션 가져오기·내보내기
+- [ ] `api-testing-tools/swagger-and-traffic`: Wireshark winget ID(`WiresharkFoundation.Wireshark`)와 `tshark` 가 PATH 에 잡히는지, mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`
+- [ ] `ui-automation/shop-ui-flows`: `npx playwright install chromium` 과 헤드리스 실행, README 의 `$env:UI_VARIANT` 블록
+- [ ] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이)
+- [ ] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
+- [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 스캐너 `-v "${PWD}\…"` 경로 형식
+- [ ] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
+- [ ] 한국어 파일 내용(CSV, YAML)을 Excel·메모장에서 저장한 뒤 채점 (CP949 로 저장된 CSV 도 읽히는지)
+
 ## 알려진 사항
 - 저장소 위치(Windows 파일 시스템 또는 WSL 내부)에 따라 bind mount 성능이 다를 수 있다. 정확한 권장 사항은 Docker 공식 문서를 확인해 적는다. `TODO: verify`
 
