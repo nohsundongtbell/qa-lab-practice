@@ -49,15 +49,15 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 
 랩별 항목 (각 랩 README 의 `TODO: verify-windows` 주석과 1:1):
 - [x] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
-- [x] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(로그 파일 보기). psql 접속은 `TODO: verify-windows`
-- [ ] `api-contract-testing/shop-api-contract`: `npx newman run …` 실행, Postman 앱에서 컬렉션 가져오기·내보내기 (채점기의 Newman 실행은 `test:labs` 로 확인)
+- [x] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(로그 파일 보기), `docker compose exec db psql -U qa_reader -d shop` 접속(조회 가능, 쓰기는 읽기 전용 트랜잭션으로 거부)
+- [ ] `api-contract-testing/shop-api-contract`: Postman 앱에서 컬렉션 가져오기·내보내기 `TODO: verify-windows`. 확인함: README 의 `npx newman run …` 명령(한국어 검증 이름도 정상 출력), 채점기의 Newman 실행(`test:labs`)
 - [ ] `api-testing-tools/swagger-and-traffic`: `tshark` 가 PATH 에 잡히는지 `TODO: verify-windows`. 확인함: winget ID(`WiresharkFoundation.Wireshark`), mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`. 호스트 포트 8081 을 다른 프로그램이 쓰고 있으면 `-p 127.0.0.1:<다른 포트>:8080` 으로 바꾼다
-- [ ] `ui-automation/shop-ui-flows`: 헤드리스 실행은 확인. 새 PC 의 `npx playwright install chromium` 과 README 의 `$env:UI_VARIANT` 블록은 `TODO: verify-windows`
+- [ ] `ui-automation/shop-ui-flows`: 브라우저가 없는 새 PC 에서 `npx playwright install chromium` 이 내려받는지 `TODO: verify-windows`. 확인함: 헤드리스 실행, `npx playwright install chromium` 명령(이미 설치된 PC 에서 정상 종료), README 의 `$env:UI_VARIANT`·`$env:LATENCY` 블록(v2 · unstable 에서 정답 테스트 8개 통과)
 - [x] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이) — Chrome 154 용 드라이버를 `%USERPROFILE%\.cache\selenium` 에 받음
 - [x] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
 - [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 스캐너 `-v "${PWD}\…"` 경로 형식
 - [x] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
-- [ ] 한국어 파일 내용(CSV, YAML)을 Excel·메모장에서 저장한 뒤 채점 (CP949 로 저장된 CSV 도 읽히는지)
+- [x] 한국어 파일 내용(CSV)을 CP949 로 저장한 뒤 채점 — `test-design/shop-rules` t1 정답 CSV 를 CP949·CRLF(Excel 의 일반 "CSV" 저장과 같은 형식)로 저장해 "CP949 로 읽었습니다"와 함께 UTF-8 과 같은 결과(통과). Excel·메모장 화면에서 직접 저장하는 것과 YAML 은 `TODO: verify-windows`
 
 ## 알려진 사항
 - (2026-10-03 Windows 확인 중 발견, OS 와 무관) `.gitignore` 의 `*.log`·`reports/` 규칙 때문에 `sql-and-logs/starter/data/*.log` 와 `defect-reports/starter/reports/_TEMPLATE.md`·`solution/reports/*.md` 가 커밋되지 않았다. 작성 환경에는 파일이 남아 있어 테스트가 통과했지만 새로 clone 하면 실패한다. `.gitignore` 에 예외를 추가했고 로그는 `setup/logs.mjs` 로 다시 만들었다. 리포트 템플릿과 모범 리포트 4개는 작성 환경에서 원본을 커밋했다(1abb564). 앱을 띄운 Windows 에서 `npm test` 600개 전부 통과, 결함 리포트 랩 E2E 통과(2026-10-03).
