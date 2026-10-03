@@ -233,10 +233,20 @@ describe('로컬 전용 기능', () => {
 describe('환경 조건과 fixture (로컬 전용)', () => {
   it('환경 조회: 기본값과 헤더 덮어쓰기', async () => {
     const base = await call('GET', '/__qa/environment', { contract: false })
-    expect(base.body).toEqual({ uiVariant: 'v1', latencyProfile: 'none' })
+    expect(base.body).toMatchObject({ uiVariant: 'v1', latencyProfile: 'none' })
     const over = await call('GET', '/__qa/environment', { headers: { 'x-qa-lab-ui-variant': 'v2', 'x-qa-lab-latency': 'slow' }, contract: false })
-    expect(over.body).toEqual({ uiVariant: 'v2', latencyProfile: 'slow' })
+    expect(over.body).toMatchObject({ uiVariant: 'v2', latencyProfile: 'slow' })
     expect((await call('GET', '/__qa/environment', { headers: { 'x-qa-lab-ui-variant': 'v9' }, contract: false })).status).toBe(400)
+  })
+
+  it('환경 조회: 웹 결함의 켜짐 여부는 요청 문맥(X-QA-Lab-Defects)을 따른다', async () => {
+    const off = await call('GET', '/__qa/environment', { contract: false })
+    const flags = off.body.webDefects as Record<string, boolean>
+    expect(Object.keys(flags).length).toBeGreaterThan(0)
+    expect(Object.values(flags).every((v) => v === false)).toBe(true)
+    const [first] = Object.keys(flags)
+    const on = await call('GET', '/__qa/environment', { headers: { 'x-qa-lab-defects': first }, contract: false })
+    expect(Object.entries(on.body.webDefects as Record<string, boolean>).filter(([, v]) => v).map(([k]) => k)).toEqual([first])
   })
 
   it('지연은 /api/ 요청에만 적용되고, 헬스 체크·환경 조회는 느려지지 않는다', async () => {
@@ -254,7 +264,7 @@ describe('환경 조건과 fixture (로컬 전용)', () => {
     const prod = await startServer({ allowDevTools: false })
     try {
       const r = await fetch(`${prod.baseUrl}/__qa/environment`, { headers: { 'x-qa-lab-ui-variant': 'v2', 'x-qa-lab-latency': 'slow' } })
-      expect(await r.json()).toEqual({ uiVariant: 'v1', latencyProfile: 'none' })
+      expect(await r.json()).toMatchObject({ uiVariant: 'v1', latencyProfile: 'none' })
       expect((await fetch(`${prod.baseUrl}/__admin/fixtures/orders`, { method: 'POST' })).status).toBe(404)
     } finally {
       await prod.close()

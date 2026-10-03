@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
 import { load as loadYaml } from 'js-yaml'
-import { isDefectOn, loadCatalogIds, loadDefectSettings, parseDefectHeader, resolveProfile, setDefaultActiveDefects } from '../../src/defects/registry.js'
+import { isDefectOn, loadCatalogIds, loadDefectSettings, loadWebDefectIds, parseDefectHeader, resolveProfile, setDefaultActiveDefects } from '../../src/defects/registry.js'
 import { defectsDir, withDefects } from '../helpers.js'
 
 describe('결함 프로필', () => {
@@ -60,5 +60,30 @@ describe('isDefectOn', () => {
     expect(isDefectOn('DF-001')).toBe(true)
     expect(withDefects([], () => isDefectOn('DF-001'))).toBe(false)
     setDefaultActiveDefects(new Set())
+  })
+})
+
+describe('웹 화면 결함 (surface: web)', () => {
+  const webSrc = path.resolve(defectsDir, '..', 'apps', 'shop', 'web', 'src')
+  const sources = (dir: string): string[] =>
+    fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? sources(path.join(dir, e.name)) : /\.tsx?$/.test(e.name) ? [path.join(dir, e.name)] : []))
+  const calls = (id: string) => sources(webSrc).reduce((n, f) => n + (fs.readFileSync(f, 'utf8').split(`isDefectOn('${id}')`).length - 1), 0)
+
+  it('loadDefectSettings 가 웹 결함 집합을 함께 돌려준다', () => {
+    const web = loadWebDefectIds(defectsDir)
+    expect(web.size).toBeGreaterThan(0)
+    expect([...loadDefectSettings({ dir: defectsDir, profile: 'none' }).web].sort()).toEqual([...web].sort())
+  })
+
+  it('웹 결함은 웹 코드에서 isDefectOn 으로 정확히 한 곳에서 분기한다', () => {
+    for (const id of loadWebDefectIds(defectsDir)) expect(calls(id), id).toBe(1)
+  })
+
+  it('웹 결함은 기존 랩 채점에 영향을 주지 않도록 advanced 프로필에만 있다', () => {
+    const intermediate = resolveProfile(defectsDir, 'intermediate')
+    for (const id of loadWebDefectIds(defectsDir)) {
+      expect(intermediate.has(id), id).toBe(false)
+      expect(resolveProfile(defectsDir, 'advanced').has(id), id).toBe(true)
+    }
   })
 })

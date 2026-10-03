@@ -53,3 +53,12 @@ button.cta { background: #1f883d; color: #fff; border-color: #1a7f37; }
 .summary { display: grid; grid-template-columns: max-content max-content; gap: 4px 24px; margin: 0; }
 .summary dd { margin: 0; text-align: right; }
 .summary .total { font-weight: 700; }
+
+/* ---- 상품 목록 안내 배너 ---- */
+.promo { display: flex; gap: 12px; align-items: center; padding: 8px 12px; margin-bottom: 12px; border-radius: 8px; background: linear-gradient(90deg, #ddf4ff, #fff8c5); }
+.promo p { margin: 0; color: #1f2328; }
+.icon-button { display: inline-flex; align-items: center; }
+.faint, .tile .faint { color: #b8bec6; }
+.form .field { display: flex; flex-direction: column; gap: 4px; }
+.pay-action { display: inline-block; padding: 6px 12px; border-radius: 6px; background: #1f883d; color: #fff; cursor: pointer; }
+.no-focus-ring *:focus, .no-focus-ring *:focus-visible { outline: none; }

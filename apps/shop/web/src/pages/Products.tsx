@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react'
 import { api, ApiError, type Member, type Product, won } from '../api'
 import { useVariant } from '../variant'
+import { isDefectOn } from '../defects'
+
+/** 상품 목록 위 안내 배너 이미지 (그림 속 글자: "QA 숍 실습 상품") */
+const PROMO_IMAGE = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="40"><rect width="240" height="40" fill="#0550ae"/><text x="12" y="26" fill="#fff" font-size="16">QA 숍 실습 상품</text></svg>')}`
 
 export function ProductsPage({ member }: { member: Member | null }) {
   const [products, setProducts] = useState<Product[]>([])
   const [qty, setQty] = useState<Record<number, string>>({})
   const [message, setMessage] = useState<string>('')
   const v2 = useVariant() === 'v2'
+  const stockClass = isDefectOn('DF-022') ? 'remain faint' : 'remain'
 
   useEffect(() => {
     api<Product[]>('GET', '/api/products').then(setProducts).catch(() => setMessage('상품을 불러오지 못했습니다.'))
@@ -28,6 +33,10 @@ export function ProductsPage({ member }: { member: Member | null }) {
   return (
     <section>
       <h1>상품</h1>
+      <div className="promo">
+        {isDefectOn('DF-020') ? <img src={PROMO_IMAGE} width={240} height={40} /> : <img src={PROMO_IMAGE} width={240} height={40} alt="QA 숍 실습 상품" />}
+        <p>이번 주 추천 상품을 확인해 보세요.</p>
+      </div>
       <p role="status" aria-live="polite">{message}</p>
       <ul className={v2 ? 'grid' : 'products'}>
         {products.map((p) => {
@@ -55,16 +64,16 @@ export function ProductsPage({ member }: { member: Member | null }) {
                 <h3>{p.name}</h3>
                 <div className="tile-meta">
                   <span className="amount" data-testid="product-price">{won(p.price)}</span>
-                  <span className="remain">{p.stock > 0 ? `재고 ${p.stock}개` : '품절'}</span>
+                  <span className={stockClass}>{p.stock > 0 ? `재고 ${p.stock}개` : '품절'}</span>
                 </div>
               </div>
               <div className="tile-actions">{addButton}{qtyInput}</div>
             </li>
           ) : (
             <li key={p.id} className="card" data-testid="product-card">
-              <h2>{p.name}</h2>
+              {isDefectOn('DF-024') ? <h4>{p.name}</h4> : <h2>{p.name}</h2>}
               <p className="price" data-testid="product-price">{won(p.price)}</p>
-              <p className="stock">{p.stock > 0 ? `재고 ${p.stock}개` : '품절'}</p>
+              <p className={`stock ${stockClass}`}>{p.stock > 0 ? `재고 ${p.stock}개` : '품절'}</p>
               {qtyInput}
               {addButton}
             </li>

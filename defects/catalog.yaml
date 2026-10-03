@@ -323,3 +323,92 @@ defects:
           expect: { status: 201 }
         - orders: {}
           expect: { status: 200, json: { 7.status: PENDING }, max_ms: 200 }
+
+  # ---- 웹 화면(접근성) 결함: surface: web ----
+  # 웹 코드의 isDefectOn(apps/shop/web/src/defects.ts)으로 분기한다. 웹은 /__qa/environment 의 webDefects 로 켜짐 여부를 받는다.
+  # repro 는 API 수준에서 확인할 수 있는 것(그 결함의 켜짐 여부가 요청 문맥을 따르는지)만 적는다.
+  # 화면에서 실제로 드러나는지는 랩 채점(labs/usability-accessibility-testing/shop-a11y-audit, 결함 하나씩 켜서 귀속)으로 확인한다.
+
+  - id: DF-020
+    type: a11y-image
+    severity: S3
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/pages/Products.tsx
+    spec: SPEC §10.1
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-020: false } }
+
+  - id: DF-021
+    type: a11y-form
+    severity: S3
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/pages/Signup.tsx
+    spec: SPEC §10.2
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-021: false } }
+
+  - id: DF-022
+    type: a11y-contrast
+    severity: S4
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/pages/Products.tsx
+    spec: SPEC §10.3
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-022: false } }
+
+  - id: DF-023
+    type: a11y-name
+    severity: S3
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/App.tsx
+    spec: SPEC §10.4
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-023: false } }
+
+  - id: DF-024
+    type: a11y-structure
+    severity: S4
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/pages/Products.tsx
+    spec: SPEC §10.5
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-024: false } }
+
+  - id: DF-025
+    type: a11y-keyboard
+    severity: S2
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/pages/Orders.tsx
+    spec: SPEC §10.6
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-025: false } }
+
+  - id: DF-026
+    type: a11y-focus
+    severity: S2
+    surface: web
+    modules: [usability-accessibility-testing]
+    location: apps/shop/web/src/main.tsx
+    spec: SPEC §10.7
+    repro:
+      steps:
+        - http: { method: GET, path: /__qa/environment }
+          expect: { status: 200, json: { webDefects.DF-026: false } }
