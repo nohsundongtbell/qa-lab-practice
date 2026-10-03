@@ -1,0 +1,24 @@
+module: data-checking-sql-logs-analytics
+lessons: [sql-for-verification, data-integrity-queries, reading-logs, logs-as-defect-evidence]
+title_ko: SQL과 로그로 데이터 정합성 결함 찾기
+level: intermediate
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+tools: [sql, psql, logs]
+sut_profile: any
+setup: setup/seed.mjs
+tasks:
+  - id: t1
+    goal: SQL로 상태별 주문 수, 월별 매출, 구매액 상위 회원을 조회해 결과를 직접 확인한다
+    check: check/t1.mjs
+  - id: t2
+    goal: 정합성 쿼리로 UI에서는 보이지 않는 고아 레코드·중복·합계 불일치를 찾아낸다
+    check: check/t2.mjs
+  - id: t3
+    goal: 웹 서버 로그(access.log)를 분석해 5xx 오류의 규모와 집중된 엔드포인트, 발생 시각을 파악한다
+    check: check/t3.mjs
+  - id: t4
+    goal: 상관 ID로 access.log 와 app.log 를 연결해 실패한 요청의 증거를 찾아낸다
+    check: check/t4.mjs
+status: ready

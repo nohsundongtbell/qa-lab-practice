@@ -22,7 +22,7 @@ export function commandFor(file, platform = process.platform) {
  * check 스크립트 한 개를 실행한다. 종료 코드 0 = 통과, 그 밖 = 실패.
  * 스크립트가 알아야 하는 값은 모두 환경 변수(QA_LAB_*)로 넘긴다 (docs/LAB_SCHEMA.md).
  */
-export function runCheck({ lab, task, workDir, target, baseUrl, repoRoot }) {
+export function runCheck({ lab, task, workDir, target, baseUrl, repoRoot, dbUrl }) {
   const file = pickCheckFile(task.check)
   const { cmd, args } = commandFor(path.join(lab.dir, file))
   const r = spawnSync(cmd, args, {
@@ -36,6 +36,7 @@ export function runCheck({ lab, task, workDir, target, baseUrl, repoRoot }) {
       QA_LAB_TARGET: target,
       QA_LAB_TASK_ID: task.id,
       QA_LAB_BASE_URL: baseUrl,
+      ...(dbUrl ? { QA_LAB_DB_URL: dbUrl } : {}),
     },
   })
   return { passed: r.status === 0, status: r.status, error: r.error }

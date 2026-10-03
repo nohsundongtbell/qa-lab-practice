@@ -1,0 +1,6 @@
+# data/access.log 를 분석해 채웁니다. (README 과제 t3 참고)
+total_requests:        # 전체 요청 수 (로그 줄 수)
+count_5xx:             # 상태 코드가 5xx 인 응답 수
+most_5xx_endpoint:     # 5xx 가 가장 많은 엔드포인트. 예: "GET /api/products/:id" (숫자 id 는 :id 로)
+first_5xx_at: ""       # 첫 5xx 가 기록된 시각 (한국 시각, "HH:MM:SS")
+last_5xx_at: ""        # 마지막 5xx 가 기록된 시각 ("HH:MM:SS")

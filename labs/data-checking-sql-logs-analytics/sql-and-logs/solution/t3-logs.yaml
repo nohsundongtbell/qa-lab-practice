@@ -1,0 +1,6 @@
+# 모범 답안 (access.log 를 grep 으로 분석)
+total_requests: 1140
+count_5xx: 37
+most_5xx_endpoint: "POST /api/orders/:id/pay"
+first_5xx_at: "13:02:46"
+last_5xx_at: "15:21:11"

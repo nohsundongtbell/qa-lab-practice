@@ -14,7 +14,7 @@ export function loadLabContext(env = process.env) {
   const lab = loadYaml(fs.readFileSync(path.join(e.labDir, 'lab.yaml'), 'utf8'))
   const task = lab.tasks.find((t) => t.id === e.taskId)
   if (!task) throw new Error(`lab.yaml 에 과제 ${e.taskId} 가 없습니다.`)
-  return { ...e, lab, task, pass: task.pass ?? {}, defectIds: profileDefects(e.repoRoot, lab.sut_profile) }
+  return { ...e, lab, task, pass: task.pass ?? {}, defectIds: lab.sut_profile === 'any' ? [] : profileDefects(e.repoRoot, lab.sut_profile) }
 }
 
 const STATUS_TAG = { detected: '[검출]', undetected: '[미검출]', invalid: '[무효]', error: '[오류]' }

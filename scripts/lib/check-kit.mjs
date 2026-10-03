@@ -6,6 +6,7 @@
 export function checkEnv(env = process.env) {
   return {
     baseUrl: env.QA_LAB_BASE_URL ?? 'http://127.0.0.1:3000',
+    dbUrl: env.QA_LAB_DB_URL ?? '',
     workDir: env.QA_LAB_WORK_DIR ?? '',
     labDir: env.QA_LAB_LAB_DIR ?? '',
     repoRoot: env.QA_LAB_REPO_ROOT ?? '',

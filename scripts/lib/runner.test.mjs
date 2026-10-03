@@ -39,18 +39,18 @@ describe('runCheck', () => {
     const script = `
       import fs from 'node:fs'
       const e = process.env
-      fs.writeFileSync(e.QA_LAB_WORK_DIR + '/env.json', JSON.stringify({ base: e.QA_LAB_BASE_URL, task: e.QA_LAB_TASK_ID, target: e.QA_LAB_TARGET, labDir: e.QA_LAB_LAB_DIR, root: e.QA_LAB_REPO_ROOT, cwd: process.cwd() }))
+      fs.writeFileSync(e.QA_LAB_WORK_DIR + '/env.json', JSON.stringify({ base: e.QA_LAB_BASE_URL, db: e.QA_LAB_DB_URL, task: e.QA_LAB_TASK_ID, target: e.QA_LAB_TARGET, labDir: e.QA_LAB_LAB_DIR, root: e.QA_LAB_REPO_ROOT, cwd: process.cwd() }))
       process.exit(Number(e.EXIT ?? 0))
     `
     const root = makeRepo({ 'labs/m/l/check/t1.mjs': script, 'labs/m/l/work/.keep': '' })
     roots.push(root)
     const lab = { dir: path.join(root, 'labs/m/l') }
     const task = { id: 't1', check: 'check/t1.mjs' }
-    const args = { lab, task, workDir: path.join(lab.dir, 'work'), target: 'work', baseUrl: 'http://127.0.0.1:3999', repoRoot: root }
+    const args = { lab, task, workDir: path.join(lab.dir, 'work'), target: 'work', baseUrl: 'http://127.0.0.1:3999', repoRoot: root, dbUrl: 'postgres://shop:shop@127.0.0.1:55999/shop' }
 
     expect(runCheck(args).passed).toBe(true)
     const seen = JSON.parse(fs.readFileSync(path.join(lab.dir, 'work/env.json'), 'utf8'))
-    expect(seen).toMatchObject({ base: 'http://127.0.0.1:3999', task: 't1', target: 'work', labDir: lab.dir, root })
+    expect(seen).toMatchObject({ base: 'http://127.0.0.1:3999', db: 'postgres://shop:shop@127.0.0.1:55999/shop', task: 't1', target: 'work', labDir: lab.dir, root })
     expect(fs.realpathSync(seen.cwd)).toBe(fs.realpathSync(lab.dir))
 
     process.env.EXIT = '1'

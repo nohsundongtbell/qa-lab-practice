@@ -44,6 +44,20 @@
 8. **테스트 쓰기** — 랩 고유 로직(행 변환, 문서 파싱, 계산)의 단위 테스트를 `check/*.test.mjs`에 둔다. `npm test`가 함께 돌린다.
 9. **검증하기** (§5 체크리스트) → `status: ready` → `npm run build-index`.
 
+## 2-1. 유형별 랩 패턴
+
+| 유형 | 샘플 | 채점 방식 |
+|---|---|---|
+| 케이스 표·재현 절차 → 앱에서 실행 | `test-design/shop-rules`, `defect-management/defect-reports`, `exploratory-testing/charter-sessions` | 차등 오라클 + 결함 귀속 (`grading.mjs`) |
+| 학습자가 **테스트 코드**를 씀 | `unit-integration-testing/cart-domain`, `structural-testing-practice/coverage-and-mutation` | 정상 구현에서 통과, 뮤턴트에서 실패 (`vitest-runner.mjs`, `check/mutants.mjs`), 커버리지 (`min_*_pct`). Docker 불필요 (`requires: [node24]`) |
+| **DB·로그** 데이터를 분석 | `data-checking-sql-logs-analytics/sql-and-logs` | 학습자 SQL 을 읽기 전용으로 실행해 결과 집합 비교, 로그 분석 답안 비교. `setup` 훅으로 랩 데이터 준비, `sut_profile: any` |
+
+공통 주의:
+- **정답은 두 번 확인한다.** 심은 이상치(생성기의 의도)와, 데이터·로그에서 **독립적으로 다시 계산한 값**이 일치함을 테스트로 고정한다(`dataset.test.mjs`, `logs.test.mjs`, `analysis.test.mjs`, `premise.test.mjs`).
+- **랩의 전제를 테스트로 고정한다.** 예: "커버리지 100%인데 뮤턴트가 살아남는다", "starter 는 플래키다". 코드가 바뀌어도 랩의 교육 효과가 사라지지 않게 한다.
+- **학습자 SQL·코드는 신뢰하지 않는다.** 읽기 전용 계정·권한·시간 제한·한 문장 제한, 실행 폴더는 `<랩>/.runs/`(git 무시)에서 격리한다.
+- 문서에서 다음 랩은 **QA-Lab 선수 관계**(스냅샷의 `prerequisites`)를 따른다. 선수 관계에 없는 "이어서 하면 좋은 랩"은 쓰지 않는다.
+
 ## 3. 공통 부품 (`scripts/lib/`)
 
 | 모듈 | 쓰임 |
@@ -54,6 +68,8 @@
 | `csv.mjs` | `readCsvTable()`: UTF-8과 CP949를 모두 읽는다(Windows Excel 저장본 대응) |
 | `markdown.mjs` | `sections()`, `findSection()`, `fencedBlocks()`, `metaList()`, `hasText()` |
 | `check-kit.mjs` | `finish()`: `[통과]`/`[실패]` 출력과 종료 코드 |
+| `vitest-runner.mjs` | 학습자 Vitest 테스트를 격리 실행(`runVitest`), 뮤턴트 적용(`applyMutation`), `mapLimit` |
+| `setup-runner.mjs` | 랩 `setup` 훅 실행 (`lab`·`check` 명령이 호출) |
 | `defects.mjs` | `profileDefects()`, `loadCatalog()`(채점기 내부 전용) |
 
 채점 흐름의 기본형은 이렇다.

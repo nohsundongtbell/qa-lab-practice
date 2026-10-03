@@ -3,6 +3,9 @@ import { parseArgs } from '../lib/args.mjs'
 import { LEVELS } from '../lib/constants.mjs'
 import { discoverLabs, resolveLabs, workDir } from '../lib/labs.mjs'
 import { paths } from '../lib/paths.mjs'
+import { readEnvFile } from '../lib/env.mjs'
+import { runSetup } from '../lib/setup-runner.mjs'
+import { baseUrlFrom } from '../lib/sut.mjs'
 
 export async function run(argv) {
   const { _: [key] } = parseArgs(argv)
@@ -48,8 +51,17 @@ export async function run(argv) {
   } else if (fs.existsSync(work)) {
     console.log(`작업 폴더가 이미 있습니다: ${lab.rel}/work/  (처음부터 다시 하려면 이 폴더를 지우고 다시 실행하세요)`)
   }
+  if (d.setup) {
+    console.log('\n이 랩의 준비 작업을 실행합니다 (대상 앱의 DB 가 필요합니다) …')
+    const env = readEnvFile(p.env)
+    const s = runSetup({ lab, workDir: work, baseUrl: baseUrlFrom(env), repoRoot: p.root, env })
+    if (!s.ok) {
+      console.error(`\n준비 작업에 실패했습니다. 대상 앱을 먼저 기동하세요: ${d.sut_profile === 'any' ? 'npm run up' : `npm run up -- --profile ${d.sut_profile}`}\n그다음 \`npm run lab -- ${lab.moduleDir}/${lab.labSlug}\` 를 다시 실행하세요 (이미 한 작업은 건너뜁니다).`)
+      return 1
+    }
+  }
   console.log(`\n1. README 를 읽으세요: ${lab.rel}/README.md`)
-  console.log(`2. 대상 앱을 이 랩의 결함 프로필로 기동하세요: npm run up -- --profile ${d.sut_profile}`)
+  console.log(d.sut_profile === 'any' ? '2. 대상 앱을 기동하세요: npm run up' : `2. 대상 앱을 이 랩의 결함 프로필로 기동하세요: npm run up -- --profile ${d.sut_profile}`)
   console.log(`3. 끝나면 채점하세요: npm run check -- ${lab.moduleDir}/${lab.labSlug}`)
   return 0
 }

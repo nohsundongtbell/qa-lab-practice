@@ -56,6 +56,16 @@ describe('validateLabData', () => {
     expect(withChange((d) => (d.also_for = 'nope')).join()).toMatch(/also_for/)
   })
 
+  it('sut_profile any 는 앱의 결함 프로필과 무관한 랩에 쓴다', () => {
+    expect(withChange((d) => (d.sut_profile = 'any'))).toEqual([])
+  })
+
+  it('setup 은 .mjs 경로여야 한다', () => {
+    expect(withChange((d) => (d.setup = 'setup/seed.mjs'))).toEqual([])
+    expect(withChange((d) => (d.setup = 'setup/seed.sh')).join()).toMatch(/setup/)
+    expect(withChange((d) => (d.setup = 42)).join()).toMatch(/setup/)
+  })
+
   it('알 수 없는 필드(오타)를 잡는다', () => {
     expect(withChange((d) => (d.est_minute = 5)).join()).toMatch(/알 수 없는 필드.*est_minute/)
     expect(withChange((d) => (d.tasks[0].chek = 'x')).join()).toMatch(/chek/)

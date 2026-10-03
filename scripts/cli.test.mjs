@@ -169,6 +169,54 @@ describe('lab / check / solution', () => {
   })
 })
 
+describe('lab setup 훅', () => {
+  const setupYaml = (extra = '') => validLabYaml.replace('requires: [docker, node24]', 'requires: [node24]') + `setup: setup/seed.mjs\n${extra}`
+  // labFiles() 의 랩은 shop-pricing 이다. 같은 폴더에 setup 을 둔다.
+  const repoWith = (script) => {
+    const root = repo(labFiles({ 'labs/test-design/shop-pricing/lab.yaml': setupYaml(), 'labs/test-design/shop-pricing/setup/seed.mjs': script }))
+    return root
+  }
+  const marker = (root) => path.join(root, 'labs/test-design/shop-pricing/setup-ran.json')
+  const recorder = (code = 0) => `import fs from 'node:fs'
+fs.appendFileSync(process.env.QA_LAB_LAB_DIR + '/setup-ran.json', JSON.stringify({ db: process.env.QA_LAB_DB_URL, base: process.env.QA_LAB_BASE_URL, work: process.env.QA_LAB_WORK_DIR, cwd: process.cwd() }) + '\\n')
+process.exit(${code})
+`
+
+  it('lab: starter 복사 뒤에 setup 을 실행하고 DB 주소·앱 주소를 환경 변수로 넘긴다', () => {
+    const root = repoWith(recorder())
+    fs.writeFileSync(path.join(root, '.env'), 'DB_PORT=55999\nAPI_PORT=3999\n')
+    const r = run(['lab', 'test-design/shop-pricing'], root)
+    expect(r.status).toBe(0)
+    expect(r.out).toMatch(/준비 작업을 실행합니다/)
+    const seen = JSON.parse(fs.readFileSync(marker(root), 'utf8').trim())
+    expect(seen).toMatchObject({ db: 'postgres://shop:shop@127.0.0.1:55999/shop', base: 'http://127.0.0.1:3999' })
+    expect(fs.realpathSync(seen.cwd)).toBe(fs.realpathSync(path.join(root, 'labs/test-design/shop-pricing')))
+    expect(fs.existsSync(path.join(root, 'labs/test-design/shop-pricing/work/a.txt'))).toBe(true)
+  })
+
+  it('lab: setup 이 실패하면 기동 방법을 알려 주고 종료 코드 1', () => {
+    const r = run(['lab', 'test-design/shop-pricing'], repoWith(recorder(3)))
+    expect(r.status).toBe(1)
+    expect(r.err).toMatch(/준비 작업에 실패했습니다/)
+    expect(r.err).toMatch(/npm run up -- --profile beginner/)
+  })
+
+  it('check: 채점 전에 setup 을 다시 실행한다 (DB 를 초기화한 뒤에도 동작하도록)', () => {
+    const root = repoWith(recorder())
+    run(['lab', 'test-design/shop-pricing'], root)
+    run(['check', 'test-design/shop-pricing', '--from', 'solution'], root)
+    expect(fs.readFileSync(marker(root), 'utf8').trim().split('\n')).toHaveLength(2)
+  })
+
+  it('check: setup 이 실패하면 채점하지 않는다', () => {
+    const root = repoWith(recorder(3))
+    const r = run(['check', 'test-design/shop-pricing', '--from', 'solution'], root)
+    expect(r.status).toBe(1)
+    expect(r.err).toMatch(/setup/)
+    expect(r.out).not.toMatch(/\[통과\]|\[실패\]/)
+  })
+})
+
 describe('logs / snapshot-update', () => {
   it('logs: 파일이 없으면 기동 안내, 있으면 마지막 줄과 --grep', () => {
     const root = repo({}, { withLab: false })

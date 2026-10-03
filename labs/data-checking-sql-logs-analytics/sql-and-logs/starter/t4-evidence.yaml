@@ -1,0 +1,5 @@
+# 문의: "주문 842 결제가 안 됩니다." 로그에서 증거를 찾아 채웁니다. (README 과제 t4 참고)
+request_id: ""         # 주문 842 의 실패한(5xx) 결제 요청의 request id (access.log 의 rid= / app.log 의 reqId)
+gateway_tx_id: ""      # 그 요청이 게이트웨이에 보낸 거래 ID (GW- 로 시작)
+attempts:              # 그 요청에서 게이트웨이를 호출한 시도 횟수
+error_code: ""         # 실패 원인 오류 코드 (app.log 의 err.code)

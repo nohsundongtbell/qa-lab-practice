@@ -1,0 +1,5 @@
+# 모범 답안: access.log 에서 주문 842 의 5xx 결제 요청의 rid 를 찾고, app.log 에서 그 reqId 로 추적
+request_id: "649bb766-9e4b-4700-b09e-f7a8196e825b"
+gateway_tx_id: "GW-318C97"
+attempts: 3
+error_code: "ETIMEDOUT"

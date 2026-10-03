@@ -5,6 +5,8 @@ describe('checkEnv', () => {
   it('QA_LAB_* 환경 변수를 읽고 기본값을 채운다', () => {
     expect(checkEnv({ QA_LAB_BASE_URL: 'http://x', QA_LAB_WORK_DIR: '/w', QA_LAB_TASK_ID: 't2' })).toMatchObject({ baseUrl: 'http://x', workDir: '/w', taskId: 't2', target: 'work' })
     expect(checkEnv({}).baseUrl).toBe('http://127.0.0.1:3000')
+    expect(checkEnv({ QA_LAB_DB_URL: 'postgres://x' }).dbUrl).toBe('postgres://x')
+    expect(checkEnv({}).dbUrl).toBe('')
   })
 })
 

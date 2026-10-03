@@ -84,6 +84,14 @@ npm run up
 | 2 | [재현되는 결함 리포트 쓰기와 결함 지표 계산](labs/defect-management/defect-reports/README.md) (`defect-management/defect-reports`) | beginner | 90분 |
 | 3 | [차터로 이끄는 탐색 세션과 결함 지도](labs/exploratory-testing/charter-sessions/README.md) (`exploratory-testing/charter-sessions`) | intermediate | 120분 |
 
+더 해 볼 랩입니다 (앱의 결함 프로필과 소요 시간은 `npm run lab -- <slug>`가 알려 줍니다).
+
+| 랩 | 다루는 것 | Docker |
+|---|---|---|
+| [`unit-integration-testing/cart-domain`](labs/unit-integration-testing/cart-domain/README.md) | 단위 테스트(AAA), 테스트 더블, 플래키 테스트 고치기 | 불필요 |
+| [`structural-testing-practice/coverage-and-mutation`](labs/structural-testing-practice/coverage-and-mutation/README.md) | 커버리지 리포트 읽기, 뮤테이션으로 약한 테스트 찾기 | 불필요 |
+| [`data-checking-sql-logs-analytics/sql-and-logs`](labs/data-checking-sql-logs-analytics/sql-and-logs/README.md) | SQL 정합성 쿼리, 로그 분석, 상관 ID | 필요 (DB) |
+
 공통
 
 ```bash

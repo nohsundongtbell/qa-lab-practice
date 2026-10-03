@@ -85,6 +85,14 @@ export function validateRepo(root, { syntaxCheck = true } = {}) {
         if (!fs.existsSync(path.join(lab.dir, dir))) add(lab.rel, `status 가 ${status} 인데 ${dir}/ 폴더가 없습니다.`)
       }
     }
+    if (typeof lab.data?.setup === 'string') {
+      const setupFile = path.join(lab.dir, lab.data.setup)
+      if (!fs.existsSync(setupFile)) add(where, `setup 파일이 없습니다: ${lab.data.setup}`)
+      else if (syntaxCheck && lab.data.setup.endsWith('.mjs')) {
+        const r = spawnSync(process.execPath, ['--check', setupFile], { encoding: 'utf8' })
+        if (r.status !== 0) add(`${lab.rel}/${lab.data.setup}`, `문법 오류: ${(r.stderr || '').split('\n').find((l) => l.trim()) ?? ''}`)
+      }
+    }
     for (const t of Array.isArray(lab.data?.tasks) ? lab.data.tasks : []) {
       const entries = checkFiles(t?.check)
       for (const { file } of entries ?? []) {

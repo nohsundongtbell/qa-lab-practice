@@ -3,7 +3,7 @@ import { findLesson, findModule, labIneligibleReason } from './snapshot.mjs'
 
 const TOP_LEVEL_KEYS = new Set([
   'module', 'lessons', 'also_for', 'title_ko', 'level', 'est_minutes', 'requires',
-  'platforms', 'notes', 'tools', 'sut_profile', 'tasks', 'status',
+  'platforms', 'notes', 'tools', 'sut_profile', 'tasks', 'status', 'setup',
 ])
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/
 
@@ -76,7 +76,7 @@ export function validateLabData(data, snapshot, where = {}) {
   if (!Number.isInteger(data.est_minutes) || data.est_minutes <= 0) err('est_minutes 는 1 이상의 정수(분)여야 합니다.')
   if (!isStringArray(data.requires) || data.requires.length === 0) err('requires 는 비어 있지 않은 문자열 목록이어야 합니다 (예: [docker, node24]).')
   if (!(data.status && STATUSES.includes(data.status))) err(`status 는 ${STATUSES.join(' | ')} 중 하나여야 합니다.`)
-  if (!PROFILES.includes(data.sut_profile)) err(`sut_profile 은 ${PROFILES.join(' | ')} 중 하나여야 합니다.`)
+  if (![...PROFILES, 'any'].includes(data.sut_profile)) err(`sut_profile 은 ${[...PROFILES, 'any'].join(' | ')} 중 하나여야 합니다 (any = 앱의 결함 프로필과 무관한 랩).`)
 
   if (!Array.isArray(data.platforms) || data.platforms.length === 0 || !data.platforms.every((p) => PLATFORMS.includes(p))) {
     err(`platforms 는 ${PLATFORMS.join(', ')} 중에서 고른 비어 있지 않은 목록이어야 합니다.`)
@@ -85,6 +85,7 @@ export function validateLabData(data, snapshot, where = {}) {
   }
   if (data.notes !== undefined && typeof data.notes !== 'string') err('notes 는 문자열이어야 합니다.')
   if (data.tools !== undefined && !isStringArray(data.tools)) err('tools 는 문자열 목록이어야 합니다.')
+  if (data.setup !== undefined && (!isNonEmptyString(data.setup) || !data.setup.endsWith('.mjs'))) err('setup 은 랩 폴더 기준 Node 스크립트 경로(.mjs)여야 합니다 (예: setup/seed.mjs).')
 
   if (!Array.isArray(data.tasks) || data.tasks.length === 0) err('tasks 는 비어 있지 않은 목록이어야 합니다.')
   else {

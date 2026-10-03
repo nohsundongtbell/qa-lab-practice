@@ -34,7 +34,8 @@ labs/<module-slug>/<lab-name>/
 | `platforms` | ✅ | `macos`, `windows`, `linux`. 일부만이면 `notes`에 사유·대안 필수 |
 | `notes` | | 문자열 |
 | `tools` | | 사용하는 도구 이름 (인덱스에 표시) |
-| `sut_profile` | ✅ | `none` \| `beginner` \| `intermediate` \| `advanced` |
+| `sut_profile` | ✅ | `none` \| `beginner` \| `intermediate` \| `advanced`. 앱의 결함 프로필과 무관한 랩(DB·파일만 쓰는 랩)은 `any` — 프로필 불일치 경고를 하지 않는다 |
+| `setup` | | 랩 폴더 기준 Node 스크립트(`setup/seed.mjs`). `npm run lab`·`npm run check` 가 실행하며 **여러 번 실행해도 안전(멱등)** 해야 한다. 환경 변수 `QA_LAB_DB_URL`(앱의 로컬 DB)·`QA_LAB_BASE_URL` 을 받는다 |
 | `tasks` | ✅ | 아래 |
 | `status` | ✅ | `planned`(준비 중, 링크 없음) \| `beta` \| `ready`. `planned`가 아니면 `starter/`, `solution/`, `check/`가 있어야 한다 |
 
@@ -69,6 +70,7 @@ labs/<module-slug>/<lab-name>/
 | 변수 | 값 |
 |---|---|
 | `QA_LAB_BASE_URL` | 대상 앱 API 주소 (예 `http://127.0.0.1:3000`) |
+| `QA_LAB_DB_URL` | 대상 앱의 로컬 DB 주소 (`postgres://shop:shop@127.0.0.1:<DB_PORT>/shop`, 127.0.0.1 전용) |
 | `QA_LAB_WORK_DIR` | 채점할 폴더. 기본은 `work/`, `--from starter\|solution`이면 그 폴더 |
 | `QA_LAB_LAB_DIR` | 랩 폴더 |
 | `QA_LAB_REPO_ROOT` | 저장소 루트 |

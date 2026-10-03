@@ -4,7 +4,8 @@ import { discoverLabs, resolveLabs, workDir } from '../lib/labs.mjs'
 import { paths } from '../lib/paths.mjs'
 import { readEnvFile } from '../lib/env.mjs'
 import { runCheck } from '../lib/runner.mjs'
-import { baseUrlFrom, probeSut } from '../lib/sut.mjs'
+import { runSetup } from '../lib/setup-runner.mjs'
+import { baseUrlFrom, dbUrlFrom, probeSut } from '../lib/sut.mjs'
 
 const TARGETS = ['work', 'starter', 'solution']
 
@@ -38,11 +39,19 @@ export async function run(argv) {
   if (d.requires.includes('docker')) {
     const sut = await probeSut(baseUrl)
     if (!sut) {
-      console.error(`대상 앱에 연결할 수 없습니다 (${baseUrl}).\n먼저 \`npm run up -- --profile ${d.sut_profile}\` 로 기동하세요.`)
+      console.error(`대상 앱에 연결할 수 없습니다 (${baseUrl}).\n먼저 \`${d.sut_profile === 'any' ? 'npm run up' : `npm run up -- --profile ${d.sut_profile}`}\` 로 기동하세요.`)
       return 1
     }
-    if (sut.profile && sut.profile !== d.sut_profile) {
+    if (d.sut_profile !== 'any' && sut.profile && sut.profile !== d.sut_profile) {
       console.log(`[주의] 이 랩은 결함 프로필 "${d.sut_profile}" 을(를) 가정하는데, 지금 앱은 "${sut.profile}" 로 실행 중입니다.\n       채점은 그대로 진행되지만, 직접 확인할 때 결과가 README 와 다를 수 있습니다.\n       \`npm run up -- --profile ${d.sut_profile}\` 로 맞추세요.\n`)
+    }
+  }
+
+  if (d.setup) {
+    const s = runSetup({ lab, workDir: work, baseUrl, repoRoot: p.root, env: readEnvFile(p.env) })
+    if (!s.ok) {
+      console.error('이 랩의 준비 작업(setup)에 실패했습니다. 대상 앱이 실행 중인지 확인하세요.')
+      return 1
     }
   }
 
@@ -55,7 +64,7 @@ export async function run(argv) {
   let passed = 0
   for (const task of tasks) {
     console.log(`\n=== ${task.id}: ${task.goal} ===`)
-    const r = runCheck({ lab, task, workDir: work, target, baseUrl, repoRoot: p.root })
+    const r = runCheck({ lab, task, workDir: work, target, baseUrl, repoRoot: p.root, dbUrl: dbUrlFrom(readEnvFile(p.env)) })
     if (r.error) console.error(`채점 스크립트를 실행하지 못했습니다: ${r.error.message}`)
     if (r.passed) passed++
   }

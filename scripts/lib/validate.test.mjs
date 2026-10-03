@@ -92,6 +92,13 @@ describe('validateRepo — 임시 저장소', () => {
       expect(validateRepo(root).errors.filter((e) => /폴더가 없습니다/.test(e.message))).toEqual([])
     })
 
+    it('setup 파일이 없거나 문법이 틀리면 실패', () => {
+      const yaml = validLabYaml + 'setup: setup/seed.mjs\n'
+      expect(messages(repo({ [lab('lab.yaml')]: yaml }, { withLab: true }))).toMatch(/setup 파일이 없습니다: setup\/seed\.mjs/)
+      expect(messages(repo({ [lab('lab.yaml')]: yaml, [lab('setup/seed.mjs')]: 'const = ;\n' }, { withLab: true }))).toMatch(/setup\/seed\.mjs: 문법 오류/)
+      expect(validateRepo(repo({ [lab('lab.yaml')]: yaml, [lab('setup/seed.mjs')]: 'process.exit(0)\n' }, { withLab: true })).errors).toEqual([])
+    })
+
     it('.sh 만 있고 .ps1 이 없으면 실패 (두 OS 쌍 규칙)', () => {
       const yaml = validLabYaml.replace('check: check/t1.mjs', 'check: { unix: check/t1.sh, windows: check/t1.ps1 }')
       const m = messages(repo({ [lab('lab.yaml')]: yaml, [lab('check/t1.sh')]: 'exit 0\n', [lab('check/t1.mjs')]: null }, { withLab: true }))

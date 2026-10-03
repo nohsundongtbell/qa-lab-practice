@@ -74,6 +74,8 @@ status: planned|beta|ready
 - `pass` 기준 키: `min_defects`(서로 다른 결함 수), `max_cases`(케이스 상한, 무작위 대입 방지), `beyond_profile`(그 프로필에 없는 결함만 셈). 채점기는 `lab.yaml` 에서 읽는다.
 - 무효 케이스(결함 없는 버전에서도 기대와 다름)는 **실제 값을 숨기고** 사양서 절을 힌트로 준다. 지표 오답도 정답 값을 출력하지 않는다. 결함 ID 는 보여 줘도 되지만 카탈로그 내용은 출력하지 않는다.
 - **뮤턴트 기반 채점**(단위·구조 테스트 랩): `scripts/lib/vitest-runner.mjs` 로 학습자 테스트를 `<랩>/.runs/`(git 무시)에서 정상 구현(`check/ref/src`)과 뮤턴트에 대해 실행한다. 뮤턴트는 `check/mutants.mjs` 에 `{ id, file, where, from, to }` 로 정의하고, 학습자에게는 id·파일·함수만 보여 준다(무엇을 바꿨는지는 답). 뮤턴트 처치 수는 `pass.min_killed`, 커버리지는 `min_line_pct`·`min_branch_pct`. **Stryker 는 Vitest 5.0.3 과 호환되지 않아 쓰지 않는다**(`docs/PLATFORM_SUPPORT.md`).
+- **DB·로그 랩**(`data-checking-sql-logs-analytics/sql-and-logs`): 앱의 Postgres 에 **별도 스키마 `qa_lab_data`** 를 만들어 이상치를 심은 결정적 데이터(`setup/dataset.mjs`)를 넣는다(`setup/seed.mjs`, 멱등). 학습자·채점기는 읽기 전용 계정 `qa_reader`(SELECT 권한만, 앱의 public 스키마는 접근 불가)로 접속한다. 진짜 방어선은 **권한**이다(세션의 read-only 설정은 SET 으로 끌 수 있다). 채점기는 SQL 한 문장(SELECT/WITH)만 읽기 전용 트랜잭션 안에서 실행한다. 정답은 심은 값이 아니라 데이터에서 **독립적으로 다시 계산한 값**과 대조하는 테스트로 검증한다(로그도 `check/log-analysis.mjs` 가 텍스트를 파싱해 정답을 계산, 파이썬으로 교차 검증).
+- `lab.yaml` 의 `setup`(랩 폴더 기준 .mjs, **멱등**)은 `npm run lab` 과 `npm run check` 가 실행하고 `QA_LAB_DB_URL`·`QA_LAB_BASE_URL` 을 받는다. `sut_profile: any` 는 앱의 결함 프로필과 무관한 랩(프로필 불일치 경고 없음).
 - 새 랩은 `docs/CONTRIBUTING_LABS.md` 와 기준 샘플 랩 3개(`test-design/shop-rules`, `defect-management/defect-reports`, `exploratory-testing/charter-sessions`)를 따른다.
 - 정답(`solution/`)으로는 check가 통과하고 `starter/`로는 실패해야 한다(CI 검증).
 - 1차 랩별 도구: test-design(케이스 표), defect-management, exploratory-testing, unit-integration(Vitest), structural(Istanbul/Stryker), data(psql·로그), api-contract(**Newman**·OpenAPI·Pact), api-testing-tools(Swagger UI·mitmproxy·pcap), ui-automation(Playwright), ui-automation-tools(**Selenium**), ci-cd(GitHub Actions), performance(**Locust**, docker), security(**SonarQube + 스캐너 리포트 분류**).
@@ -97,7 +99,7 @@ status: planned|beta|ready
 2. SUT 골격 + 결함 주입 + compose 동작 확인 [Opus] — 완료
 3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet] — 완료
 4. 랩 1~3 `ready` [Opus] — 완료, `docs/CONTRIBUTING_LABS.md` 작성 완료 → **사용자 직접 풀이·피드백 대기** (피드백 반영 후 단계 5)
-5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus)
+5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6 완료, 진행 중
 6. CI·인덱스 배포 [Sonnet]
 7. QA-Lab 연동 제안서 [Sonnet]
 
