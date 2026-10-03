@@ -56,6 +56,8 @@ labs/<module-slug>/<lab-name>/
 | `min_defects` | 귀속된 **서로 다른** 결함 ID 수의 최소값 |
 | `max_cases` | 제출 케이스 수 상한 (무작위 대입이 아니라 기법으로 설계하도록) |
 | `min_killed` | 처치한 **뮤턴트**(일부러 고장 낸 구현) 수의 최소값 — 단위·구조 테스트 랩 |
+| `min_operations` | API 랩: 학습자 테스트가 실제로 호출한 OpenAPI **오퍼레이션**(메서드+경로) 수의 최소값 |
+| `min_statuses` | API 랩: 호출해서 **문서화된 상태 코드**를 실제로 받아 본 (오퍼레이션, 상태 코드) 쌍의 최소값 |
 | `min_line_pct`, `min_branch_pct` | 대상 파일 **각각**의 줄·분기 커버리지 최소값(%) |
 | `beyond_profile` | 이 프로필에 **없는** 결함만 `min_defects`로 센다 (예: `beginner` → 더 깊은 결함을 찾았는지) |
 

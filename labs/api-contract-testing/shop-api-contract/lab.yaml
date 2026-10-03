@@ -1,0 +1,24 @@
+module: api-contract-testing
+lessons: [why-api-testing, getting-started-with-postman, contract-testing-with-openapi, api-test-coverage]
+title_ko: QA 숍 API의 계약을 컬렉션과 명세로 점검하기
+level: intermediate
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+notes: ""
+tools: [newman, openapi]
+sut_profile: advanced
+tasks:
+  - id: t1
+    goal: Postman 컬렉션에 응답 본문(필드·타입·열거값·오류 형식)을 검증하는 테스트를 작성해 계약 위반 결함을 찾는다
+    check: check/t1.mjs
+    pass: { min_defects: 4 }
+  - id: t2
+    goal: OpenAPI 명세와 응답을 자동으로 대조하는 코드 기반 계약 테스트를 작성한다
+    check: check/t2.mjs
+    pass: { min_defects: 4 }
+  - id: t3
+    goal: 컬렉션이 명세의 오퍼레이션과 문서화된 상태 코드를 얼마나 덮는지 측정하고 빈틈을 채운다
+    check: check/t3.mjs
+    pass: { min_operations: 19, min_statuses: 50 }
+status: ready

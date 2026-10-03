@@ -91,6 +91,7 @@ npm run up
 | [`unit-integration-testing/cart-domain`](labs/unit-integration-testing/cart-domain/README.md) | 단위 테스트(AAA), 테스트 더블, 플래키 테스트 고치기 | 불필요 |
 | [`structural-testing-practice/coverage-and-mutation`](labs/structural-testing-practice/coverage-and-mutation/README.md) | 커버리지 리포트 읽기, 뮤테이션으로 약한 테스트 찾기 | 불필요 |
 | [`data-checking-sql-logs-analytics/sql-and-logs`](labs/data-checking-sql-logs-analytics/sql-and-logs/README.md) | SQL 정합성 쿼리, 로그 분석, 상관 ID | 필요 (DB) |
+| [`api-contract-testing/shop-api-contract`](labs/api-contract-testing/shop-api-contract/README.md) | Postman 컬렉션(Newman)과 OpenAPI 대조로 API 계약 위반 찾기, 오퍼레이션·상태 코드 커버리지 | 필요 (앱) |
 
 공통
 

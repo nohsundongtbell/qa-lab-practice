@@ -33,6 +33,11 @@ export function formatCaseResult(r) {
   return `  ${tag} ${r.label}`
 }
 
+/** 통과 기준에 셈하는 결함. beyond_profile 이면 그 프로필에 이미 있는 결함은 뺀다. */
+export function countedDefects(detected, pass, repoRoot) {
+  return pass.beyond_profile ? [...detected].filter((id) => !profileDefects(repoRoot, pass.beyond_profile).includes(id)) : [...detected]
+}
+
 /**
  * 통과 판정.
  * - 무효·오류 케이스가 없어야 한다 (기대값이 사양과 다른 테스트는 나쁜 테스트다)
@@ -41,7 +46,7 @@ export function formatCaseResult(r) {
  */
 export function evaluatePass({ results, detected }, pass, { repoRoot, noun = '케이스' } = {}) {
   const reasons = []
-  const counted = pass.beyond_profile ? [...detected].filter((id) => !profileDefects(repoRoot, pass.beyond_profile).includes(id)) : [...detected]
+  const counted = countedDefects(detected, pass, repoRoot)
   const invalid = results.filter((r) => r.status === 'invalid').length
   const errors = results.filter((r) => r.status === 'error').length
   if (results.length === 0) reasons.push(`제출한 ${noun}가 없습니다`)

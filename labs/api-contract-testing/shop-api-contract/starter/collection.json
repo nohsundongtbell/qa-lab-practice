@@ -1,0 +1,32 @@
+{
+  "info": {
+    "name": "QA 숍 API 계약 점검",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:3000" }
+  ],
+  "item": [
+    {
+      "name": "상품 목록 (예시)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/products", "host": ["{{baseUrl}}"], "path": ["api", "products"] }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('상태 코드는 200', () => {",
+              "  pm.response.to.have.status(200)",
+              "})"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

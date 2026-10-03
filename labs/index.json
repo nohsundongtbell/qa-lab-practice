@@ -8,6 +8,30 @@
   },
   "labs": [
     {
+      "id": "api-contract-testing/shop-api-contract",
+      "moduleSlug": "api-contract-testing",
+      "lessonSlugs": [
+        "why-api-testing",
+        "getting-started-with-postman",
+        "contract-testing-with-openapi",
+        "api-test-coverage"
+      ],
+      "title": "QA 숍 API의 계약을 컬렉션과 명세로 점검하기",
+      "path": "labs/api-contract-testing/shop-api-contract",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "newman",
+        "openapi"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "data-checking-sql-logs-analytics/sql-and-logs",
       "moduleSlug": "data-checking-sql-logs-analytics",
       "lessonSlugs": [
