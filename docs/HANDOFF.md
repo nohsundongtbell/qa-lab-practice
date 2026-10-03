@@ -126,7 +126,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 - SonarQube: `vm.max_map_count` 를 올려도 세션 디스크 한도 때문에 Elasticsearch 가 멈춰 검증 못 함.
 
 ## 8. 마지막으로 확인된 상태
-클라우드, Linux (2026-10-03, `feat/a11y-lab` 에 main(PR #1)을 합친 뒤): `npm run validate` 통과(랩 14개), `build-index --check` 최신(항목 16개), `npm test` 658 통과·6 건너뜀, API 타입 검사·단위 97·통합 105 통과. `test:labs` 결과는 PR #2 본문을 보세요.
+클라우드, Linux (2026-10-03, `feat/a11y-lab` 에 main(PR #1)을 합친 뒤): `npm run validate` 통과(랩 14개), `build-index --check` 최신(항목 16개), `npm test` 658 통과·6 건너뜀, API 타입 검사·단위 97·통합 105 통과. `npm run test:labs` 전체(앱 `advanced`, 새 이미지) 56개 통과 — 랩 14개 모두 solution 통과·starter 과제별 실패(접근성 랩, UI 랩 2개 포함).
 
 로컬 Windows 11 (2026-10-03): `npm run validate` 통과, `npm test` 600개 통과(앱 실행 중), API 단위 94 + 통합 81, `npm run test:labs` 전체 통과(Playwright t2 경합 수정 후). GitHub 러너: `validate`·`publish-index`·`codeql` 성공.
 
