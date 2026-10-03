@@ -1,0 +1,37 @@
+# main 에 푸시되면: 랩 인덱스(labs/index.json)가 검증을 통과하고 최신인지 확인하고, 산출물로 남긴다.
+# QA-Lab 동기화는 main 의 labs/index.json 을 읽는다 (docs/QA_LAB_INTEGRATION.md).
+name: publish-index
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publish-index-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: 검증 (잘못된 랩이 섞인 인덱스를 내보내지 않는다)
+        run: npm run validate
+      - name: 인덱스가 최신인지 (낡았으면 실패 — 로컬에서 npm run build-index 후 커밋)
+        run: npm run build-index -- --check
+      - name: 인덱스 보관
+        uses: actions/upload-artifact@v4
+        with:
+          name: labs-index
+          path: labs/index.json
+          retention-days: 30

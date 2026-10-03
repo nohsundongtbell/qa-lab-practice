@@ -18,7 +18,7 @@
 | S8 | SonarQube(선택)는 포트를 `127.0.0.1`에만 열고, 기본 계정 비밀번호를 첫 로그인에 바꾸게 안내한다. 토큰은 명령줄에만 쓰고 파일로 저장하지 않는다 | 로컬 도구라도 같은 네트워크의 다른 기기에 열리지 않게 | README 절차 (`TODO: verify` — 개발 환경에서 끝까지 실행하지 못함) |
 
 ## 2. 남은 위험과 대응
-- **저장소의 코드 스캐닝 경보**: GitHub 코드 스캐닝(CodeQL 등)을 켜면 `scan-target/`이 경보를 만든다. 의도된 샘플이므로 단계 6에서 CI 를 만들 때 이 경로를 분석 대상에서 빼는 설정(`paths-ignore`)을 둔다. `TODO: verify`
+- **저장소의 코드 스캐닝 경보**: GitHub 코드 스캐닝(CodeQL 등)을 켜면 `scan-target/`이 경보를 만든다. 의도된 샘플이므로 `.github/workflows/codeql.yml` + `.github/codeql/codeql-config.yml` 의 `paths-ignore` 로 제외한다(`scripts/ci/workflows.test.mjs` 가 제외 경로가 실제로 있는지 확인). 기본 설정(default setup)을 쓴다면 저장소 설정에서 같은 경로를 제외해야 한다(`docs/CI.md`). `TODO: verify` — 실제 GitHub 에서 확인하지 못했다
 - **학습자가 배운 방법을 허가 없이 쓰는 위험**: README 첫머리에 안전 수칙을 두고, t1 이 동의 항목 4개(내 환경만, 제3자 없음, 실제 데이터 없음, 애매하면 멈춤)를 명시적으로 `true`로 바꾸게 한다. 기술적으로 막을 수는 없으므로 교육으로 대응한다.
 - **샘플 코드를 실제 서비스에 복사하는 위험**: `scan-target/README.md`와 모든 파일 첫 줄에 "분석용 샘플 — 실행하지 않음"을 적었다.
 

@@ -29,7 +29,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 
 ## GitHub Actions 러너 제약
 - GitHub-hosted Windows 러너는 Linux 컨테이너를 실행할 수 없고, macOS(arm64) 러너에는 Docker가 없는 것으로 알고 있다. `TODO: verify` — 공식 문서 확인 필요(작성 환경에서 docs.github.com 접근 불가).
-- 그래서 Docker 기반 통합 검증은 Ubuntu 러너에서만 하고, macOS·Windows 러너에서는 Docker 없이 되는 검사(validate, 채점기 단위 테스트, fixture 기반 starter/solution 검증)만 한다(단계 6).
+- 그래서 Docker 기반 통합 검증은 Ubuntu 러너에서만 하고(`lab-ci`, `nightly`, `validate` 의 `api` 잡), macOS·Windows 러너에서는 Docker 없이 되는 검사(`validate`: 규칙 검사, 인덱스 최신 여부, 채점기 단위 테스트)만 한다. 구성은 `docs/CI.md`.
 
 ## Windows 수동 확인 체크리스트
 아래 항목은 CI로 검증할 수 없다. Windows 사용자가 확인하면 날짜와 환경을 적고 `TODO`를 지운다.

@@ -1,0 +1,32 @@
+# 코드 스캐닝(CodeQL). 보안 랩의 분석용 샘플 코드는 일부러 취약하게 만든 것이므로 제외한다 (.github/codeql/codeql-config.yml).
+# 저장소 설정의 "기본 설정(default setup)"을 켜 두었다면 이 워크플로와 충돌하니 하나만 쓰세요. docs/CI.md 참고.
+name: codeql
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '41 19 * * 3'
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          config-file: ./.github/codeql/codeql-config.yml
+      - uses: github/codeql-action/analyze@v3

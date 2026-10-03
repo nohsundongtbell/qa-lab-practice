@@ -14,7 +14,14 @@ import { baseUrlFrom, probeSut } from './lib/sut.mjs'
 
 const p = paths()
 const sut = await probeSut(baseUrlFrom(readEnvFile(p.env)))
-const labs = discoverLabs(p.labsDir).filter((l) => l.data && ['ready', 'beta'].includes(l.data.status))
+// CI 는 QA_LAB_E2E_ONLY=<모듈>/<랩> (쉼표로 여러 개)로 한 랩만 검증한다. 로컬에서 특정 랩을 건너뛰려면 QA_LAB_E2E_SKIP.
+const list = (name) => (process.env[name] ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const only = list('QA_LAB_E2E_ONLY')
+const skip = list('QA_LAB_E2E_SKIP')
+const labs = discoverLabs(p.labsDir)
+  .filter((l) => l.data && ['ready', 'beta'].includes(l.data.status))
+  .filter((l) => only.length === 0 || only.includes(`${l.moduleDir}/${l.labSlug}`))
+  .filter((l) => !skip.includes(`${l.moduleDir}/${l.labSlug}`))
 const cli = path.join(p.root, 'scripts', 'cli.mjs')
 const check = (slug, args) => spawnSync(process.execPath, [cli, 'check', slug, ...args], { encoding: 'utf8', cwd: p.root })
 

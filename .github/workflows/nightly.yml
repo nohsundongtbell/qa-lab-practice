@@ -1,0 +1,41 @@
+# 매일: validate(3개 OS) 전체 + 모든 랩 E2E. PR 에서 놓친 환경 의존 문제와 낡은 이미지·의존성 문제를 잡는다.
+name: nightly
+
+on:
+  schedule:
+    - cron: '17 18 * * *' # 한국 시간 03:17
+  workflow_dispatch:
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+
+  labs:
+    name: 모든 랩 E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: 대상 앱 기동 (모든 결함 프로필)
+        run: npm run up -- --profile advanced
+      - name: 모든 랩 — starter 는 과제마다 실패, solution 은 통과
+        run: npm run test:labs
+      - name: 앱 로그 (실패했을 때)
+        if: failure()
+        run: npm run logs -- --lines 300
+      - name: 정리
+        if: always()
+        run: npm run down

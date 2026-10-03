@@ -1,0 +1,4 @@
+name: qa-lab-practice codeql
+# 분석용 샘플 코드(일부러 취약, 실행되지 않음)는 제외한다. 이유: docs/SECURITY_LAB_SAFETY.md
+paths-ignore:
+  - labs/security-testing-tools/scanner-triage/starter/scan-target

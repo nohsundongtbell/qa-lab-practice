@@ -1,0 +1,78 @@
+# PR 에서 바뀐 랩만: 앱을 띄우고 starter 는 과제마다 실패, solution 은 통과하는지 확인한다.
+# 앱·결함·공통 스크립트가 바뀌면 모든 랩을 확인한다 (scripts/ci/select-labs.mjs).
+name: lab-ci
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      all:
+        description: '모든 랩을 확인'
+        type: boolean
+        default: false
+
+concurrency:
+  group: lab-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  select:
+    name: 확인할 랩 고르기
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+      any: ${{ steps.pick.outputs.any }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - id: pick
+        name: 바뀐 파일로 랩 고르기
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            node scripts/ci/select-labs-cli.mjs --all
+          else
+            node scripts/ci/select-labs-cli.mjs --base "origin/${{ github.base_ref || 'main' }}"
+          fi
+
+  lab:
+    name: ${{ matrix.slug }}
+    needs: select
+    if: needs.select.outputs.any == 'true'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Playwright 브라우저
+        if: matrix.playwright
+        run: npx playwright install --with-deps chromium
+      - name: 대상 앱 기동 (모든 결함 프로필)
+        if: matrix.docker
+        run: npm run up -- --profile advanced
+      - name: starter 는 과제마다 실패, solution 은 통과
+        run: npm run test:labs
+        env:
+          QA_LAB_E2E_ONLY: ${{ matrix.slug }}
+      - name: 앱 로그 (실패했을 때)
+        if: failure() && matrix.docker
+        run: npm run logs -- --lines 200
+      - name: 정리
+        if: always() && matrix.docker
+        run: npm run down

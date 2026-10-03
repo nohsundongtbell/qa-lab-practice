@@ -100,7 +100,7 @@ status: planned|beta|ready
 ## 8. 품질 기준
 - 의존성 버전 고정(lockfile, 이미지 태그). 라이선스: 코드 MIT, 문서 CC BY 4.0.
 - 스크립트·채점기·SUT 도메인 로직에는 단위 테스트를 둔다(테스트 교육 저장소의 모범).
-- CI: `validate`(3 OS), `lab-ci`(ubuntu, up → starter 실패 → solution 통과), `nightly`(전체 + 결함 독립성), `publish-index`.
+- CI: `validate`(3 OS + api 잡), `lab-ci`(바뀐 랩만, up → starter 실패 → solution 통과, `QA_LAB_E2E_ONLY`), `nightly`(전체), `publish-index`, `codeql`(`scan-target/` 제외). 우리 워크플로도 랩 9 의 규칙을 지킨다(`scripts/ci/workflows.test.mjs`). 상세는 `docs/CI.md`.
 
 ## 9. 진행 단계와 권장 모델
 1. 사전 작업·PLAN [Opus] — 완료
@@ -108,7 +108,7 @@ status: planned|beta|ready
 3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet] — 완료
 4. 랩 1~3 `ready` [Opus] — 완료, `docs/CONTRIBUTING_LABS.md` 작성 완료 → **사용자 직접 풀이·피드백 대기** (피드백 반영 후 단계 5)
 5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6·7a·7b·8a·8b·9·10·11 완료(보안 랩 안전 검수 완료: `docs/SECURITY_LAB_SAFETY.md`), advanced 카탈로그(DF-013~019) 검수 완료, **단계 5 완료**
-6. CI·인덱스 배포 [Sonnet]
+6. CI·인덱스 배포 [Sonnet] — 완료(`.github/workflows/`, `docs/CI.md`; 실제 GitHub 러너 실행은 미검증 `TODO: verify`)
 7. QA-Lab 연동 제안서 [Sonnet]
 
 권장 모델이 바뀌는 지점에서 멈추고 다음 문구로 알린다:

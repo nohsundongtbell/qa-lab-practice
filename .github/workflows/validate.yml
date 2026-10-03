@@ -1,0 +1,61 @@
+# 모든 PR 에서: 저장소 규칙 검사 + 단위 테스트(3개 OS) + API 단위·통합 테스트(ubuntu).
+# nightly 가 workflow_call 로 다시 부른다.
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+
+concurrency:
+  group: validate-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: validate (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: 저장소 규칙 검사 (스키마, 스냅샷 slug, README 규칙, 정답표 링크 금지, 파일 이름·줄바꿈 …)
+        run: npm run validate
+      - name: labs/index.json 이 최신인지
+        run: npm run build-index -- --check
+      - name: 단위 테스트 (스크립트·채점기·랩 도구)
+        run: npm test
+
+  api:
+    name: api (단위·통합, 결함 독립성)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/shop/api/package-lock.json
+      - run: npm --prefix apps/shop/api ci
+      - run: npm --prefix apps/shop/api run typecheck
+      - run: npm --prefix apps/shop/api test
+      - name: DB 기동
+        run: docker compose up -d --wait db
+      - name: 통합 테스트 (결함마다 단독 재현·독립성 포함, DB 를 초기화함)
+        run: npm --prefix apps/shop/api run test:integration
+      - name: 정리
+        if: always()
+        run: docker compose down -v
