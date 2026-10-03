@@ -107,11 +107,12 @@ export function validateLabData(data, snapshot, where = {}) {
       if (t.pass !== undefined) {
         if (!t.pass || typeof t.pass !== 'object' || Array.isArray(t.pass)) err(`${label}.pass 는 객체여야 합니다.`)
         else {
-          const { min_defects: minD, max_cases: maxC, beyond_profile: beyond, ...rest } = t.pass
+          const { min_defects: minD, max_cases: maxC, beyond_profile: beyond, min_killed: minK, ...rest } = t.pass
           if (minD !== undefined && (!Number.isInteger(minD) || minD < 0)) err(`${label}.pass.min_defects 는 0 이상의 정수여야 합니다.`)
           if (maxC !== undefined && (!Number.isInteger(maxC) || maxC < 1)) err(`${label}.pass.max_cases 는 1 이상의 정수여야 합니다.`)
+          if (minK !== undefined && (!Number.isInteger(minK) || minK < 0)) err(`${label}.pass.min_killed 는 0 이상의 정수여야 합니다.`)
           if (beyond !== undefined && !PROFILES.includes(beyond)) err(`${label}.pass.beyond_profile 은 ${PROFILES.join(' | ')} 중 하나여야 합니다.`)
-          for (const key of Object.keys(rest)) err(`${label}.pass: 알 수 없는 기준입니다: ${key} (min_defects, max_cases, beyond_profile)`)
+          for (const key of Object.keys(rest)) err(`${label}.pass: 알 수 없는 기준입니다: ${key} (min_defects, max_cases, beyond_profile, min_killed)`)
         }
       }
       for (const key of Object.keys(t)) {

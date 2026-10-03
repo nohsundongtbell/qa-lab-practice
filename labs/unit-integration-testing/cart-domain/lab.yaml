@@ -1,0 +1,23 @@
+module: unit-integration-testing
+lessons: [what-is-unit-testing, mocks-stubs-spies, handling-nondeterminism, coverage-report-pitfalls]
+title_ko: 장바구니 도메인으로 단위·통합 테스트 쓰기
+level: intermediate
+est_minutes: 100
+requires: [node24]
+platforms: [macos, windows, linux]
+tools: [vitest]
+sut_profile: none
+tasks:
+  - id: t1
+    goal: AAA 구조의 단위 테스트로 배송비·등급 규칙의 경계와 잘못된 입력을 검증한다
+    check: check/t1.mjs
+    pass: { min_killed: 6 }
+  - id: t2
+    goal: 스텁·스파이·목으로 외부 의존성을 대체해 결제 흐름(승인·거절·빈 장바구니)을 통합 테스트한다
+    check: check/t2.mjs
+    pass: { min_killed: 6 }
+  - id: t3
+    goal: 시계와 난수를 통제해 플래키 테스트를 결정적인 테스트로 고친다
+    check: check/t3.mjs
+    pass: { min_killed: 5 }
+status: ready

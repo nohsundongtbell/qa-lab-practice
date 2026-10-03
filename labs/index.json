@@ -96,6 +96,29 @@
         "windows",
         "linux"
       ]
+    },
+    {
+      "id": "unit-integration-testing/cart-domain",
+      "moduleSlug": "unit-integration-testing",
+      "lessonSlugs": [
+        "what-is-unit-testing",
+        "mocks-stubs-spies",
+        "handling-nondeterminism",
+        "coverage-report-pitfalls"
+      ],
+      "title": "장바구니 도메인으로 단위·통합 테스트 쓰기",
+      "path": "labs/unit-integration-testing/cart-domain",
+      "status": "ready",
+      "estimatedMinutes": 100,
+      "level": "중급",
+      "tools": [
+        "vitest"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
     }
   ]
 }

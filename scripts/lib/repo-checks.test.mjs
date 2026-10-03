@@ -3,7 +3,7 @@ import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, makeRepo, snapshotFixture } from '../test-support/fixtures.mjs'
 import {
-  checkDefects, checkFilenames, checkGitattributes, checkLineEndings, checkPackageScripts, checkShPs1Pairs,
+  checkDefects, checkFilenames, checkGitattributes, checkLineEndings, checkPackageScripts, checkRelativeLinks, checkShPs1Pairs,
   checkSpoilerLinks, walkFiles,
 } from './repo-checks.mjs'
 
@@ -141,5 +141,46 @@ describe('checkDefects', () => {
     delete f['src/x.ts']
     f['src/x.ts'] = null
     expect(run(f).join()).toMatch(/location 파일이 없습니다/)
+  })
+})
+
+describe('walkFiles', () => {
+  it('빌드 산출물·실행 폴더는 건너뛰고, 랩 안의 reports/ 같은 일반 폴더는 검사한다', () => {
+    const root = repo({
+      'node_modules/x/index.js': '',
+      'labs/m/l/.runs/a/b.mjs': '',
+      'labs/m/l/work/a.txt': '',
+      'labs/m/l/starter/reports/_TEMPLATE.md': '',
+    })
+    expect(walkFiles(root)).toEqual(['.gitattributes', 'data/qa-lab-modules.snapshot.json', 'labs/m/l/starter/reports/_TEMPLATE.md'])
+  })
+})
+
+describe('checkRelativeLinks', () => {
+  const run = (files) => {
+    const root = repo(files)
+    return checkRelativeLinks(root, walkFiles(root)).map((i) => `${i.file}: ${i.message}`)
+  }
+
+  it('없는 파일·폴더로 가는 상대 링크를 잡는다', () => {
+    const issues = run({ 'docs/a.md': '[없음](./nope.md) [있음](b.md) [폴더](../labs/) [앵커](#x)', 'docs/b.md': '', 'labs/.keep': '' })
+    expect(issues).toEqual(['docs/a.md: 깨진 상대 링크입니다: ./nope.md'])
+  })
+
+  it('외부 링크, 절대 경로, 앵커는 검사하지 않는다 (파일 뒤 #앵커·?쿼리는 떼고 본다)', () => {
+    expect(run({ 'a.md': '[x](https://qa-lab.pages.dev/a/) [y](mailto:a@b.c) [z](/root) [w](b.md#절) [v](b.md?x=1)', 'b.md': '' })).toEqual([])
+  })
+
+  it('코드 블록·코드 조각 안의 예시 링크는 무시하고, 링크 글자에 코드가 있는 진짜 링크는 검사한다', () => {
+    expect(run({ 'a.md': '```md\n[x](./no.md)\n```\n문법 예: ``[`a`](./no2.md)`` 와 `[b](./no3.md)`\n' })).toEqual([])
+    expect(run({ 'a.md': '[`slug`](./no.md)' })).toEqual(['a.md: 깨진 상대 링크입니다: ./no.md'])
+  })
+
+  it('templates/ 의 자리 표시자 링크는 검사하지 않는다', () => {
+    expect(run({ 'templates/T.md': '[x](../../<next>/README.md)' })).toEqual([])
+  })
+
+  it('경로에 한글이 퍼센트 인코딩되어 있어도 찾는다', () => {
+    expect(run({ 'a.md': '[x](docs/%ED%95%9C.md)', 'docs/한.md': '' })).toEqual([])
   })
 })

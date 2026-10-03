@@ -5,7 +5,7 @@ import { toPosix } from './paths.mjs'
 import { extractLinks } from './readme-check.mjs'
 import { findModule } from './snapshot.mjs'
 
-export const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'coverage', 'var', 'work', 'test-results', 'playwright-report', '.stryker-tmp', 'reports'])
+export const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'coverage', 'var', 'work', 'test-results', 'playwright-report', '.stryker-tmp', '.runs'])
 export const MAX_PATH_LENGTH = 120
 
 /** 저장소 안의 모든 파일(상대 경로, / 구분)을 돌려준다. 빌드 산출물 폴더는 건너뛴다. */
@@ -90,6 +90,24 @@ export function checkShPs1Pairs(relPaths) {
   for (const p of relPaths.filter((x) => /^labs\/.*\/check\/.*\.(sh|ps1)$/.test(x))) {
     const other = p.endsWith('.sh') ? p.replace(/\.sh$/, '.ps1') : p.replace(/\.ps1$/, '.sh')
     if (!set.has(other)) issues.push({ file: p, message: `쌍이 되는 파일이 없습니다: ${other}` })
+  }
+  return issues
+}
+
+/**
+ * 마크다운의 상대 경로 링크(./, ../, 폴더/파일)가 가리키는 파일·폴더가 실제로 있는지.
+ * templates/ 는 복사해 쓰는 뼈대라 자리 표시자 링크가 있으므로 검사하지 않는다.
+ */
+export function checkRelativeLinks(root, relPaths) {
+  const issues = []
+  for (const p of relPaths.filter((x) => x.endsWith('.md') && !x.startsWith('templates/'))) {
+    const text = fs.readFileSync(path.join(root, p), 'utf8').replace(/```[\s\S]*?```/g, '').replace(/``[^\n]*?``/g, '').replace(/`[^`\n]*`/g, '')
+    for (const url of extractLinks(text)) {
+      if (/^[a-z][a-z0-9+.-]*:/i.test(url) || url.startsWith('#') || url.startsWith('/')) continue
+      const target = decodeURIComponent(url.split('#')[0].split('?')[0])
+      if (!target) continue
+      if (!fs.existsSync(path.resolve(root, path.dirname(p), target))) issues.push({ file: p, message: `깨진 상대 링크입니다: ${url}` })
+    }
   }
   return issues
 }

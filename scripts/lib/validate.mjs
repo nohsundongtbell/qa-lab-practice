@@ -7,7 +7,7 @@ import { discoverLabs } from './labs.mjs'
 import { checkFiles, validateLabData } from './lab-schema.mjs'
 import { checkLabReadme, checkOsBlocks } from './readme-check.mjs'
 import {
-  checkDefects, checkFilenames, checkGitattributes, checkLineEndings, checkPackageScripts,
+  checkDefects, checkFilenames, checkGitattributes, checkLineEndings, checkPackageScripts, checkRelativeLinks,
   checkShPs1Pairs, checkSpoilerLinks, walkFiles,
 } from './repo-checks.mjs'
 
@@ -36,6 +36,7 @@ export function validateRepo(root, { syntaxCheck = true } = {}) {
   addAll(checkLineEndings(root, files))
   addAll(checkShPs1Pairs(files))
   addAll(checkSpoilerLinks(root, files))
+  addAll(checkRelativeLinks(root, files))
 
   // 2) 줄바꿈 정책, package.json 스크립트
   const gitattributes = path.join(root, '.gitattributes')

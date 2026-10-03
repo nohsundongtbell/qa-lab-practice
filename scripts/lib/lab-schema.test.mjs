@@ -103,6 +103,8 @@ describe('validateLabData', () => {
 
     it('pass 의 max_cases·beyond_profile 과 알 수 없는 기준', () => {
       expect(withChange((d) => (d.tasks[0].pass = { min_defects: 2, max_cases: 10, beyond_profile: 'beginner' }))).toEqual([])
+      expect(withChange((d) => (d.tasks[0].pass = { min_killed: 5 }))).toEqual([])
+      expect(withChange((d) => (d.tasks[0].pass = { min_killed: -1 })).join()).toMatch(/min_killed/)
       expect(withChange((d) => (d.tasks[0].pass = { max_cases: 0 })).join()).toMatch(/max_cases/)
       expect(withChange((d) => (d.tasks[0].pass = { beyond_profile: 'hard' })).join()).toMatch(/beyond_profile/)
       expect(withChange((d) => (d.tasks[0].pass = { min_defect: 1 })).join()).toMatch(/알 수 없는 기준입니다: min_defect/)
