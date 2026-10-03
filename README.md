@@ -180,7 +180,7 @@ labs/             랩 (labs/<QA-Lab 모듈 slug>/<랩 이름>/)
 templates/        랩 README·lab.yaml 템플릿
 scripts/          Node CLI(npm run 의 실체), 검증·인덱스 생성
 data/             QA-Lab 모듈 목록 스냅샷 (원본 아님)
-docs/             계획, 플랫폼 지원, 랩 작성 참조(LAB_SCHEMA.md)
+docs/             계획, 플랫폼 지원, CI, QA-Lab 연동 제안서, 랩 작성 참조(LAB_SCHEMA.md)
 ```
 
 ## 라이선스
