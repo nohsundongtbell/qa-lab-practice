@@ -61,7 +61,6 @@ Windows (PowerShell)
 ```powershell
 docker run --rm --network qa-lab-shop_default -e QA_LAB_DEFECTS=none --mount "type=bind,source=$PWD\labs\performance-testing-tools\locust-bottlenecks\work,target=/mnt/locust,readonly" locustio/locust:2.46.6 -f /mnt/locust/locustfile.py --headless -u 10 -r 10 -t 15s --host http://api:3000 --only-summary
 ```
-<!-- TODO: verify-windows — 바인드 마운트 경로 형식, 컴포즈 네트워크 이름(qa-lab-shop_default) -->
 
 - `-u 10 -r 10 -t 15s`: 동시 사용자 10명, 초당 10명씩 시작, 15초 실행.
 - 웹 화면으로 보고 싶다면 `--headless … --only-summary` 대신 `-p 127.0.0.1:8089:8089`를 `docker run`에 더하고 `--headless -u -r -t`를 빼면 http://127.0.0.1:8089 에서 시작·관찰할 수 있습니다(호스트 포트는 `127.0.0.1`에만 여세요).

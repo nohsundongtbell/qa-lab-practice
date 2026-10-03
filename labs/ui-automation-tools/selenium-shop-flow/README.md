@@ -30,7 +30,6 @@ npm run lab -- ui-automation-tools/selenium-shop-flow
 npm run up -- --profile none
 ```
 
-<!-- TODO: verify-windows — Chrome 설치 경로 탐색과 Selenium Manager 드라이버 다운로드 -->
 <!-- TODO: verify — macOS(Apple Silicon)에서 Selenium Manager 가 받는 chromedriver -->
 
 작업 폴더 `labs/ui-automation-tools/selenium-shop-flow/work/`에 다음이 복사됩니다.

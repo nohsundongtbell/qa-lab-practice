@@ -87,7 +87,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 - **모델 전환 규칙**: CLAUDE.md §9. Opus 는 되돌리기 비싼 결정(결함 카탈로그, 보안 안전 장치, 원인 불명 실패)에만. 전환 지점에서는 정해진 문구로 멈춥니다.
 
 ## 5. 남은 일 (우선순위 순)
-1. **Windows 확인** — 사용자가 로컬 Windows 에서 해 달라고 요청. 목록: [`docs/PLATFORM_SUPPORT.md`](PLATFORM_SUPPORT.md)의 "Windows 수동 확인 체크리스트"(공통 10 + 랩별 10). 진행 방식:
+1. **Windows 확인** — 사용자가 로컬 Windows 에서 해 달라고 요청. **2026-10-03 로컬 Windows 에서 대부분 확인 완료** — 결과와 남은 항목(GUI·사람 확인, 리포트 원본 파일 커밋)은 PLATFORM_SUPPORT.md 체크리스트와 "알려진 사항". 목록: [`docs/PLATFORM_SUPPORT.md`](PLATFORM_SUPPORT.md)의 "Windows 수동 확인 체크리스트"(공통 10 + 랩별 10). 진행 방식:
    1. §0 의 기본 명령을 PowerShell 5.1 에서 실행(한국어 출력 깨짐, LF 체크아웃 확인).
    2. Docker Desktop 실행 후 `npm run up -- --profile advanced`, `npm run logs -- --follow`.
    3. `npm run test:labs`(전체, 수십 분). 막히면 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs` 로 랩 하나씩.

@@ -127,7 +127,6 @@ Windows (PowerShell)
 (Get-Content labs/data-checking-sql-logs-analytics/sql-and-logs/work/data/access.log | Measure-Object -Line).Lines
 Select-String -Path labs/data-checking-sql-logs-analytics/sql-and-logs/work/data/access.log -Pattern '" 5\d\d ' | Select-Object -First 10
 ```
-<!-- TODO: verify-windows -->
 
 채점: `npm run check -- data-checking-sql-logs-analytics/sql-and-logs --task t3`
 
@@ -156,7 +155,6 @@ Windows (PowerShell) — 추가 설치 없이 `ConvertFrom-Json`을 씁니다.
 Select-String -Path labs/data-checking-sql-logs-analytics/sql-and-logs/work/data/access.log -Pattern '/api/orders/842/pay'
 Get-Content labs/data-checking-sql-logs-analytics/sql-and-logs/work/data/app.log | ForEach-Object { $_ | ConvertFrom-Json } | Where-Object { $_.reqId -eq '여기에-요청-ID' }
 ```
-<!-- TODO: verify-windows -->
 
 채점: `npm run check -- data-checking-sql-logs-analytics/sql-and-logs --task t4`
 

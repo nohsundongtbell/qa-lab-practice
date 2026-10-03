@@ -13,19 +13,19 @@
 
 랩용 도구 이미지(Locust, SonarQube 등)는 해당 랩을 만들 때 추가한다. `TODO: verify`
 
-호스트에 설치하는 도구: Newman·Ajv·Vitest·openapi-to-postmanv2·Playwright(`@playwright/test`)·selenium-webdriver 는 npm 의존성(`npm ci`)이다. Playwright 브라우저는 학습자가 `npx playwright install chromium` 으로, Selenium 은 Chrome 설치 + Selenium Manager 의 chromedriver 자동 다운로드(`TODO: verify-windows`, `TODO: verify` macOS)에 기댄다. Wireshark(`tshark`)는 랩 `api-testing-tools/swagger-and-traffic` t4 에서 학습자가 직접 설치한다(Windows 설치는 `TODO: verify-windows`).
+호스트에 설치하는 도구: Newman·Ajv·Vitest·openapi-to-postmanv2·Playwright(`@playwright/test`)·selenium-webdriver 는 npm 의존성(`npm ci`)이다. Playwright 브라우저는 학습자가 `npx playwright install chromium` 으로, Selenium 은 Chrome 설치 + Selenium Manager 의 chromedriver 자동 다운로드(Windows 확인 2026-10-03, `TODO: verify` macOS)에 기댄다. Wireshark(`tshark`)는 랩 `api-testing-tools/swagger-and-traffic` t4 에서 학습자가 직접 설치한다(Windows 설치는 `TODO: verify-windows`).
 mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기는 진입점을 `mitmdump` 로 바꾸고 `--user 1000:1000 --cap-drop ALL` 로 실행한다. (기본 진입점 + `--cap-drop ALL` 은 `usermod`/`gosu` 에서 실패한다.)
 
 ## 검증 현황
 | 항목 | Linux | macOS | Windows |
 |---|---|---|---|
-| `docker compose up -d --wait` → 웹·API·DB 기동 | ✅ (개발 환경, x86_64) | `TODO: verify` (Apple Silicon) | `TODO: verify-windows` |
-| `docker compose down -v` 초기화 | ✅ | `TODO: verify` | `TODO: verify-windows` |
-| 로그 파일 bind mount(`./var/logs`) 쓰기 | ✅ | `TODO: verify` | `TODO: verify-windows` |
-| API 단위·통합 테스트 | ✅ | `TODO: verify` | `TODO: verify-windows` |
-| `npm test` (CLI·검증기·채점 도구 테스트 145개) | ✅ | `TODO: verify` | `TODO: verify-windows` |
-| `npm run doctor` / `up` / `reset` / `down` / `logs` | ✅ | `TODO: verify` | `TODO: verify-windows` |
-| `npm run validate` | ✅ | `TODO: verify` | `TODO: verify-windows` |
+| `docker compose up -d --wait` → 웹·API·DB 기동 | ✅ (개발 환경, x86_64) | `TODO: verify` (Apple Silicon) | ✅ (2026-10-03) |
+| `docker compose down -v` 초기화 | ✅ | `TODO: verify` | ✅ (2026-10-03) |
+| 로그 파일 bind mount(`./var/logs`) 쓰기 | ✅ | `TODO: verify` | ✅ (2026-10-03) |
+| API 단위·통합 테스트 | ✅ | `TODO: verify` | ✅ (2026-10-03) (단위 94 · 통합 81) |
+| `npm test` (CLI·검증기·채점 도구 테스트) | ✅ | `TODO: verify` | ✅ (2026-10-03) (결함 리포트 랩 파일 누락 1건 제외, 아래 "알려진 사항") |
+| `npm run doctor` / `up` / `reset` / `down` / `logs` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
+| `npm run validate` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 
 ## GitHub Actions 러너 제약
 - GitHub-hosted Windows 러너는 Linux 컨테이너를 실행할 수 없고, macOS(arm64) 러너에는 Docker가 없는 것으로 알고 있다. `TODO: verify` — 공식 문서 확인 필요(작성 환경에서 docs.github.com 접근 불가).
@@ -34,30 +34,34 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 ## Windows 수동 확인 체크리스트
 아래 항목은 CI로 검증할 수 없다. Windows 사용자가 확인하면 날짜와 환경을 적고 `TODO`를 지운다.
 
-- [ ] Docker Desktop(WSL 2 백엔드)에서 `docker compose up -d --wait` 성공
-- [ ] 저장소를 Windows 파일 시스템(`C:\...`)에 두었을 때 bind mount(`./defects`, `./var/logs`) 동작과 속도
-- [ ] `git clone` 후 `.sh`·`Dockerfile`·`*.yaml`이 LF로 체크아웃되는지 (`.gitattributes`)
-- [ ] PowerShell 5.1에서 README의 PowerShell 블록 실행
-- [ ] Node가 출력하는 한국어 메시지가 PowerShell/Windows Terminal에서 깨지지 않는지
-- [ ] `npm run doctor` 출력(한국어)과 Docker 미실행 시 안내 문구
-- [ ] `npm run up -- --profile beginner`, `npm run lab -- <slug>`처럼 `--` 뒤 인자가 PowerShell에서 그대로 전달되는지
-- [ ] `npm run logs -- --follow`가 동작하고 Ctrl+C로 끝나는지 (로그 파일을 Node가 읽으므로 `Get-Content -Wait` 불필요)
-- [ ] `npm test`, `npm run validate` 통과
-- [ ] winget 패키지 ID (`Docker.DockerDesktop`, `OpenJS.NodeJS.LTS`, `Git.Git`)
+확인 환경(2026-10-03): Windows 11 Pro 10.0.26200, Windows PowerShell 5.1.26100, Docker Desktop(엔진 28.5.1, Compose v2.40.3, WSL 2), Node.js 24.11.1, npm 11.6.2, Chrome 154.0.8037.95, Git `core.autocrlf=true`, 저장소 위치 `C:\Users\…\Documents\`.
+
+- [x] Docker Desktop(WSL 2 백엔드)에서 `docker compose up -d --wait` 성공 (`npm run up -- --profile advanced` 로 db·seed·api·web 모두 healthy, 포트는 127.0.0.1 에만)
+- [x] 저장소를 Windows 파일 시스템(`C:\...`)에 두었을 때 bind mount(`./defects`, `./var/logs`) 동작 — 로그가 쓰이고 `npm run logs` 로 읽힌다. 속도 문제는 체감하지 못했다. 참고: `Get-ChildItem` 에는 `var/logs/app.log` 크기가 0 으로 보일 수 있지만 내용은 정상이다
+- [x] `git clone` 후 `.sh`·`Dockerfile`·`*.yaml`이 LF로 체크아웃되는지 (`.gitattributes`) — `core.autocrlf=true` 에서도 `git ls-files --eol` 의 `w/crlf` 0개, `npm run doctor` 줄바꿈 OK
+- [x] PowerShell 5.1에서 README의 PowerShell 블록 실행 — sql-and-logs(로그 보기), quality-gates(`$LASTEXITCODE`), locust·mitmproxy `docker run --mount`. psql 접속·SonarQube 블록은 아래 랩별 항목
+- [ ] Node가 출력하는 한국어 메시지가 PowerShell/Windows Terminal에서 깨지지 않는지 — 파이프로 받은 출력은 정상. 콘솔 화면 표시는 `TODO: verify-windows`
+- [x] `npm run doctor` 출력(한국어)과 Docker 미실행 시 안내 문구 (안내 문구는 단위 테스트로 확인)
+- [x] `npm run up -- --profile beginner`, `npm run lab -- <slug>`처럼 `--` 뒤 인자가 PowerShell에서 그대로 전달되는지
+- [x] `npm run logs -- --follow`가 새 줄을 따라 읽는지(`--grep` 도 확인). Ctrl+C 키 입력은 사람이 확인 `TODO: verify-windows`
+- [x] `npm test`, `npm run validate` 통과 — 단, 커밋되지 않았던 랩 파일 문제가 있었다(아래 "알려진 사항")
+- [x] winget 패키지 ID (`Docker.DockerDesktop`, `OpenJS.NodeJS.LTS`(24.x), `Git.Git`) — `winget show --id <ID> --exact` 로 확인
 
 랩별 항목 (각 랩 README 의 `TODO: verify-windows` 주석과 1:1):
-- [ ] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
-- [ ] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(psql 접속, 로그 파일 보기)
-- [ ] `api-contract-testing/shop-api-contract`: `npx newman run …` 실행, Postman 앱에서 컬렉션 가져오기·내보내기
-- [ ] `api-testing-tools/swagger-and-traffic`: Wireshark winget ID(`WiresharkFoundation.Wireshark`)와 `tshark` 가 PATH 에 잡히는지, mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`
-- [ ] `ui-automation/shop-ui-flows`: `npx playwright install chromium` 과 헤드리스 실행, README 의 `$env:UI_VARIANT` 블록
-- [ ] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이)
-- [ ] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
+- [x] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
+- [x] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(로그 파일 보기). psql 접속은 `TODO: verify-windows`
+- [ ] `api-contract-testing/shop-api-contract`: `npx newman run …` 실행, Postman 앱에서 컬렉션 가져오기·내보내기 (채점기의 Newman 실행은 `test:labs` 로 확인)
+- [ ] `api-testing-tools/swagger-and-traffic`: `tshark` 가 PATH 에 잡히는지 `TODO: verify-windows`. 확인함: winget ID(`WiresharkFoundation.Wireshark`), mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`. 호스트 포트 8081 을 다른 프로그램이 쓰고 있으면 `-p 127.0.0.1:<다른 포트>:8080` 으로 바꾼다
+- [ ] `ui-automation/shop-ui-flows`: 헤드리스 실행은 확인. 새 PC 의 `npx playwright install chromium` 과 README 의 `$env:UI_VARIANT` 블록은 `TODO: verify-windows`
+- [x] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이) — Chrome 154 용 드라이버를 `%USERPROFILE%\.cache\selenium` 에 받음
+- [x] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
 - [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 스캐너 `-v "${PWD}\…"` 경로 형식
-- [ ] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
+- [x] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
 - [ ] 한국어 파일 내용(CSV, YAML)을 Excel·메모장에서 저장한 뒤 채점 (CP949 로 저장된 CSV 도 읽히는지)
 
 ## 알려진 사항
+- (2026-10-03 Windows 확인 중 발견, OS 와 무관) `.gitignore` 의 `*.log`·`reports/` 규칙 때문에 `sql-and-logs/starter/data/*.log` 와 `defect-reports/starter/reports/_TEMPLATE.md`·`solution/reports/*.md` 가 커밋되지 않았다. 작성 환경에는 파일이 남아 있어 테스트가 통과했지만 새로 clone 하면 실패한다. `.gitignore` 에 예외를 추가했고 로그는 `setup/logs.mjs` 로 다시 만들었다. 리포트 템플릿과 모범 리포트 4개는 원본이 작성 환경에만 있다 `TODO: verify` — 원본을 커밋해야 한다.
+- (같은 날 발견, OS 와 무관) Playwright 랩 t2 정답 테스트가 상품 목록의 같은 이름 수량 입력란을 잡는 경합이 있어 빠른 PC 에서 매번 실패했다. 장바구니 행(`cart-row`) 안으로 범위를 좁혀 고쳤다. 채점기가 "값이 다름"을 "시간 초과"로 안내하던 오류 분류도 고쳤다.
 - 저장소 위치(Windows 파일 시스템 또는 WSL 내부)에 따라 bind mount 성능이 다를 수 있다. 정확한 권장 사항은 Docker 공식 문서를 확인해 적는다. `TODO: verify`
 
 ## 알려진 도구 제약

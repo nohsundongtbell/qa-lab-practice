@@ -43,7 +43,7 @@ Windows (PowerShell)
 ```powershell
 winget install -e --id WiresharkFoundation.Wireshark
 ```
-<!-- TODO: verify-windows — winget 패키지 ID, tshark 가 PATH 에 잡히는지 확인 -->
+<!-- TODO: verify-windows — tshark 가 PATH 에 잡히는지 확인 (winget ID 는 확인함) -->
 
 시작하기:
 
@@ -109,7 +109,6 @@ Windows (PowerShell)
 ```powershell
 docker run --rm -p 127.0.0.1:8081:8080 --network qa-lab-shop_default --user 1000:1000 --env HOME=/tmp --tmpfs /tmp --entrypoint mitmdump --mount "type=bind,source=$PWD\labs\api-testing-tools\swagger-and-traffic\work,target=/addon,readonly" mitmproxy/mitmproxy:12.2.3 --mode reverse:http://api:3000 --listen-host 0.0.0.0 --listen-port 8080 -s /addon/addon.py
 ```
-<!-- TODO: verify-windows — 바인드 마운트 경로 형식과 Docker Desktop 네트워크 이름 확인 -->
 
 - 기준: 4가지 모두 구현
 - 채점: `npm run check -- api-testing-tools/swagger-and-traffic --task t3`

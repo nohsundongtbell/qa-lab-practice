@@ -37,7 +37,6 @@ winget install -e --id Docker.DockerDesktop
 winget install -e --id OpenJS.NodeJS.LTS
 winget install -e --id Git.Git
 ```
-<!-- TODO: verify-windows — winget 패키지 ID와 OpenJS.NodeJS.LTS 가 설치하는 주 버전(24) 확인 -->
 
 > Windows에서는 Docker Desktop의 **WSL 2 백엔드**를 사용합니다. 설치 후 Docker Desktop을 한 번 실행해 두세요.
 
