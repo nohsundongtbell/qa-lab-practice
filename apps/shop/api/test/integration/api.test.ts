@@ -69,6 +69,12 @@ describe('공통', () => {
     expect((await fetch(`${server.baseUrl}/openapi.yaml`)).status).toBe(200)
     expect((await fetch(`${server.baseUrl}/docs/`)).status).toBe(200)
   })
+
+  it('Swagger UI 는 문서를 연 주소로 요청하고, 원본 명세의 servers 는 그대로다', async () => {
+    const ui = await (await fetch(`${server.baseUrl}/docs/json`)).json()
+    expect(ui.servers).toEqual([{ url: '/' }])
+    expect(await (await fetch(`${server.baseUrl}/openapi.yaml`)).text()).toContain('- url: http://127.0.0.1:3000')
+  })
 })
 
 describe('회원', () => {
