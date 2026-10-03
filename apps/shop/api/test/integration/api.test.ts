@@ -70,6 +70,12 @@ describe('공통', () => {
     expect((await fetch(`${server.baseUrl}/docs/`)).status).toBe(200)
   })
 
+  it('API 첫 주소(/)는 문서(/docs)로 보낸다', async () => {
+    const r = await fetch(`${server.baseUrl}/`, { redirect: 'manual' })
+    expect(r.status).toBe(302)
+    expect(r.headers.get('location')).toBe('/docs')
+  })
+
   it('Swagger UI 는 문서를 연 주소로 요청하고, 원본 명세의 servers 는 그대로다', async () => {
     const ui = await (await fetch(`${server.baseUrl}/docs/json`)).json()
     expect(ui.servers).toEqual([{ url: '/' }])

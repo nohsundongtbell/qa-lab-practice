@@ -118,6 +118,8 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
   await app.register(swagger, { mode: 'static', specification: { document: uiDocument as never } })
   await app.register(swaggerUi, { routePrefix: '/docs' })
   app.get('/openapi.yaml', async (_req, reply) => reply.type('application/yaml; charset=utf-8').send(specText))
+  // API 주소만 열었을 때(예: Codespaces PORTS 탭의 3000) 404 대신 문서로 안내한다.
+  app.get('/', async (_req, reply) => reply.redirect('/docs'))
 
   registerPublicRoutes(app, db)
   registerShopRoutes(app, db)
