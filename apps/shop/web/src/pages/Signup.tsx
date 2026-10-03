@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { api, ApiError } from '../api'
+import { isDefectOn } from '../defects'
 
 export function SignupPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '', zipcode: '', address: '' })
@@ -22,13 +23,14 @@ export function SignupPage() {
     }
   }
 
-  const field = (k: keyof typeof form, label: string, type = 'text') => (
-    <label>
-      {label}
-      <input type={type} value={form[k]} onChange={set(k)} aria-invalid={Boolean(errors[k])} aria-describedby={errors[k] ? `${k}-error` : undefined} />
-      {errors[k] && <span id={`${k}-error`} className="error">{errors[k]}</span>}
-    </label>
-  )
+  const field = (k: keyof typeof form, label: string, type = 'text') => {
+    const input = <input type={type} value={form[k]} onChange={set(k)} aria-invalid={Boolean(errors[k])} aria-describedby={errors[k] ? `${k}-error` : undefined} />
+    const error = errors[k] && <span id={`${k}-error`} className="error">{errors[k]}</span>
+    if (k === 'zipcode' && isDefectOn('DF-021')) {
+      return <div className="field"><span>{label}</span>{input}{error}</div>
+    }
+    return <label>{label}{input}{error}</label>
+  }
 
   return (
     <section>

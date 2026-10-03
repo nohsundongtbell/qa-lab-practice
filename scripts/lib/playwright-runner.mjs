@@ -7,8 +7,12 @@ import { spawn } from 'node:child_process'
  * 설정 파일은 채점기가 만들어 넣는다 — 학습자의 설정(baseURL·헤더·타임아웃)과 상관없이 같은 조건에서 실행되도록.
  */
 
-/** 채점용 playwright.config.mjs 내용. */
-export function makeConfig({ baseUrl, prefix, variant = 'v1', latency = 'none', executablePath }) {
+/**
+ * 채점용 playwright.config.mjs 내용.
+ * defects: 모든 요청의 X-QA-Lab-Defects. 기본 'none'(앱의 결함 프로필과 무관하게 채점). 결함을 하나씩 켜서 귀속하는 랩만 바꾼다.
+ */
+export function makeConfig({ baseUrl, prefix, variant = 'v1', latency = 'none', executablePath, defects = 'none' }) {
+  if (!/^(none|DF-\d{3}(,DF-\d{3})*)$/.test(defects)) throw new Error(`결함 헤더 값이 잘못되었습니다: ${defects}`)
   const launch = executablePath ? `{ executablePath: ${JSON.stringify(executablePath)}, args: ['--no-sandbox'] }` : '{}'
   return `import { defineConfig } from '@playwright/test'
 export default defineConfig({
@@ -22,7 +26,7 @@ export default defineConfig({
   use: {
     baseURL: ${JSON.stringify(baseUrl)},
     headless: true,
-    extraHTTPHeaders: { 'X-QA-Lab-UI-Variant': ${JSON.stringify(variant)}, 'X-QA-Lab-Latency': ${JSON.stringify(latency)}, 'X-QA-Lab-Defects': 'none' },
+    extraHTTPHeaders: { 'X-QA-Lab-UI-Variant': ${JSON.stringify(variant)}, 'X-QA-Lab-Latency': ${JSON.stringify(latency)}, 'X-QA-Lab-Defects': '${defects}' },
     launchOptions: ${launch},
   },
 })

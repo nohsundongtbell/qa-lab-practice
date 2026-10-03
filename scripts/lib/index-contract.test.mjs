@@ -13,8 +13,8 @@ describe('실제 labs/index.json', () => {
   it('계약을 지킨다', () => {
     expect(validateIndexContract(index, snapshot)).toEqual([])
   })
-  it('랩 13개(1차 목표)가 모두 ready 이고, also_for 는 모듈별 항목으로 펼쳐져 같은 id 가 모듈만 달리 나온다', () => {
-    expect(new Set(index.labs.map((l) => l.id)).size).toBe(13)
+  it('랩 14개(1차 13개 + 접근성 랩)가 모두 ready 이고, also_for 는 모듈별 항목으로 펼쳐져 같은 id 가 모듈만 달리 나온다', () => {
+    expect(new Set(index.labs.map((l) => l.id)).size).toBe(14)
     expect(index.labs.every((l) => l.status === 'ready')).toBe(true)
     const multi = Object.entries(Object.groupBy(index.labs, (l) => l.id)).filter(([, v]) => v.length > 1)
     for (const [, v] of multi) expect(new Set(v.map((l) => l.moduleSlug)).size).toBe(v.length)

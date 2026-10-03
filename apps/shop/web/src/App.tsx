@@ -6,6 +6,7 @@ import { OrdersPage } from './pages/Orders'
 import { LoginPage } from './pages/Login'
 import { SignupPage } from './pages/Signup'
 import { useVariant } from './variant'
+import { isDefectOn } from './defects'
 
 /** 아주 단순한 해시 라우터: #/products, #/cart, #/orders, #/login, #/signup */
 function useRoute(): string {
@@ -50,7 +51,13 @@ export function App() {
           <span data-testid="session-name">
             {member.name}님 <span className="grade">{member.grade}</span>
           </span>
-          <button type="button" onClick={logout}>로그아웃</button>
+          {isDefectOn('DF-023') ? (
+            <button type="button" className="icon-button" onClick={logout}>
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 2h-3v12h3M10 4l4 4-4 4M14 8h-8" fill="none" stroke="currentColor" strokeWidth="1.5" /></svg>
+            </button>
+          ) : (
+            <button type="button" onClick={logout}>로그아웃</button>
+          )}
         </>
       ) : (
         <>

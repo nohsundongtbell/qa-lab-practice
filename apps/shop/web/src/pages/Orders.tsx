@@ -1,19 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api, ApiError, type Member, type Order, STATUS_LABEL, won } from '../api'
+import { isDefectOn } from '../defects'
+
+const withUpperStatus = (o: Order): Order => ({ ...o, status: o.status.toUpperCase() as Order['status'] })
 
 function OrderDetail({ id }: { id: number }) {
   const [order, setOrder] = useState<Order | null>(null)
   const [card, setCard] = useState('')
   const [message, setMessage] = useState('')
 
-  const load = useCallback(async () => setOrder(await api<Order>('GET', `/api/orders/${id}`)), [id])
+  // 상태 값은 대소문자를 가리지 않고 읽는다 (화면이 API 응답 형식 차이에 너그럽게)
+  const load = useCallback(async () => setOrder(withUpperStatus(await api<Order>('GET', `/api/orders/${id}`))), [id])
   useEffect(() => {
     load().catch(() => setMessage('주문을 찾을 수 없습니다.'))
   }, [load])
 
   const act = async (action: 'pay' | 'cancel' | 'refund') => {
     try {
-      setOrder(await api<Order>('POST', `/api/orders/${id}/${action}`, action === 'pay' ? { cardNumber: card } : undefined))
+      setOrder(withUpperStatus(await api<Order>('POST', `/api/orders/${id}/${action}`, action === 'pay' ? { cardNumber: card } : undefined)))
       setMessage('')
     } catch (e) {
       setMessage(e instanceof ApiError ? e.message : '처리하지 못했습니다.')
@@ -45,7 +49,11 @@ function OrderDetail({ id }: { id: number }) {
             카드 번호
             <input value={card} onChange={(e) => setCard(e.target.value)} placeholder="0000-0000-0000-0000" inputMode="numeric" />
           </label>
-          <button type="submit" className="primary">결제하기</button>
+          {isDefectOn('DF-025') ? (
+            <div className="primary pay-action" onClick={() => void act('pay')}>결제하기</div>
+          ) : (
+            <button type="submit" className="primary">결제하기</button>
+          )}
         </form>
       )}
       {(order.status === 'PENDING' || order.status === 'PAID') && <button type="button" onClick={() => act('cancel')}>주문 취소</button>}

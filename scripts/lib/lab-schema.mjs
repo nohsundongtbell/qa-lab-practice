@@ -108,21 +108,21 @@ export function validateLabData(data, snapshot, where = {}) {
       if (t.pass !== undefined) {
         if (!t.pass || typeof t.pass !== 'object' || Array.isArray(t.pass)) err(`${label}.pass 는 객체여야 합니다.`)
         else {
-          const { min_defects: minD, max_cases: maxC, beyond_profile: beyond, min_killed: minK, min_line_pct: minL, min_branch_pct: minB, min_operations: minO, min_statuses: minS, min_correct: minC, min_assertions: minA, min_tests: minT, repeat: rep, variants: vars, latency: lat, max_missed_tp: maxMiss, users: usr, duration_s: dur, min_requests: minR, ...rest } = t.pass
+          const { min_defects: minD, max_cases: maxC, beyond_profile: beyond, min_killed: minK, min_line_pct: minL, min_branch_pct: minB, min_operations: minO, min_statuses: minS, min_correct: minC, min_assertions: minA, min_tests: minT, repeat: rep, variants: vars, latency: lat, max_missed_tp: maxMiss, max_false_reports: maxFalse, users: usr, duration_s: dur, min_requests: minR, ...rest } = t.pass
           if (minD !== undefined && (!Number.isInteger(minD) || minD < 0)) err(`${label}.pass.min_defects 는 0 이상의 정수여야 합니다.`)
           if (maxC !== undefined && (!Number.isInteger(maxC) || maxC < 1)) err(`${label}.pass.max_cases 는 1 이상의 정수여야 합니다.`)
           if (minK !== undefined && (!Number.isInteger(minK) || minK < 0)) err(`${label}.pass.min_killed 는 0 이상의 정수여야 합니다.`)
           for (const [key, v] of [['min_line_pct', minL], ['min_branch_pct', minB]]) {
             if (v !== undefined && (typeof v !== 'number' || v < 0 || v > 100)) err(`${label}.pass.${key} 는 0~100 사이의 숫자여야 합니다.`)
           }
-          for (const [key, v] of [['min_operations', minO], ['min_statuses', minS], ['min_correct', minC], ['min_assertions', minA], ['min_tests', minT], ['max_missed_tp', maxMiss], ['users', usr], ['duration_s', dur], ['min_requests', minR]]) {
+          for (const [key, v] of [['min_operations', minO], ['min_statuses', minS], ['min_correct', minC], ['min_assertions', minA], ['min_tests', minT], ['max_missed_tp', maxMiss], ['max_false_reports', maxFalse], ['users', usr], ['duration_s', dur], ['min_requests', minR]]) {
             if (v !== undefined && (!Number.isInteger(v) || v < 0)) err(`${label}.pass.${key} 는 0 이상의 정수여야 합니다.`)
           }
           if (rep !== undefined && (!Number.isInteger(rep) || rep < 1 || rep > 50)) err(`${label}.pass.repeat 는 1~50 사이의 정수여야 합니다.`)
           if (vars !== undefined && (!Array.isArray(vars) || vars.length === 0 || vars.some((v) => !['v1', 'v2'].includes(v)))) err(`${label}.pass.variants 는 [v1, v2] 중에서 고른 목록이어야 합니다.`)
           if (lat !== undefined && !['none', 'slow', 'unstable'].includes(lat)) err(`${label}.pass.latency 는 none | slow | unstable 중 하나여야 합니다.`)
           if (beyond !== undefined && !PROFILES.includes(beyond)) err(`${label}.pass.beyond_profile 은 ${PROFILES.join(' | ')} 중 하나여야 합니다.`)
-          for (const key of Object.keys(rest)) err(`${label}.pass: 알 수 없는 기준입니다: ${key} (min_defects, max_cases, beyond_profile, min_killed, min_line_pct, min_branch_pct, min_operations, min_statuses, min_correct, min_assertions, min_tests, repeat, variants, latency, max_missed_tp, users, duration_s, min_requests)`)
+          for (const key of Object.keys(rest)) err(`${label}.pass: 알 수 없는 기준입니다: ${key} (min_defects, max_cases, beyond_profile, min_killed, min_line_pct, min_branch_pct, min_operations, min_statuses, min_correct, min_assertions, min_tests, repeat, variants, latency, max_missed_tp, max_false_reports, users, duration_s, min_requests)`)
         }
       }
       for (const key of Object.keys(t)) {

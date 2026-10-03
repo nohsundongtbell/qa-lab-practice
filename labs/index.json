@@ -154,6 +154,27 @@
       ]
     },
     {
+      "id": "usability-accessibility-testing/shop-a11y-audit",
+      "moduleSlug": "nonfunctional-testing",
+      "lessonSlugs": [
+        "wcag-accessibility"
+      ],
+      "title": "QA 숍 화면의 접근성을 자동 스캔과 키보드 점검으로 확인하고 KWCAG 2.2 로 보고하기",
+      "path": "labs/usability-accessibility-testing/shop-a11y-audit",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "playwright",
+        "axe-core"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "performance-testing-tools/locust-bottlenecks",
       "moduleSlug": "performance-testing-tools",
       "lessonSlugs": [
@@ -321,6 +342,28 @@
       "level": "중급",
       "tools": [
         "vitest"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "usability-accessibility-testing/shop-a11y-audit",
+      "moduleSlug": "usability-accessibility-testing",
+      "lessonSlugs": [
+        "wcag-2-2-verification",
+        "screen-reader-testing"
+      ],
+      "title": "QA 숍 화면의 접근성을 자동 스캔과 키보드 점검으로 확인하고 KWCAG 2.2 로 보고하기",
+      "path": "labs/usability-accessibility-testing/shop-a11y-audit",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "중급",
+      "tools": [
+        "playwright",
+        "axe-core"
       ],
       "platforms": [
         "macos",

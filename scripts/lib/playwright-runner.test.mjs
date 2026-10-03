@@ -50,4 +50,9 @@ describe('classifyError / makeConfig', () => {
     expect(c).toContain('launchOptions: {}')
     expect(makeConfig({ baseUrl: 'x', prefix: 't1-', executablePath: '/opt/chrome' })).toContain('"/opt/chrome"')
   })
+
+  it('결함을 켜서 귀속하는 랩은 결함 헤더를 바꿀 수 있고, 형식이 틀린 값은 거부한다', () => {
+    expect(makeConfig({ baseUrl: 'http://127.0.0.1:8080', prefix: 't1-', defects: 'DF-020' })).toContain("'X-QA-Lab-Defects': 'DF-020'")
+    expect(() => makeConfig({ baseUrl: 'http://127.0.0.1:8080', prefix: 't1-', defects: "x' }" })).toThrow(/결함 헤더/)
+  })
 })

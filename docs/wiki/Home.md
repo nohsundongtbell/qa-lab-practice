@@ -16,7 +16,7 @@
 | 랩을 만들거나 고치고 싶을 때 | [기여하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Contributing) |
 
 ## 한눈에
-- **랩 13개** — 테스트 설계, 결함 관리, 탐색적 테스트, 단위·구조 테스트, SQL·로그, API 계약·도구, UI 자동화(Playwright·Selenium), CI/CD, 부하, 보안.
+- **랩 14개** — 테스트 설계, 결함 관리, 탐색적 테스트, 단위·구조 테스트, SQL·로그, API 계약·도구, UI 자동화(Playwright·Selenium), CI/CD, 부하, 보안, 접근성.
 - **명령은 macOS·Windows·Linux 모두 같습니다**: `npm run up`, `npm run lab -- <랩>`, `npm run check -- <랩>`.
 - **채점은 "정답과 같은가"가 아니라** 내 테스트가 실제로 결함을 잡는지, 조건을 지키는지로 합니다.
 - 정답이 궁금하면 각 랩 README 의 "막혔을 때"를 순서대로 열어 보세요.
