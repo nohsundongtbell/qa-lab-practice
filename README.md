@@ -17,6 +17,7 @@
 | 나는… | 여기서 시작하세요 |
 |---|---|
 | **터미널이나 설치가 처음이에요** (기획자, QA 입문자 등) | 위키의 [처음이라면: 설치부터 첫 화면까지](https://github.com/nohsundongtbell/qa-lab-practice/wiki/First-Time-Setup) — 터미널 여는 법부터 쇼핑몰 화면이 열릴 때까지 차근차근 안내합니다. 그다음 [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs) 코스를 따라가세요 |
+| **설치 없이 브라우저에서 하고 싶어요** (회사 PC 등) | 위키의 [설치 없이 브라우저에서 하기 (Codespaces)](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Codespaces) — GitHub 계정만 있으면 됩니다 |
 | **Git·Node·Docker 를 써 봤어요** | 바로 아래 [개발자용 빠른 시작](#개발자용-빠른-시작-3분)으로 |
 
 막히면 위키의 [문제 해결](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Troubleshooting)을 보거나 `npm run doctor` 를 실행하세요. 위키 전체: [qa-lab-practice 위키](https://github.com/nohsundongtbell/qa-lab-practice/wiki)

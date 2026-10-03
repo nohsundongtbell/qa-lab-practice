@@ -2,7 +2,7 @@
 
 터미널을 거의 써 본 적이 없는 분을 위한 안내입니다. 순서대로 따라 하면 **내 컴퓨터에서 실습용 쇼핑몰(QA 숍)이 열리는 것**까지 갑니다. 처음에는 설치와 내려받기 때문에 30분~1시간쯤 걸립니다. 두 번째부터는 1분이면 됩니다.
 
-이미 개발 도구에 익숙하다면 [시작하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Getting-Started)로 바로 가세요.
+이미 개발 도구에 익숙하다면 [시작하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Getting-Started)로 바로 가세요. 설치 자체가 어렵다면(회사 PC 등) [설치 없이 브라우저에서 하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Codespaces)도 있습니다.
 
 ## 1. 먼저 알아 둘 말 몇 개
 

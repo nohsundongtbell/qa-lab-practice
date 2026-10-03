@@ -27,6 +27,9 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 | `npm run doctor` / `up` / `reset` / `down` / `logs` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 | `npm run validate` | ✅ | `TODO: verify` | ✅ (2026-10-03) |
 
+## GitHub Codespaces
+`.devcontainer/devcontainer.json`(Node 24, docker-in-docker, Playwright chromium). 2026-10-04 2-core Codespace 에서 확인: `npm run doctor`, `npm run up`, `npm test` 637개, Selenium 랩 채점(Chrome 별도 설치 없이), 웹·Swagger UI(포트 전달 주소), 포트 기본 Private. 다른 랩 채점은 미확인 `TODO: verify`. 학습자 안내는 위키 Codespaces 페이지.
+
 ## GitHub Actions 러너 제약
 - GitHub-hosted Windows 러너는 Linux 컨테이너를 실행할 수 없고, macOS(arm64) 러너에는 Docker가 없는 것으로 알고 있다. `TODO: verify` — 공식 문서 확인 필요(작성 환경에서 docs.github.com 접근 불가).
 - 그래서 Docker 기반 통합 검증은 Ubuntu 러너에서만 하고(`lab-ci`, `nightly`, `validate` 의 `api` 잡), macOS·Windows 러너에서는 Docker 없이 되는 검사(`validate`: 규칙 검사, 인덱스 최신 여부, 채점기 단위 테스트)만 한다. 구성은 `docs/CI.md`.

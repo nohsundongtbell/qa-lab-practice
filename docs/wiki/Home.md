@@ -8,6 +8,7 @@
 | 하고 싶은 일 | 페이지 |
 |---|---|
 | 터미널이 처음이에요. 설치부터 차근차근 | [처음이라면](https://github.com/nohsundongtbell/qa-lab-practice/wiki/First-Time-Setup) |
+| 설치 없이 브라우저에서 하고 싶어요 | [설치 없이 브라우저에서 하기 (Codespaces)](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Codespaces) |
 | 설치하고 첫 랩 시작 | [시작하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Getting-Started) |
 | 코딩 없이 표·글로만 해 보고 싶어요 | [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs) |
 | 어떤 랩이 있고 어떤 순서로 할지 | [랩 목록과 학습 순서](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Lab-Roadmap) |
