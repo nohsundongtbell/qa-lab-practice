@@ -8,8 +8,12 @@
 | `postgres:16-alpine` | `compose.yaml` db | ✅ | ✅ (v8) | `@sha256:721873c3…` |
 | `node:24-alpine` | api·web 빌드, api 실행 | ✅ | ✅ (v8) | `@sha256:ebfe2f90…` |
 | `nginx:1.27-alpine` | web 실행 | ✅ | ✅ (v8) | `@sha256:65645c7b…` |
+| `mitmproxy/mitmproxy:12.2.3` | 랩 `api-testing-tools/swagger-and-traffic` t3 (채점기가 실행) | ✅ | ✅ | `@sha256:00b77b5d…` |
 
-랩용 도구 이미지(Locust, SonarQube, mitmproxy, tshark 등)는 해당 랩을 만들 때 추가한다. `TODO: verify`
+랩용 도구 이미지(Locust, SonarQube 등)는 해당 랩을 만들 때 추가한다. `TODO: verify`
+
+호스트에 설치하는 도구: Newman·Ajv·Vitest·openapi-to-postmanv2 는 npm 의존성(`npm ci`)이다. Wireshark(`tshark`)는 랩 `api-testing-tools/swagger-and-traffic` t4 에서 학습자가 직접 설치한다(Windows 설치는 `TODO: verify-windows`).
+mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기는 진입점을 `mitmdump` 로 바꾸고 `--user 1000:1000 --cap-drop ALL` 로 실행한다. (기본 진입점 + `--cap-drop ALL` 은 `usermod`/`gosu` 에서 실패한다.)
 
 ## 검증 현황
 | 항목 | Linux | macOS | Windows |

@@ -8,7 +8,7 @@ export function loadSpec(file) {
 
 const METHODS = ['get', 'post', 'put', 'patch', 'delete']
 
-/** @returns {Array<{ key: string, method: string, template: string, regex: RegExp, statuses: number[] }>} */
+/** @returns {Array<{ key: string, method: string, template: string, regex: RegExp, statuses: number[], secured: boolean }>} */
 export function listOperations(spec) {
   const ops = []
   for (const [template, item] of Object.entries(spec.paths ?? {})) {
@@ -25,6 +25,7 @@ export function listOperations(spec) {
         template,
         regex: new RegExp(`^${pattern}/?$`),
         statuses: Object.keys(op.responses ?? {}).map(Number).filter(Number.isInteger),
+        secured: (op.security ?? spec.security ?? []).length > 0,
       })
     }
   }

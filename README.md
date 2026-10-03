@@ -92,6 +92,7 @@ npm run up
 | [`structural-testing-practice/coverage-and-mutation`](labs/structural-testing-practice/coverage-and-mutation/README.md) | 커버리지 리포트 읽기, 뮤테이션으로 약한 테스트 찾기 | 불필요 |
 | [`data-checking-sql-logs-analytics/sql-and-logs`](labs/data-checking-sql-logs-analytics/sql-and-logs/README.md) | SQL 정합성 쿼리, 로그 분석, 상관 ID | 필요 (DB) |
 | [`api-contract-testing/shop-api-contract`](labs/api-contract-testing/shop-api-contract/README.md) | Postman 컬렉션(Newman)과 OpenAPI 대조로 API 계약 위반 찾기, 오퍼레이션·상태 코드 커버리지 | 필요 (앱) |
+| [`api-testing-tools/swagger-and-traffic`](labs/api-testing-tools/swagger-and-traffic/README.md) | Swagger UI, OpenAPI→컬렉션→Newman, mitmproxy 애드온, 패킷 캡처(.pcap) 읽기 | 필요 (앱, mitmproxy) |
 
 공통
 

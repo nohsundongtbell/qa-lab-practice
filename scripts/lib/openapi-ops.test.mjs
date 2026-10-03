@@ -1,9 +1,9 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { coverageOf, listOperations, loadSpec, matchOperation } from './spec-ops.mjs'
+import { coverageOf, listOperations, loadSpec, matchOperation } from './openapi-ops.mjs'
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..')
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 const ops = listOperations(loadSpec(path.join(root, 'apps', 'shop', 'api', 'openapi.yaml')))
 
 describe('오퍼레이션 목록', () => {
@@ -11,6 +11,14 @@ describe('오퍼레이션 목록', () => {
     expect(ops.length).toBe(21)
     expect(ops.map((o) => o.key)).toContain('POST /api/orders/{id}/pay')
     expect(ops.every((o) => o.statuses.length > 0)).toBe(true)
+  })
+
+  it('인증이 필요한 오퍼레이션(security)을 표시한다', () => {
+    const secured = (key) => ops.find((o) => o.key === key).secured
+    expect(secured('GET /api/members/me')).toBe(true)
+    expect(secured('POST /api/orders/{id}/pay')).toBe(true)
+    expect(secured('POST /api/auth/login')).toBe(false)
+    expect(secured('GET /api/products')).toBe(false)
   })
 })
 

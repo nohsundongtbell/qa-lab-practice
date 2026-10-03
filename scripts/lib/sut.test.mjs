@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { baseUrlFrom, probeSut } from './sut.mjs'
+import { baseUrlFrom, probeSut, resetSut } from './sut.mjs'
 
 const json = (body, ok = true) => ({ ok, json: async () => body })
 const fake = (routes) => async (url) => {
@@ -28,5 +28,20 @@ describe('baseUrlFrom', () => {
   it('.env 의 API_PORT 를 쓴다', () => {
     expect(baseUrlFrom({ API_PORT: '4000' })).toBe('http://127.0.0.1:4000')
     expect(baseUrlFrom({})).toBe('http://127.0.0.1:3000')
+  })
+})
+
+describe('resetSut', () => {
+  it('POST /__admin/reset 을 결함 없음 헤더로 호출한다', async () => {
+    const calls = []
+    await resetSut('http://x', { fetchImpl: async (url, init) => (calls.push({ url: String(url), init }), { ok: true }) })
+    expect(calls[0].url).toBe('http://x/__admin/reset')
+    expect(calls[0].init.method).toBe('POST')
+    expect(calls[0].init.headers['x-qa-lab-defects']).toBe('none')
+  })
+
+  it('연결 실패와 비정상 응답을 한국어로 알린다', async () => {
+    await expect(resetSut('http://x', { fetchImpl: async () => { throw new Error('ECONNREFUSED') } })).rejects.toThrow(/연결할 수 없습니다/)
+    await expect(resetSut('http://x', { fetchImpl: async () => ({ ok: false, status: 404 }) })).rejects.toThrow(/ALLOW_DEV_TOOLS/)
   })
 })

@@ -32,6 +32,33 @@
       ]
     },
     {
+      "id": "api-testing-tools/swagger-and-traffic",
+      "moduleSlug": "api-testing-tools",
+      "lessonSlugs": [
+        "swagger-ui-hands-on",
+        "swagger-and-postman-workflow",
+        "charles-proxy-in-practice",
+        "wireshark-tcpdump-packet-analysis"
+      ],
+      "title": "Swagger UI·mitmproxy·패킷 캡처로 API 트래픽 들여다보기",
+      "path": "labs/api-testing-tools/swagger-and-traffic",
+      "status": "ready",
+      "estimatedMinutes": 150,
+      "level": "중급",
+      "tools": [
+        "swagger-ui",
+        "openapi-to-postman",
+        "newman",
+        "mitmproxy",
+        "wireshark"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "data-checking-sql-logs-analytics/sql-and-logs",
       "moduleSlug": "data-checking-sql-logs-analytics",
       "lessonSlugs": [

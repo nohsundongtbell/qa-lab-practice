@@ -129,5 +129,5 @@ npm run check -- api-contract-testing/shop-api-contract
 그래도 막히면 정답 위치를 확인할 수 있습니다: `npm run solution -- api-contract-testing/shop-api-contract --yes`
 
 ## 다음 랩
-- QA-Lab 선수 관계상 이 모듈 다음은 [`api-testing-tools`](https://qa-lab.pages.dev/module/api-testing-tools/) (실습 랩 준비 중)
+- QA-Lab 선수 관계상 이 모듈 다음은 [`api-testing-tools`](https://qa-lab.pages.dev/module/api-testing-tools/) — 실습: [Swagger UI·mitmproxy·패킷 캡처로 API 트래픽 들여다보기](../../api-testing-tools/swagger-and-traffic/README.md)
 - 같은 선수 관계의 다른 모듈: [`data-checking-sql-logs-analytics`](https://qa-lab.pages.dev/module/data-checking-sql-logs-analytics/) — 실습: [SQL 정합성 쿼리와 로그 분석](../../data-checking-sql-logs-analytics/sql-and-logs/README.md), [`ci-cd-continuous-testing`](https://qa-lab.pages.dev/module/ci-cd-continuous-testing/) (실습 랩 준비 중)

@@ -1,0 +1,28 @@
+module: api-testing-tools
+lessons: [swagger-ui-hands-on, swagger-and-postman-workflow, charles-proxy-in-practice, wireshark-tcpdump-packet-analysis]
+title_ko: Swagger UI·mitmproxy·패킷 캡처로 API 트래픽 들여다보기
+level: intermediate
+est_minutes: 150
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+notes: ""
+tools: [swagger-ui, openapi-to-postman, newman, mitmproxy, wireshark]
+sut_profile: none
+tasks:
+  - id: t1
+    goal: Swagger UI 로 토큰 인증과 요청 본문 입력이 필요한 API 를 직접 호출해 시나리오 질문에 답한다
+    check: check/t1.mjs
+    pass: { min_correct: 6 }
+  - id: t2
+    goal: OpenAPI 명세에서 Postman 컬렉션을 만들고 인증 변수와 검증을 더해 Newman 으로 끝까지 실행한다
+    check: check/t2.mjs
+    pass: { min_operations: 21, min_assertions: 21 }
+  - id: t3
+    goal: mitmproxy 애드온으로 요청 변조, 응답 가로채기, 상태 유지 동작을 구현한다
+    check: check/t3.mjs
+    pass: { min_correct: 4 }
+  - id: t4
+    goal: 패킷 캡처 파일에서 평문 노출 정보, 서버 오류, 느린 요청, 재전송을 찾아낸다
+    check: check/t4.mjs
+    pass: { min_correct: 6 }
+status: ready

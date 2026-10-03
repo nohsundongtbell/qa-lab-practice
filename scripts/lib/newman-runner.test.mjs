@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { CollectionError, readCollection, withDefectHeader } from './newman-lab.mjs'
+import { CollectionError, readCollection, withDefectHeader } from './newman-runner.mjs'
 
 const collection = () => ({
   info: { name: 't', schema: 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json' },

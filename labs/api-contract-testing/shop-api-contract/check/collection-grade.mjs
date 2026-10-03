@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { attribute, labDefectIds, resetSut } from './api-lab.mjs'
-import { CollectionError, readCollection, runCollection } from './newman-lab.mjs'
+import { CollectionError, readCollection, runCollection } from '../../../../scripts/lib/newman-runner.mjs'
 
 /**
  * 학습자의 컬렉션이 "유효"한지 본다: 결함 없는 버전(none)에서 검증이 모두 통과해야 한다.

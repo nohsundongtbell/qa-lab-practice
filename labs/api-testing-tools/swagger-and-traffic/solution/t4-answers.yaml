@@ -1,0 +1,6 @@
+password: qa-lab-1234
+token_prefix: eyJhbGci
+server_error_paths: [/api/orders/7/pay, /api/quote]
+slowest_path: /api/orders/7/pay
+slowest_ms: 1850
+retransmissions: 2

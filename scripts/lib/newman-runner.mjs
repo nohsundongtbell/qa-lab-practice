@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import newman from 'newman'
 
 export class CollectionError extends Error {}
@@ -7,15 +8,16 @@ const DEFECT_HEADER = 'X-QA-Lab-Defects'
 
 /** 컬렉션 파일을 읽는다. 형식이 틀리면 CollectionError (한국어 메시지). */
 export function readCollection(file) {
-  if (!fs.existsSync(file)) throw new CollectionError('collection.json 이 없습니다. Postman 에서 컬렉션을 내보내(Export → Collection v2.1) work/collection.json 에 저장하세요.')
+  const name = path.basename(file)
+  if (!fs.existsSync(file)) throw new CollectionError(`${name} 이 없습니다. 컬렉션을 work/${name} 에 저장하세요 (Postman 은 Export → Collection v2.1).`)
   let data
   try {
     data = JSON.parse(fs.readFileSync(file, 'utf8'))
   } catch (e) {
-    throw new CollectionError(`collection.json 이 올바른 JSON 이 아닙니다: ${e.message}`)
+    throw new CollectionError(`${name} 이 올바른 JSON 이 아닙니다: ${e.message}`)
   }
   if (!data || !Array.isArray(data.item) || !data.info) {
-    throw new CollectionError('collection.json 이 Postman 컬렉션 형식(v2.1)이 아닙니다. info 와 item 이 있어야 합니다.')
+    throw new CollectionError(`${name} 이 Postman 컬렉션 형식(v2.1)이 아닙니다. info 와 item 이 있어야 합니다.`)
   }
   return data
 }

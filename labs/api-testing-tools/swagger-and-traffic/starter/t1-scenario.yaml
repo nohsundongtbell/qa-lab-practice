@@ -1,0 +1,15 @@
+# t1. Swagger UI(http://127.0.0.1:3000/docs)로 API 를 직접 호출해 보고 답을 채우세요.
+# 비밀번호는 모두 qa-lab-1234 입니다. 결함 없는 앱(npm run up -- --profile none)에서 확인하세요.
+#
+# q1: park@example.com 으로 로그인한 회원의 누적 구매액(totalSpent)은? (숫자)
+# q2: kim@example.com 의 쿠폰 중 minOrderAmount 가 가장 큰 쿠폰의 code 는?
+# q3: 재고(stock)가 0인 상품의 id 를 모두 적으세요. (목록)
+# q4: kim@example.com 이 상품 6번 1개를 쿠폰 SALE10 으로 금액 미리보기(POST /api/quote)하면 total 은? (숫자)
+# q5: 토큰 없이 GET /api/cart 를 호출하면 오류 응답의 code 는?
+# q6: kim@example.com 이 상품 10번을 수량 2개로 장바구니에 담으면(PUT /api/cart/items/10) 오류 응답의 code 는?
+q1:
+q2:
+q3: []
+q4:
+q5:
+q6:

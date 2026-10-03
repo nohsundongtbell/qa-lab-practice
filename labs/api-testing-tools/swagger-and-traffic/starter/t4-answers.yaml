@@ -1,0 +1,14 @@
+# t4. capture.pcap 을 Wireshark 나 tshark/tcpdump 로 열어 답을 채우세요.
+#
+# password:           로그인 요청 본문에 평문으로 실린 비밀번호
+# token_prefix:       요청 헤더 Authorization: Bearer 뒤 토큰의 앞 8글자
+# server_error_paths: 응답 상태 코드가 500 이상인 요청의 경로 (목록, 중복 없이)
+# slowest_path:       요청을 처음 보낸 때부터 응답의 첫 패킷까지가 가장 오래 걸린 요청의 경로
+# slowest_ms:         그 시간(밀리초, ±50 허용)
+# retransmissions:    TCP 재전송으로 표시되는 패킷 수
+password:
+token_prefix:
+server_error_paths: []
+slowest_path:
+slowest_ms:
+retransmissions:

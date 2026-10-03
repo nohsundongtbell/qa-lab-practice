@@ -2,7 +2,7 @@ import { finish } from '../../../../scripts/lib/check-kit.mjs'
 import { loadLabContext } from '../../../../scripts/lib/lab-kit.mjs'
 import { operationsOf } from './api-lab.mjs'
 import { validateCollection } from './collection-grade.mjs'
-import { coverageOf } from './spec-ops.mjs'
+import { coverageOf } from '../../../../scripts/lib/openapi-ops.mjs'
 
 const ctx = loadLabContext()
 const valid = await validateCollection(ctx)
