@@ -61,7 +61,7 @@ npm run down
 - 포크에서 온 PR에서는 `GITHUB_TOKEN`이 읽기 전용이라 이 워크플로들이 그대로 돕니다(`pull_request_target`은 쓰지 않습니다).
 
 ## 알려진 한계 (`TODO: verify`)
-- **이 워크플로들은 개발 환경에서 실제 GitHub 러너로 실행해 보지 못했습니다.** 각 단계의 명령은 같은 내용으로 로컬(Linux)에서 실행해 통과를 확인했고, 워크플로 YAML은 정적 검사로 확인했습니다. 첫 실행에서 러너 환경 차이로 실패할 수 있습니다.
-- macOS·Windows 러너의 `npm test`는 아직 한 번도 돌려 보지 않았습니다(`TODO: verify-windows`). 실패하면 그 OS의 로그를 알려 주세요.
+- 2026-10-03 `main` push 로 `validate`(ubuntu·macOS·Windows 러너의 `npm test` 포함, `api` 잡), `publish-index`, `codeql` 이 처음 실행되어 모두 성공했습니다. CodeQL default setup 과의 충돌은 없었습니다.
+- `lab-ci`·`nightly` 는 아직 실제 러너에서 실행해 보지 못했습니다(`TODO: verify`). 첫 실행에서 러너 환경 차이로 실패할 수 있습니다.
 - `lab-ci`/`nightly`의 UI 랩은 `npx playwright install --with-deps chromium`과 러너의 Chrome(Selenium Manager가 chromedriver를 받음)에 기댑니다. 개발 환경에서는 사전 설치된 Chromium으로 대신 확인했습니다.
 - 앱 이미지를 빌드하고 Locust·mitmproxy 이미지를 받으므로 `lab-ci`/`nightly`는 몇 분 이상 걸립니다. Docker Hub 요청 제한에 걸리면 재시도하세요.

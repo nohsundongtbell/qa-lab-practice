@@ -112,7 +112,10 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
   })
 
   const specText = fs.readFileSync(openapiPath, 'utf8')
-  await app.register(swagger, { mode: 'static', specification: { document: loadYaml(specText) as never } })
+  // Swagger UI 는 문서를 연 주소로 요청한다(servers: '/'). 127.0.0.1 이 아닌 주소(예: Codespaces 포트 전달)로 열어도 "Try it out" 이 동작하게.
+  // 원본 명세(/openapi.yaml, 파일)의 servers 는 그대로 둔다 — 컬렉션 변환(openapi2postmanv2)이 baseUrl 로 쓴다.
+  const uiDocument = { ...(loadYaml(specText) as Record<string, unknown>), servers: [{ url: '/' }] }
+  await app.register(swagger, { mode: 'static', specification: { document: uiDocument as never } })
   await app.register(swaggerUi, { routePrefix: '/docs' })
   app.get('/openapi.yaml', async (_req, reply) => reply.type('application/yaml; charset=utf-8').send(specText))
 
