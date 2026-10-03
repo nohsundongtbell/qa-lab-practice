@@ -10,7 +10,7 @@ import { discoverLabs } from '../lib/labs.mjs'
 import { paths } from '../lib/paths.mjs'
 import { selectLabs, toMatrix } from './select-labs.mjs'
 
-const { flags } = parseArgs(process.argv.slice(2), { boolean: ['all'] })
+const { flags } = parseArgs(process.argv.slice(2), { string: ['base'], boolean: ['all'] })
 const p = paths()
 const labs = discoverLabs(p.labsDir).filter((l) => l.data).map((l) => ({ slug: `${l.moduleDir}/${l.labSlug}`, status: l.data.status, tools: l.data.tools, requires: l.data.requires }))
 

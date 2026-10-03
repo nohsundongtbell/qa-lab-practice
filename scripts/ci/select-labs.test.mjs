@@ -1,3 +1,5 @@
+import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { describe, expect, it } from 'vitest'
 import { selectLabs, toMatrix } from './select-labs.mjs'
 
@@ -49,5 +51,16 @@ describe('toMatrix', () => {
     expect(by['ui-automation/shop-ui-flows']).toMatchObject({ docker: true, playwright: true, selenium: false })
     expect(by['ui-automation-tools/selenium-shop-flow']).toMatchObject({ docker: true, playwright: false, selenium: true })
     expect(by['ci-cd-continuous-testing/quality-gates']).toMatchObject({ docker: false, playwright: false, selenium: false })
+  })
+})
+
+describe('select-labs-cli (워크플로가 부르는 그대로)', () => {
+  it('--base 를 받아 실행되고, 바뀐 파일이 없으면 랩을 고르지 않는다', () => {
+    const cli = path.join(import.meta.dirname, 'select-labs-cli.mjs')
+    const env = { ...process.env }
+    delete env.GITHUB_OUTPUT
+    const r = spawnSync(process.execPath, [cli, '--base', 'HEAD'], { encoding: 'utf8', env })
+    expect(r.status, r.stderr).toBe(0)
+    expect(JSON.parse(r.stdout)).toEqual({ changedFiles: 0, selected: [] })
   })
 })
