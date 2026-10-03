@@ -4,13 +4,14 @@ import { spawnSync } from 'node:child_process'
 import { paths } from '../lib/paths.mjs'
 import { readEnvFile } from '../lib/env.mjs'
 import { baseUrlFrom, probeSut } from '../lib/sut.mjs'
+import { needsSut, selectE2eLabs } from '../lib/e2e-labs.mjs'
 
-/** 모든 ready/beta 랩을 실행 중인 SUT 로 채점해 본다 (solution 통과, starter 실패). */
+/** 모든 ready/beta 랩을 채점해 본다 (solution 통과, starter 실패). Docker 가 필요한 랩이 있으면 실행 중인 SUT 가 있어야 한다. */
 export async function run() {
   const p = paths()
   const baseUrl = baseUrlFrom(readEnvFile(p.env))
   const sut = await probeSut(baseUrl)
-  if (!sut || sut.profile === null) {
+  if ((!sut || sut.profile === null) && selectE2eLabs(p.labsDir).some(needsSut)) {
     console.error(`대상 앱에 연결할 수 없거나 개발용 기능이 꺼져 있습니다 (${baseUrl}). 먼저 \`npm run up\` 을 실행하세요.`)
     return 1
   }

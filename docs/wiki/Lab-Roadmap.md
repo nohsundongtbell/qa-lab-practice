@@ -2,6 +2,8 @@
 
 랩마다 QA-Lab 모듈 하나와 연결되어 있습니다(아래는 모듈 **slug** 입니다). 개념은 각 랩 README 의 레슨 링크에서 배우세요.
 
+> 코딩 없이 표·글로만 풀 수 있는 랩과 과제는 [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs)에 따로 모았습니다.
+
 ## 추천 순서
 QA-Lab 의 선수 관계를 따라 묶었습니다. 위에서 아래 순서를 권합니다(같은 단계 안에서도 위의 랩이 아래 랩의 선수인 경우가 있습니다. 예: `unit-integration-testing` → `structural-testing-practice`).
 

@@ -22,8 +22,9 @@ npm run build-index -- --check
 npm test
 ```
 
-3. 지금 할 일은 **§5 남은 일**의 1번(Windows 확인)입니다. 사용자가 이 작업을 로컬 Windows 에서 해 달라고 요청했습니다.
-4. 사용자에게는 한국어로, 쉬운 말로 답합니다. 커밋 메시지에는 모델 이름을 넣지 않습니다. PR 은 요청이 있을 때만 만듭니다. push 는 이 브랜치에만 합니다.
+3. 지금 할 일은 **§5 남은 일**을 보고 정합니다.
+4. 사용자에게는 한국어로, 쉬운 말로 답합니다. 커밋 메시지에는 모델 이름을 넣지 않습니다.
+5. **브랜치 흐름**: 작업은 `claude/affectionate-faraday-amipy5` 에서 하고 push 도 이 브랜치에 합니다. `main` 에는 **직접 push 하지 않고 PR 로 합칩니다**. PR 은 사용자가 원할 때만 만듭니다. `main` 은 2026-10-03 에 만들었고, CI(`validate`·`publish-index`·`codeql`)는 `main` push 와 PR 에서 돕니다.
 
 ## 1. 이 저장소는 무엇인가 (요약)
 - QA-Lab(https://qa-lab.pages.dev/) 강의와 짝을 이루는 **한국어 QA 실습 저장소**입니다. 강의 내용은 복사하지 않고(모듈·레슨 이름도 쓰지 않음, slug 만), 실행 환경·과제·대상 앱·자동 채점만 담습니다.
@@ -39,7 +40,7 @@ npm test
 | 3 Node CLI·스키마·validate/build-index | 완료 |
 | 4 랩 1~3 | 완료 — **사용자 직접 풀이·피드백 대기** |
 | 5 랩 4~13 | 완료 (결함 카탈로그 확장·보안 랩 안전 검수 포함) |
-| 6 CI | 완료 — 실제 GitHub 러너에서는 아직 한 번도 실행 안 됨 |
+| 6 CI | 완료 — 2026-10-03 `main` push 로 첫 실행: `validate`(ubuntu·macos·windows·api), `publish-index`, `codeql` 모두 성공. `lab-ci`·`nightly` 는 아직 실행 전 |
 | 7 QA-Lab 연동 제안서 | 완료 |
 
 ### 커밋 흐름 (오래된 것 → 최신)
@@ -87,16 +88,18 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 - **모델 전환 규칙**: CLAUDE.md §9. Opus 는 되돌리기 비싼 결정(결함 카탈로그, 보안 안전 장치, 원인 불명 실패)에만. 전환 지점에서는 정해진 문구로 멈춥니다.
 
 ## 5. 남은 일 (우선순위 순)
-1. **Windows 확인** — 사용자가 로컬 Windows 에서 해 달라고 요청. **2026-10-03 로컬 Windows 에서 대부분 확인 완료** — 결과와 남은 항목(GUI·사람 확인, 리포트 원본 파일 커밋)은 PLATFORM_SUPPORT.md 체크리스트와 "알려진 사항". 목록: [`docs/PLATFORM_SUPPORT.md`](PLATFORM_SUPPORT.md)의 "Windows 수동 확인 체크리스트"(공통 10 + 랩별 10). 진행 방식:
+1. **Windows 확인** — **2026-10-03 로컬 Windows 에서 대부분 확인 완료**(`npm test` 600개, `test:labs` 전체, API 단위·통합). 남은 것은 GUI·사람 확인(Postman 앱, Wireshark 화면, 콘솔의 한국어 표시, Ctrl+C)과 PLATFORM_SUPPORT.md 체크리스트의 체크 안 된 항목뿐입니다. 목록: [`docs/PLATFORM_SUPPORT.md`](PLATFORM_SUPPORT.md)의 "Windows 수동 확인 체크리스트"(공통 10 + 랩별 10). 진행 방식:
    1. §0 의 기본 명령을 PowerShell 5.1 에서 실행(한국어 출력 깨짐, LF 체크아웃 확인).
    2. Docker Desktop 실행 후 `npm run up -- --profile advanced`, `npm run logs -- --follow`.
    3. `npm run test:labs`(전체, 수십 분). 막히면 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs` 로 랩 하나씩.
    4. 각 랩 README 의 PowerShell 블록(특히 `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`).
    5. 통과 항목은 날짜·환경을 적고 해당 `TODO: verify-windows` 를 지움. 실패는 고쳐서 커밋·push.
    - GUI 가 필요한 것(Postman 앱, Wireshark 화면)은 사용자에게 확인 방법을 안내. **winget 설치는 실행 전에 사용자에게 묻기.**
-2. **실제 GitHub 러너에서 CI 첫 실행** — `docs/CI.md`. 실패 로그를 보고 수정. CodeQL 기본 설정이 켜져 있으면 `codeql.yml`과 충돌.
-3. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.
-4. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
+2. **CI** — `validate`·`publish-index`·`codeql` 은 첫 실행 성공(2026-10-03, CodeQL default setup 충돌 없음). 남은 것: `lab-ci`(랩을 바꾼 PR 에서 돎)·`nightly` 첫 실행 확인, `main` 브랜치 보호 규칙(`docs/CI.md`).
+3. **GitHub 기본 브랜치를 `main` 으로** — 2026-10-03 현재 기본 브랜치는 아직 작업 브랜치일 수 있다. `git ls-remote --symref origin HEAD` 로 확인. 바꾸기는 사용자가 한다(웹 Settings → General → Default branch, 또는 `gh repo edit --default-branch main`).
+4. **위키** — `docs/wiki/` 의 9개 페이지를 2026-10-03 위키에 게시했다(https://github.com/nohsundongtbell/qa-lab-practice/wiki). 원본은 `docs/wiki/` 이고, 고치면 같은 방법(`docs/wiki/README.md`)으로 다시 올린다.
+5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.
+6. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
 
 ## 6. 어떤 문서를 읽을까
 | 하려는 일 | 문서 |
@@ -119,7 +122,10 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 - Selenium: `QA_LAB_CHROME_PATH`, `QA_LAB_NO_SANDBOX=1`, `QA_LAB_DRIVER_PATH`, `QA_LAB_DRIVER_ARGS=--disable-build-check`(드라이버·브라우저 버전 불일치 우회). 로컬은 이 변수 없이 Selenium Manager 가 드라이버를 받는지 확인해야 합니다.
 - SonarQube: `vm.max_map_count` 를 올려도 세션 디스크 한도 때문에 Elasticsearch 가 멈춰 검증 못 함.
 
-## 8. 마지막으로 확인된 상태 (클라우드, Linux)
+## 8. 마지막으로 확인된 상태
+로컬 Windows 11 (2026-10-03): `npm run validate` 통과, `npm test` 600개 통과(앱 실행 중), API 단위 94 + 통합 81, `npm run test:labs` 전체 통과(Playwright t2 경합 수정 후). GitHub 러너: `validate`·`publish-index`·`codeql` 성공.
+
+클라우드, Linux:
 - `npm run validate` 통과(랩 13개), `npm run build-index -- --check` 최신, `npm test` 598개 통과.
 - API: 단위 94 + 통합 81 통과.
 - 랩 E2E(`npm run test:labs`, 앱 `advanced`): 51개 중 UI 랩 2개가 처음에 실패 → 결함 헤더 고정으로 수정 후 두 랩 solution 통과 확인. 전체를 한 번에 다시 돌리지는 않았습니다(로컬에서 첫 번째 확인 대상).

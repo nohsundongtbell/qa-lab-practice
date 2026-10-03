@@ -37,7 +37,7 @@ npm run lab -- api-contract-testing/shop-api-contract
 npm run up -- --profile advanced
 ```
 
-<!-- TODO: verify-windows — Newman 실행과 Postman 앱 가져오기 절차를 Windows 에서 확인 -->
+<!-- TODO: verify-windows — Postman 앱 가져오기·내보내기 절차 (Newman 실행은 확인함) -->
 
 작업 폴더 `labs/api-contract-testing/shop-api-contract/work/`에 다음이 복사됩니다.
 
