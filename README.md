@@ -12,9 +12,18 @@
 | 강의 | [qa-lab.pages.dev](https://qa-lab.pages.dev/) | 개념, 판단 기준 — "왜, 언제" |
 | 실습 | 이 저장소 | 대상 앱, 과제, 자동 채점 — "어떻게" |
 
+## 어디서 시작할까요?
+
+| 나는… | 여기서 시작하세요 |
+|---|---|
+| **터미널이나 설치가 처음이에요** (기획자, QA 입문자 등) | 위키의 [처음이라면: 설치부터 첫 화면까지](https://github.com/nohsundongtbell/qa-lab-practice/wiki/First-Time-Setup) — 터미널 여는 법부터 쇼핑몰 화면이 열릴 때까지 차근차근 안내합니다. 그다음 [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs) 코스를 따라가세요 |
+| **Git·Node·Docker 를 써 봤어요** | 바로 아래 [개발자용 빠른 시작](#개발자용-빠른-시작-3분)으로 |
+
+막히면 위키의 [문제 해결](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Troubleshooting)을 보거나 `npm run doctor` 를 실행하세요. 위키 전체: [qa-lab-practice 위키](https://github.com/nohsundongtbell/qa-lab-practice/wiki)
+
 ---
 
-## 3분 안에 시작하기
+## 개발자용 빠른 시작 (3분)
 
 ### 1. 준비물
 | 도구 | 버전 | 용도 |
@@ -75,7 +84,7 @@ npm run up
 | `admin@example.com` | 관리자 | — | 출고·배송 완료 처리 |
 
 ### 4. 첫 랩
-랩 목록은 `npm run lab`으로 봅니다. 처음이라면 이 순서를 권합니다.
+랩 목록은 `npm run lab`으로 봅니다. 처음이라면 이 순서를 권합니다. 세 랩 모두 코딩 없이 표·글로 풉니다(요령: 위키의 [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs)).
 
 | 순서 | 랩 | 결함 프로필 | 시간 |
 |---|---|---|---|
