@@ -13,7 +13,7 @@
   "postCreateCommand": "npm ci && npx playwright install --with-deps chromium",
   "forwardPorts": [8080, 3000],
   "portsAttributes": {
-    "8080": { "label": "QA 숍 웹", "onAutoForward": "notify" },
+    "8080": { "label": "QA 숍 웹", "onAutoForward": "silent" },
     "3000": { "label": "QA 숍 API·Swagger UI", "onAutoForward": "silent" },
     "55432": { "label": "DB (전달하지 않음)", "onAutoForward": "ignore" }
   },
