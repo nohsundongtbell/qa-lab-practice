@@ -1,0 +1,13 @@
+tester: 홍길동
+date: 2026-10-03
+targets:
+  - labs/security-testing-tools/scanner-triage/work/scan-target
+  - http://127.0.0.1:9000
+authorization:
+  own_environment: true
+  no_third_party: true
+  no_real_data: true
+  stop_on_doubt: true
+out_of_scope:
+  - 공개 인터넷의 서비스, 회사·학교 서버 등 내가 띄우지 않은 모든 시스템
+  - 실습 앱(QA 숍)에 대한 공격 트래픽 전송 — 이 랩은 정적 분석과 리포트 분류만 한다

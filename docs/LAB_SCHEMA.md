@@ -64,6 +64,7 @@ labs/<module-slug>/<lab-name>/
 | `variants` | UI 랩: 테스트를 실행할 화면 변형 목록 (`v1`, `v2`). 기본 `[v1]`. 모두 통과해야 함 |
 | `latency` | UI 랩: API 응답 지연 프로필 (`none` · `slow` · `unstable`). 기본 `none` |
 | `repeat` | UI 랩: 같은 테스트를 반복 실행하는 횟수(1~50). 한 번이라도 실패하면 불안정으로 봄. 기본 1 |
+| `max_missed_tp` | 보안 리포트 분류: 진짜 취약점(TP)을 놓친 수의 최대값 |
 | `min_line_pct`, `min_branch_pct` | 대상 파일 **각각**의 줄·분기 커버리지 최소값(%) |
 | `beyond_profile` | 이 프로필에 **없는** 결함만 `min_defects`로 센다 (예: `beginner` → 더 깊은 결함을 찾았는지) |
 

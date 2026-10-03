@@ -1,0 +1,19 @@
+module: security-testing-tools
+lessons: [sonarqube-static-analysis, ai-security-scanners-and-report-triage]
+title_ko: 허가·범위를 정하고 보안 스캐너 리포트 100건을 분류하기
+level: advanced
+est_minutes: 150
+requires: [node24]
+platforms: [macos, windows, linux]
+notes: "SonarQube 실습(선택, 채점 안 함)은 Docker 와 메모리 4GB 이상이 필요합니다."
+tools: [sonarqube, report-triage]
+sut_profile: any
+tasks:
+  - id: t1
+    goal: 보안 실습의 허가·범위 체크리스트를 작성해 대상을 내 컴퓨터와 실습 코드로 한정한다
+    check: check/t1.mjs
+  - id: t2
+    goal: 여러 스캐너가 합쳐 낸 리포트 100건을 코드로 확인해 진짜 취약점·오탐·중복으로 분류한다
+    check: check/t2.mjs
+    pass: { min_correct: 90, max_missed_tp: 1 }
+status: ready

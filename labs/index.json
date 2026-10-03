@@ -132,6 +132,28 @@
       ]
     },
     {
+      "id": "security-testing-tools/scanner-triage",
+      "moduleSlug": "security-testing-tools",
+      "lessonSlugs": [
+        "sonarqube-static-analysis",
+        "ai-security-scanners-and-report-triage"
+      ],
+      "title": "허가·범위를 정하고 보안 스캐너 리포트 100건을 분류하기",
+      "path": "labs/security-testing-tools/scanner-triage",
+      "status": "ready",
+      "estimatedMinutes": 150,
+      "level": "고급",
+      "tools": [
+        "sonarqube",
+        "report-triage"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "structural-testing-practice/coverage-and-mutation",
       "moduleSlug": "structural-testing-practice",
       "lessonSlugs": [

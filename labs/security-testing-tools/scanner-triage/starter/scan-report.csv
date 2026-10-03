@@ -1,0 +1,101 @@
+id,tool,rule,cwe,title,severity,file,line,snippet,message
+F-001,AI-Review,ai/security-review,89,SQL 주입,HIGH,src/routes/products.js,1,db.query('SELECT * FROM products WHERE id = ' + req.params.id),이 코드는 SQL 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-002,RuleScan,rs/cwe-347,347,서명 검증 미흡,HIGH,src/auth/session.js,13,"return jwt.verify(token, secret, { algorithms: ['HS256'] })",서명 검증 미흡 패턴이 감지되었습니다.
+F-003,TaintCheck,TC0338,338,예측 가능한 난수,LOW,src/auth/password.js,23,return Math.random().toString(36).slice(2),[예측 가능한 난수] 사용자 입력 흐름이 싱크에 도달합니다.
+F-004,RuleScan,rs/cwe-328,328,취약한 해시,LOW,src/auth/password.js,11,return crypto.createHash('md5').update(password).digest('hex'),취약한 해시 패턴이 감지되었습니다.
+F-005,RuleScan,rs/cwe-95,95,동적 코드 실행(eval),HIGH,test/products.test.js,5,return eval('1 + 1') === 2 && TEST_PASSWORD.length > 0,동적 코드 실행(eval) 패턴이 감지되었습니다.
+F-006,RuleScan,rs/cwe-532,532,로그에 민감 정보,LOW,src/util/logger.js,3,"log.info('login attempt', { email, password, ok })",로그에 민감 정보 패턴이 감지되었습니다.
+F-007,AI-Review,ai/security-review,89,SQL 주입,HIGH,src/routes/products.js,11,"const rows = await db.query('SELECT id, name, price FROM products WHERE id = $1', [req.params.id])",이 코드는 SQL 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-008,SecretScan,secret/generic-high-entropy,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,5,const JWT_SECRET = 'qa-lab-fake-jwt-secret-change-me',하드코딩된 비밀 값으로 보이는 문자열이 있습니다.
+F-009,AI-Review,ai/security-review,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/routes/products.js,16,res.send('<h1>검색 결과: ' + req.query.q + '</h1>'),이 코드는 크로스 사이트 스크립팅(XSS) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-010,AI-Review,ai/security-review,22,경로 조작(Path Traversal),MEDIUM,src/routes/files.js,17,"const data = await fs.readFile(path.join(UPLOAD_DIR, safe))",이 코드는 경로 조작(Path Traversal) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-011,SecretScan,secret/generic-high-entropy,798,하드코딩된 비밀 값,MEDIUM,test/products.test.js,2,const TEST_PASSWORD = 'qa-lab-1234',하드코딩된 비밀 값으로 보이는 문자열이 있습니다.
+F-012,RuleScan,rs/cwe-347,347,서명 검증 미흡,HIGH,src/auth/session.js,9,"return jwt.verify(token, secret, { algorithms: ['HS256', 'none'] })",서명 검증 미흡 패턴이 감지되었습니다.
+F-013,RuleScan,rs/cwe-89,89,SQL 주입,HIGH,src/routes/orders.js,27,"await db.query('UPDATE orders SET status = $2, total = $3 WHERE id = $1', [order.id, order.status, order.total])",SQL 주입 패턴이 감지되었습니다.
+F-014,RuleScan,rs/cwe-639-taint,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,4,"const rows = await db.query('SELECT * FROM orders WHERE id = $1', [req.params.id])",신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (권한 확인 없는 객체 접근(IDOR)).
+F-015,AI-Review,ai/security-review,347,서명 검증 미흡,HIGH,src/auth/session.js,13,"return jwt.verify(token, secret, { algorithms: ['HS256'] })",이 코드는 서명 검증 미흡 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-016,AI-Review,ai/security-review,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,5,const JWT_SECRET = 'qa-lab-fake-jwt-secret-change-me',이 코드는 하드코딩된 비밀 값 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-017,RuleScan,rs/cwe-78,78,OS 명령 주입,HIGH,src/routes/files.js,22,"exec('convert ' + req.query.file + ' /tmp/out.png', () => res.send('ok'))",OS 명령 주입 패턴이 감지되었습니다.
+F-018,AI-Review,ai/security-review,78,OS 명령 주입,HIGH,src/routes/files.js,22,"exec('convert ' + req.query.file + ' /tmp/out.png', () => res.send('ok'))",이 코드는 OS 명령 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-019,AI-Review,ai/security-review,532,로그에 민감 정보,LOW,src/util/logger.js,3,"log.info('login attempt', { email, password, ok })",이 코드는 로그에 민감 정보 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-020,RuleScan,rs/cwe-347-taint,347,서명 검증 미흡,HIGH,src/auth/session.js,9,"return jwt.verify(token, secret, { algorithms: ['HS256', 'none'] })",신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (서명 검증 미흡).
+F-021,RuleScan,rs/cwe-798,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,5,const JWT_SECRET = 'qa-lab-fake-jwt-secret-change-me',하드코딩된 비밀 값 패턴이 감지되었습니다.
+F-022,RuleScan,rs/cwe-1333,1333,정규식 서비스 거부(ReDoS),LOW,src/util/validate.js,7,"return /^[a-z0-9_-]{3,20}$/.test(name)",정규식 서비스 거부(ReDoS) 패턴이 감지되었습니다.
+F-023,AI-Review,ai/security-review,915,대량 할당(Mass Assignment),MEDIUM,src/routes/orders.js,15,"Object.assign(order, req.body)",이 코드는 대량 할당(Mass Assignment) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-024,AI-Review,ai/security-review,338,예측 가능한 난수,LOW,src/auth/password.js,27,return [...items].sort(() => Math.random() - 0.5),이 코드는 예측 가능한 난수 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-025,RuleScan,rs/cwe-918,918,서버 측 요청 위조(SSRF),HIGH,src/admin/report.js,21,"const page = await fetch(new URL('/api/health', INTERNAL_BASE))",서버 측 요청 위조(SSRF) 패턴이 감지되었습니다.
+F-026,AI-Review,ai/security-review,1004,HttpOnly 없는 쿠키,LOW,src/auth/session.js,5,"res.cookie('sid', sessionId, { httpOnly: false, sameSite: 'lax' })",이 코드는 HttpOnly 없는 쿠키 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-027,RuleScan,rs/cwe-78,78,OS 명령 주입,HIGH,src/routes/files.js,27,"execFile('convert', [path.join(UPLOAD_DIR, req.query.file), '/tmp/out.png'], () => res.send('ok'))",OS 명령 주입 패턴이 감지되었습니다.
+F-028,TaintCheck,TC1333,1333,정규식 서비스 거부(ReDoS),LOW,src/util/validate.js,3,return /^(a+)+$/.test(input),[정규식 서비스 거부(ReDoS)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-029,RuleScan,rs/cwe-79,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/util/html.js,5,"return String(value).replace(/[&<>""']/g, (c) => MAP[c])",크로스 사이트 스크립팅(XSS) 패턴이 감지되었습니다.
+F-030,TaintCheck,TC0918,918,서버 측 요청 위조(SSRF),HIGH,src/admin/report.js,16,const page = await fetch(req.query.url),[서버 측 요청 위조(SSRF)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-031,TaintCheck,TC0601,601,열린 리다이렉트,LOW,src/util/redirect.js,5,res.redirect(req.query.next),[열린 리다이렉트] 사용자 입력 흐름이 싱크에 도달합니다.
+F-032,TaintCheck,TC0089,89,SQL 주입,HIGH,src/routes/products.js,6,"const rows = await db.query(""SELECT id, name, price FROM products WHERE name LIKE '%"" + req.query.q + ""%'"")",[SQL 주입] 사용자 입력 흐름이 싱크에 도달합니다.
+F-033,RuleScan,rs/cwe-798,798,하드코딩된 비밀 값,MEDIUM,test/products.test.js,2,const TEST_PASSWORD = 'qa-lab-1234',하드코딩된 비밀 값 패턴이 감지되었습니다.
+F-034,RuleScan,rs/cwe-89,89,SQL 주입,HIGH,src/routes/products.js,6,"const rows = await db.query(""SELECT id, name, price FROM products WHERE name LIKE '%"" + req.query.q + ""%'"")",SQL 주입 패턴이 감지되었습니다.
+F-035,RuleScan,rs/cwe-22,22,경로 조작(Path Traversal),MEDIUM,src/routes/files.js,11,"const data = await fs.readFile(path.join(UPLOAD_DIR, req.query.name))",경로 조작(Path Traversal) 패턴이 감지되었습니다.
+F-036,RuleScan,rs/cwe-312,312,민감 정보 평문 저장,MEDIUM,src/payments/card.js,7,"await db.query('INSERT INTO cards (member_id, last4) VALUES ($1, $2)', [memberId, cardNumber.slice(-4)])",민감 정보 평문 저장 패턴이 감지되었습니다.
+F-037,RuleScan,rs/cwe-95,95,동적 코드 실행(eval),HIGH,src/admin/report.js,6,const result = eval(req.body.formula),동적 코드 실행(eval) 패턴이 감지되었습니다.
+F-038,RuleScan,rs/cwe-338,338,예측 가능한 난수,LOW,src/auth/password.js,27,return [...items].sort(() => Math.random() - 0.5),예측 가능한 난수 패턴이 감지되었습니다.
+F-039,AI-Review,ai/security-review,918,서버 측 요청 위조(SSRF),HIGH,src/admin/report.js,21,"const page = await fetch(new URL('/api/health', INTERNAL_BASE))",이 코드는 서버 측 요청 위조(SSRF) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-040,RuleScan,rs/cwe-639,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,9,"const rows = await db.query('SELECT * FROM orders WHERE id = $1 AND member_id = $2', [req.params.id, req.user.id])",권한 확인 없는 객체 접근(IDOR) 패턴이 감지되었습니다.
+F-041,TaintCheck,TC1004,1004,HttpOnly 없는 쿠키,LOW,src/auth/session.js,5,"res.cookie('sid', sessionId, { httpOnly: false, sameSite: 'lax' })",[HttpOnly 없는 쿠키] 사용자 입력 흐름이 싱크에 도달합니다.
+F-042,RuleScan,rs/cwe-338,338,예측 가능한 난수,LOW,src/auth/password.js,23,return Math.random().toString(36).slice(2),예측 가능한 난수 패턴이 감지되었습니다.
+F-043,AI-Review,ai/security-review,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,4,"const rows = await db.query('SELECT * FROM orders WHERE id = $1', [req.params.id])",이 코드는 권한 확인 없는 객체 접근(IDOR) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-044,TaintCheck,TC0347,347,서명 검증 미흡,HIGH,src/auth/session.js,9,"return jwt.verify(token, secret, { algorithms: ['HS256', 'none'] })",[서명 검증 미흡] 사용자 입력 흐름이 싱크에 도달합니다.
+F-045,TaintCheck,TC0079,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/routes/products.js,16,res.send('<h1>검색 결과: ' + req.query.q + '</h1>'),[크로스 사이트 스크립팅(XSS)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-046,TaintCheck,TC0022,22,경로 조작(Path Traversal),MEDIUM,src/routes/files.js,11,"const data = await fs.readFile(path.join(UPLOAD_DIR, req.query.name))",[경로 조작(Path Traversal)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-047,AI-Review,ai/security-review,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/routes/products.js,20,res.send('<h1>검색 결과: ' + escapeHtml(req.query.q) + '</h1>'),이 코드는 크로스 사이트 스크립팅(XSS) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-048,TaintCheck,TC0095,95,동적 코드 실행(eval),HIGH,src/admin/report.js,6,const result = eval(req.body.formula),[동적 코드 실행(eval)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-049,AI-Review,ai/security-review,798,하드코딩된 비밀 값,MEDIUM,test/products.test.js,2,const TEST_PASSWORD = 'qa-lab-1234',이 코드는 하드코딩된 비밀 값 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-050,RuleScan,rs/cwe-78-taint,78,OS 명령 주입,HIGH,src/routes/files.js,22,"exec('convert ' + req.query.file + ' /tmp/out.png', () => res.send('ok'))",신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (OS 명령 주입).
+F-051,TaintCheck,TC0532,532,로그에 민감 정보,LOW,src/util/logger.js,3,"log.info('login attempt', { email, password, ok })",[로그에 민감 정보] 사용자 입력 흐름이 싱크에 도달합니다.
+F-052,AI-Review,ai/security-review,532,로그에 민감 정보,LOW,src/util/logger.js,7,"log.info('login attempt', { email, ok })",이 코드는 로그에 민감 정보 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-053,TaintCheck,TC0915,915,대량 할당(Mass Assignment),MEDIUM,src/routes/orders.js,15,"Object.assign(order, req.body)",[대량 할당(Mass Assignment)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-054,RuleScan,rs/cwe-328-taint,328,취약한 해시,LOW,src/auth/password.js,11,return crypto.createHash('md5').update(password).digest('hex'),신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (취약한 해시).
+F-055,AI-Review,ai/security-review,89,SQL 주입,HIGH,src/routes/orders.js,27,"await db.query('UPDATE orders SET status = $2, total = $3 WHERE id = $1', [order.id, order.status, order.total])",이 코드는 SQL 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-056,AI-Review,ai/security-review,312,민감 정보 평문 저장,MEDIUM,src/payments/card.js,3,"await db.query('INSERT INTO cards (member_id, number) VALUES ($1, $2)', [memberId, cardNumber])",이 코드는 민감 정보 평문 저장 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-057,AI-Review,ai/security-review,312,민감 정보 평문 저장,MEDIUM,src/payments/card.js,7,"await db.query('INSERT INTO cards (member_id, last4) VALUES ($1, $2)', [memberId, cardNumber.slice(-4)])",이 코드는 민감 정보 평문 저장 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-058,RuleScan,rs/cwe-95-taint,95,동적 코드 실행(eval),HIGH,src/admin/report.js,6,const result = eval(req.body.formula),신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (동적 코드 실행(eval)).
+F-059,TaintCheck,TC0312,312,민감 정보 평문 저장,MEDIUM,src/payments/card.js,3,"await db.query('INSERT INTO cards (member_id, number) VALUES ($1, $2)', [memberId, cardNumber])",[민감 정보 평문 저장] 사용자 입력 흐름이 싱크에 도달합니다.
+F-060,RuleScan,rs/cwe-532,532,로그에 민감 정보,LOW,src/util/logger.js,7,"log.info('login attempt', { email, ok })",로그에 민감 정보 패턴이 감지되었습니다.
+F-061,TaintCheck,TC0798,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,5,const JWT_SECRET = 'qa-lab-fake-jwt-secret-change-me',[하드코딩된 비밀 값] 사용자 입력 흐름이 싱크에 도달합니다.
+F-062,SecretScan,secret/generic-high-entropy,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,8,export const EXAMPLE_ENV = 'API_TOKEN=<your-token-here>',하드코딩된 비밀 값으로 보이는 문자열이 있습니다.
+F-063,AI-Review,ai/security-review,1333,정규식 서비스 거부(ReDoS),LOW,src/util/validate.js,7,"return /^[a-z0-9_-]{3,20}$/.test(name)",이 코드는 정규식 서비스 거부(ReDoS) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-064,AI-Review,ai/security-review,328,취약한 해시,LOW,src/auth/password.js,11,return crypto.createHash('md5').update(password).digest('hex'),이 코드는 취약한 해시 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-065,AI-Review,ai/security-review,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,8,export const EXAMPLE_ENV = 'API_TOKEN=<your-token-here>',이 코드는 하드코딩된 비밀 값 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-066,RuleScan,rs/cwe-79,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/routes/products.js,16,res.send('<h1>검색 결과: ' + req.query.q + '</h1>'),크로스 사이트 스크립팅(XSS) 패턴이 감지되었습니다.
+F-067,RuleScan,rs/cwe-312,312,민감 정보 평문 저장,MEDIUM,src/payments/card.js,3,"await db.query('INSERT INTO cards (member_id, number) VALUES ($1, $2)', [memberId, cardNumber])",민감 정보 평문 저장 패턴이 감지되었습니다.
+F-068,RuleScan,rs/cwe-328,328,취약한 해시,LOW,src/auth/password.js,15,return crypto.createHash('md5').update(fileBuffer).digest('hex'),취약한 해시 패턴이 감지되었습니다.
+F-069,RuleScan,rs/cwe-639,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,4,"const rows = await db.query('SELECT * FROM orders WHERE id = $1', [req.params.id])",권한 확인 없는 객체 접근(IDOR) 패턴이 감지되었습니다.
+F-070,AI-Review,ai/security-review,338,예측 가능한 난수,LOW,src/auth/password.js,23,return Math.random().toString(36).slice(2),이 코드는 예측 가능한 난수 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-071,AI-Review,ai/security-review,89,SQL 주입,HIGH,src/routes/products.js,6,"const rows = await db.query(""SELECT id, name, price FROM products WHERE name LIKE '%"" + req.query.q + ""%'"")",이 코드는 SQL 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-072,AI-Review,ai/security-review,95,동적 코드 실행(eval),HIGH,src/admin/report.js,11,const data = JSON.parse(req.body.data),이 코드는 동적 코드 실행(eval) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-073,AI-Review,ai/security-review,601,열린 리다이렉트,LOW,src/util/redirect.js,5,res.redirect(req.query.next),이 코드는 열린 리다이렉트 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-074,AI-Review,ai/security-review,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/util/html.js,5,"return String(value).replace(/[&<>""']/g, (c) => MAP[c])",이 코드는 크로스 사이트 스크립팅(XSS) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-075,AI-Review,ai/security-review,1333,정규식 서비스 거부(ReDoS),LOW,src/util/validate.js,3,return /^(a+)+$/.test(input),이 코드는 정규식 서비스 거부(ReDoS) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-076,AI-Review,ai/security-review,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,9,"const rows = await db.query('SELECT * FROM orders WHERE id = $1 AND member_id = $2', [req.params.id, req.user.id])",이 코드는 권한 확인 없는 객체 접근(IDOR) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-077,TaintCheck,TC0078,78,OS 명령 주입,HIGH,src/routes/files.js,22,"exec('convert ' + req.query.file + ' /tmp/out.png', () => res.send('ok'))",[OS 명령 주입] 사용자 입력 흐름이 싱크에 도달합니다.
+F-078,RuleScan,rs/cwe-89-taint,89,SQL 주입,HIGH,src/routes/products.js,6,"const rows = await db.query(""SELECT id, name, price FROM products WHERE name LIKE '%"" + req.query.q + ""%'"")",신뢰할 수 없는 데이터가 위험한 함수에 도달할 수 있습니다 (SQL 주입).
+F-079,AI-Review,ai/security-review,95,동적 코드 실행(eval),HIGH,test/products.test.js,5,return eval('1 + 1') === 2 && TEST_PASSWORD.length > 0,이 코드는 동적 코드 실행(eval) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-080,AI-Review,ai/security-review,22,경로 조작(Path Traversal),MEDIUM,src/routes/files.js,11,"const data = await fs.readFile(path.join(UPLOAD_DIR, req.query.name))",이 코드는 경로 조작(Path Traversal) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-081,RuleScan,rs/cwe-79,79,크로스 사이트 스크립팅(XSS),MEDIUM,src/routes/products.js,20,res.send('<h1>검색 결과: ' + escapeHtml(req.query.q) + '</h1>'),크로스 사이트 스크립팅(XSS) 패턴이 감지되었습니다.
+F-082,RuleScan,rs/cwe-798,798,하드코딩된 비밀 값,MEDIUM,src/auth/password.js,8,export const EXAMPLE_ENV = 'API_TOKEN=<your-token-here>',하드코딩된 비밀 값 패턴이 감지되었습니다.
+F-083,TaintCheck,TC0328,328,취약한 해시,LOW,src/auth/password.js,11,return crypto.createHash('md5').update(password).digest('hex'),[취약한 해시] 사용자 입력 흐름이 싱크에 도달합니다.
+F-084,RuleScan,rs/cwe-918,918,서버 측 요청 위조(SSRF),HIGH,src/admin/report.js,16,const page = await fetch(req.query.url),서버 측 요청 위조(SSRF) 패턴이 감지되었습니다.
+F-085,RuleScan,rs/cwe-89,89,SQL 주입,HIGH,src/routes/products.js,11,"const rows = await db.query('SELECT id, name, price FROM products WHERE id = $1', [req.params.id])",SQL 주입 패턴이 감지되었습니다.
+F-086,RuleScan,rs/cwe-22,22,경로 조작(Path Traversal),MEDIUM,src/routes/files.js,17,"const data = await fs.readFile(path.join(UPLOAD_DIR, safe))",경로 조작(Path Traversal) 패턴이 감지되었습니다.
+F-087,AI-Review,ai/security-review,328,취약한 해시,LOW,src/auth/password.js,15,return crypto.createHash('md5').update(fileBuffer).digest('hex'),이 코드는 취약한 해시 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-088,RuleScan,rs/cwe-1004,1004,HttpOnly 없는 쿠키,LOW,src/auth/session.js,5,"res.cookie('sid', sessionId, { httpOnly: false, sameSite: 'lax' })",HttpOnly 없는 쿠키 패턴이 감지되었습니다.
+F-089,RuleScan,rs/cwe-95,95,동적 코드 실행(eval),HIGH,src/admin/report.js,11,const data = JSON.parse(req.body.data),동적 코드 실행(eval) 패턴이 감지되었습니다.
+F-090,AI-Review,ai/security-review,918,서버 측 요청 위조(SSRF),HIGH,src/admin/report.js,16,const page = await fetch(req.query.url),이 코드는 서버 측 요청 위조(SSRF) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-091,AI-Review,ai/security-review,78,OS 명령 주입,HIGH,src/routes/files.js,27,"execFile('convert', [path.join(UPLOAD_DIR, req.query.file), '/tmp/out.png'], () => res.send('ok'))",이 코드는 OS 명령 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-092,RuleScan,rs/cwe-915,915,대량 할당(Mass Assignment),MEDIUM,src/routes/orders.js,15,"Object.assign(order, req.body)",대량 할당(Mass Assignment) 패턴이 감지되었습니다.
+F-093,AI-Review,ai/security-review,89,SQL 주입,HIGH,src/routes/cart.js,12,db.query('SELECT * FROM cart WHERE member_id = ' + req.user.id),이 코드는 SQL 주입 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-094,RuleScan,rs/cwe-601,601,열린 리다이렉트,LOW,src/util/redirect.js,5,res.redirect(req.query.next),열린 리다이렉트 패턴이 감지되었습니다.
+F-095,TaintCheck,TC0639,639,권한 확인 없는 객체 접근(IDOR),MEDIUM,src/routes/orders.js,4,"const rows = await db.query('SELECT * FROM orders WHERE id = $1', [req.params.id])",[권한 확인 없는 객체 접근(IDOR)] 사용자 입력 흐름이 싱크에 도달합니다.
+F-096,RuleScan,rs/cwe-1333,1333,정규식 서비스 거부(ReDoS),LOW,src/util/validate.js,3,return /^(a+)+$/.test(input),정규식 서비스 거부(ReDoS) 패턴이 감지되었습니다.
+F-097,AI-Review,ai/security-review,347,서명 검증 미흡,HIGH,src/auth/session.js,9,"return jwt.verify(token, secret, { algorithms: ['HS256', 'none'] })",이 코드는 서명 검증 미흡 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-098,RuleScan,rs/cwe-601,601,열린 리다이렉트,LOW,src/util/redirect.js,10,res.redirect(ALLOWED_NEXT.includes(next) ? next : '/'),열린 리다이렉트 패턴이 감지되었습니다.
+F-099,AI-Review,ai/security-review,601,열린 리다이렉트,LOW,src/util/redirect.js,10,res.redirect(ALLOWED_NEXT.includes(next) ? next : '/'),이 코드는 열린 리다이렉트 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.
+F-100,AI-Review,ai/security-review,95,동적 코드 실행(eval),HIGH,src/admin/report.js,6,const result = eval(req.body.formula),이 코드는 동적 코드 실행(eval) 취약점이 있는 것이 확실합니다. 공격자가 이를 악용해 시스템을 장악할 수 있으므로 즉시 수정해야 합니다.

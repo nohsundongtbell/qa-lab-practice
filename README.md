@@ -95,6 +95,7 @@ npm run up
 | [`api-testing-tools/swagger-and-traffic`](labs/api-testing-tools/swagger-and-traffic/README.md) | Swagger UI, OpenAPI→컬렉션→Newman, mitmproxy 애드온, 패킷 캡처(.pcap) 읽기 | 필요 (앱, mitmproxy) |
 | [`ui-automation/shop-ui-flows`](labs/ui-automation/shop-ui-flows/README.md) | Playwright 로 구매 흐름 자동화, 화면 변형(v2)·불안정한 응답에서도 통과, fixture 로 테스트 데이터 준비 | 필요 (앱, 브라우저) |
 | [`ui-automation-tools/selenium-shop-flow`](labs/ui-automation-tools/selenium-shop-flow/README.md) | 같은 시나리오를 Selenium WebDriver 로, 명시적 대기 | 필요 (앱, Chrome) |
+| [`security-testing-tools/scanner-triage`](labs/security-testing-tools/scanner-triage/README.md) | 허가·범위 체크리스트, 스캐너 리포트 100건 분류(진짜·오탐·중복), (선택) SonarQube | 불필요 (선택 실습만) |
 
 공통
 
