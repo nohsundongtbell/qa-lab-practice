@@ -22,7 +22,7 @@ export default defineConfig({
   use: {
     baseURL: ${JSON.stringify(baseUrl)},
     headless: true,
-    extraHTTPHeaders: { 'X-QA-Lab-UI-Variant': ${JSON.stringify(variant)}, 'X-QA-Lab-Latency': ${JSON.stringify(latency)} },
+    extraHTTPHeaders: { 'X-QA-Lab-UI-Variant': ${JSON.stringify(variant)}, 'X-QA-Lab-Latency': ${JSON.stringify(latency)}, 'X-QA-Lab-Defects': 'none' },
     launchOptions: ${launch},
   },
 })

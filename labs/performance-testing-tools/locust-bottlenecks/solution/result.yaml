@@ -1,0 +1,4 @@
+products: slow
+quote: ok
+orders: slow
+bottleneck_defects: [DF-018, DF-019]

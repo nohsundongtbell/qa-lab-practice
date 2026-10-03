@@ -96,6 +96,8 @@ npm run up
 | [`ui-automation/shop-ui-flows`](labs/ui-automation/shop-ui-flows/README.md) | Playwright 로 구매 흐름 자동화, 화면 변형(v2)·불안정한 응답에서도 통과, fixture 로 테스트 데이터 준비 | 필요 (앱, 브라우저) |
 | [`ui-automation-tools/selenium-shop-flow`](labs/ui-automation-tools/selenium-shop-flow/README.md) | 같은 시나리오를 Selenium WebDriver 로, 명시적 대기 | 필요 (앱, Chrome) |
 | [`security-testing-tools/scanner-triage`](labs/security-testing-tools/scanner-triage/README.md) | 허가·범위 체크리스트, 스캐너 리포트 100건 분류(진짜·오탐·중복), (선택) SonarQube | 불필요 (선택 실습만) |
+| [`ci-cd-continuous-testing/quality-gates`](labs/ci-cd-continuous-testing/quality-gates/README.md) | GitHub Actions 워크플로 규칙, 품질 게이트 스크립트, 불안정한 테스트 격리 | 불필요 |
+| [`performance-testing-tools/locust-bottlenecks`](labs/performance-testing-tools/locust-bottlenecks/README.md) | Locust 부하 시나리오 작성, p95 로 병목 엔드포인트·원인 결함 찾기 | 필요 (앱, Locust 이미지) |
 
 공통
 

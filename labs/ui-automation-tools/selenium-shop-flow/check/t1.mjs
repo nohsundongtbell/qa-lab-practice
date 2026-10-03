@@ -23,7 +23,7 @@ async function runOnce(variant) {
   try {
     const r = await runVitest({
       repoRoot: ctx.repoRoot, runDir: dir, config: CONFIG, filter: 'tests/t1-', timeoutMs: 180_000,
-      env: { QA_LAB_WEB_URL: webUrl, QA_LAB_API_URL: ctx.baseUrl, QA_LAB_UI_VARIANT: variant, QA_LAB_LATENCY: latency },
+      env: { QA_LAB_WEB_URL: webUrl, QA_LAB_API_URL: ctx.baseUrl, QA_LAB_UI_VARIANT: variant, QA_LAB_LATENCY: latency, QA_LAB_DEFECTS: 'none' },
     })
     return { ...r, summary: summarize(r.report) }
   } finally {

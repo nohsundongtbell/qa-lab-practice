@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { finish } from '../../../../scripts/lib/check-kit.mjs'
 import { loadLabContext } from '../../../../scripts/lib/lab-kit.mjs'
-import { SheetError, formatSheet, gradeSheet, readSheet } from './answer-sheet.mjs'
+import { SheetError, formatSheet, gradeSheet, readSheet } from '../../../../scripts/lib/answer-sheet.mjs'
 import { SPEC, answersFrom } from './pcap-analysis.mjs'
 
 const ctx = loadLabContext()

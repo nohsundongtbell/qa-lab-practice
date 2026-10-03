@@ -128,6 +128,8 @@ describe('validateLabData', () => {
       expect(withChange((d) => (d.tasks[0].pass = { min_tests: -1 })).join()).toMatch(/min_tests/)
       expect(withChange((d) => (d.tasks[0].pass = { min_correct: 90, max_missed_tp: 1 }))).toEqual([])
       expect(withChange((d) => (d.tasks[0].pass = { max_missed_tp: -1 })).join()).toMatch(/max_missed_tp/)
+      expect(withChange((d) => (d.tasks[0].pass = { users: 10, duration_s: 15, min_requests: 5 }))).toEqual([])
+      expect(withChange((d) => (d.tasks[0].pass = { users: -1 })).join()).toMatch(/users/)
       expect(withChange((d) => (d.tasks[0].pass = { min_line_pct: 100, min_branch_pct: 87.5 }))).toEqual([])
       expect(withChange((d) => (d.tasks[0].pass = { min_branch_pct: 101 })).join()).toMatch(/min_branch_pct/)
       expect(withChange((d) => (d.tasks[0].pass = { min_line_pct: '100' })).join()).toMatch(/min_line_pct/)

@@ -18,3 +18,8 @@ export function loadCatalog(root) {
   const catalog = loadYaml(fs.readFileSync(path.join(root, 'defects', 'catalog.yaml'), 'utf8'))
   return new Map((catalog?.defects ?? []).map((d) => [d.id, d]))
 }
+
+/** 카탈로그에서 이 모듈과 연결된 결함 ID (채점기 내부 전용). 카탈로그 순서를 따른다. */
+export function defectsForModule(root, moduleSlug) {
+  return [...loadCatalog(root).values()].filter((d) => (d.modules ?? []).includes(moduleSlug)).map((d) => d.id)
+}

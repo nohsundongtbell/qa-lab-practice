@@ -1,0 +1,9 @@
+# t2. 내 locustfile 로 Locust 를 실행해 응답 시간(p95)을 읽고, 사양서 §9 의 목표와 비교해 채우세요.
+#   목표(p95): GET /api/products 100ms 이하 · POST /api/quote 100ms 이하 · GET /api/orders 200ms 이하 (주문 10건 이하 회원, 동시 사용자 10명)
+#
+# products, quote, orders : 목표를 지키면 ok, 못 지키면 slow
+# bottleneck_defects      : 병목의 원인이 되는 결함 ID 목록 (결함을 하나씩 켜 가며 비교해 알아내세요)
+products:
+quote:
+orders:
+bottleneck_defects: []

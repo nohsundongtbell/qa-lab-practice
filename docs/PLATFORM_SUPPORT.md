@@ -8,6 +8,7 @@
 | `postgres:16-alpine` | `compose.yaml` db | ✅ | ✅ (v8) | `@sha256:721873c3…` |
 | `node:24-alpine` | api·web 빌드, api 실행 | ✅ | ✅ (v8) | `@sha256:ebfe2f90…` |
 | `nginx:1.27-alpine` | web 실행 | ✅ | ✅ (v8) | `@sha256:65645c7b…` |
+| `locustio/locust:2.46.6` | 랩 `performance-testing-tools/locust-bottlenecks` (채점기가 실행) | ✅ | ✅ | `@sha256:d4361622…` |
 | `mitmproxy/mitmproxy:12.2.3` | 랩 `api-testing-tools/swagger-and-traffic` t3 (채점기가 실행) | ✅ | ✅ | `@sha256:00b77b5d…` |
 
 랩용 도구 이미지(Locust, SonarQube 등)는 해당 랩을 만들 때 추가한다. `TODO: verify`

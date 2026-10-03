@@ -1,5 +1,5 @@
 // Selenium 공통 도구. 읽기만 하세요 — 채점기는 항상 이 파일의 원본으로 실행합니다.
-//   createDriver()   헤드리스 Chrome 을 띄운다. 채점 조건(화면 변형·응답 지연)을 요청 헤더로 넣어 준다
+//   createDriver()   헤드리스 Chrome 을 띄운다. 채점 조건(화면 변형·응답 지연·결함 집합)을 요청 헤더로 넣어 준다
 //   appUrl(hash)     앱 주소 (예: appUrl('/login') → http://127.0.0.1:8080/#/login)
 //   PASSWORD         시드 계정 공통 비밀번호
 //
@@ -25,11 +25,12 @@ export async function createDriver() {
   }
   const driver = await builder.build()
   await driver.sendDevToolsCommand('Network.enable')
-  await driver.sendDevToolsCommand('Network.setExtraHTTPHeaders', {
-    headers: {
-      'X-QA-Lab-UI-Variant': process.env.QA_LAB_UI_VARIANT ?? 'v1',
-      'X-QA-Lab-Latency': process.env.QA_LAB_LATENCY ?? 'none',
-    },
-  })
+  const headers = {
+    'X-QA-Lab-UI-Variant': process.env.QA_LAB_UI_VARIANT ?? 'v1',
+    'X-QA-Lab-Latency': process.env.QA_LAB_LATENCY ?? 'none',
+  }
+  // 채점기는 QA_LAB_DEFECTS=none 으로 앱의 결함 프로필과 무관하게 같은 조건을 만든다. 직접 실행할 때는 앱의 프로필을 따른다.
+  if (process.env.QA_LAB_DEFECTS !== undefined) headers['X-QA-Lab-Defects'] = process.env.QA_LAB_DEFECTS
+  await driver.sendDevToolsCommand('Network.setExtraHTTPHeaders', { headers })
   return driver
 }

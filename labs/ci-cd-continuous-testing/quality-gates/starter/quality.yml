@@ -1,0 +1,18 @@
+# t1. 이 워크플로를 고쳐 README 의 규칙 R1~R10 을 모두 지키게 하세요.
+# 지금은 여러 곳이 위험하거나 게이트로 동작하지 않습니다. 무엇이 문제인지 하나씩 찾아보세요.
+name: quality
+
+on: [push, pull_request_target]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm test
+        continue-on-error: true
+      - run: node scripts/gate.mjs metrics/summary.json || true

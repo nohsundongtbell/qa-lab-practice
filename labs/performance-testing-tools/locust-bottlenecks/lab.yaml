@@ -1,0 +1,20 @@
+module: performance-testing-tools
+lessons: [locust-python-load-testing]
+title_ko: Locust 로 부하 시나리오를 작성하고 병목 엔드포인트 찾기
+level: advanced
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+notes: ""
+tools: [locust]
+sut_profile: advanced
+tasks:
+  - id: t1
+    goal: 로그인·상품 목록·금액 미리보기·주문 목록을 사용자 행동으로 흉내 내는 Locust 부하 시나리오를 작성한다
+    check: check/t1.mjs
+    pass: { users: 10, duration_s: 15, min_requests: 5 }
+  - id: t2
+    goal: 부하 결과의 p95 를 사양서 목표와 비교해 병목 엔드포인트와 그 원인 결함을 찾아낸다
+    check: check/t2.mjs
+    pass: { users: 10, duration_s: 12 }
+status: ready

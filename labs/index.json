@@ -59,6 +59,28 @@
       ]
     },
     {
+      "id": "ci-cd-continuous-testing/quality-gates",
+      "moduleSlug": "ci-cd-continuous-testing",
+      "lessonSlugs": [
+        "github-actions-workflows",
+        "designing-quality-gates",
+        "reducing-false-alarms"
+      ],
+      "title": "GitHub Actions 워크플로와 품질 게이트 만들기",
+      "path": "labs/ci-cd-continuous-testing/quality-gates",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "입문",
+      "tools": [
+        "github-actions"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "data-checking-sql-logs-analytics/sql-and-logs",
       "moduleSlug": "data-checking-sql-logs-analytics",
       "lessonSlugs": [
@@ -124,6 +146,26 @@
       "level": "중급",
       "tools": [
         "markdown"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "performance-testing-tools/locust-bottlenecks",
+      "moduleSlug": "performance-testing-tools",
+      "lessonSlugs": [
+        "locust-python-load-testing"
+      ],
+      "title": "Locust 로 부하 시나리오를 작성하고 병목 엔드포인트 찾기",
+      "path": "labs/performance-testing-tools/locust-bottlenecks",
+      "status": "ready",
+      "estimatedMinutes": 120,
+      "level": "고급",
+      "tools": [
+        "locust"
       ],
       "platforms": [
         "macos",

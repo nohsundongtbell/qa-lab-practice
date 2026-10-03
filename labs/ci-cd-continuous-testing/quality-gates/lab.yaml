@@ -1,0 +1,19 @@
+module: ci-cd-continuous-testing
+lessons: [github-actions-workflows, designing-quality-gates, reducing-false-alarms]
+title_ko: GitHub Actions 워크플로와 품질 게이트 만들기
+level: beginner
+est_minutes: 120
+requires: [node24]
+platforms: [macos, windows, linux]
+notes: "GitHub Actions 를 실제로 실행하지 않고, 워크플로 YAML 을 정적으로 검사하고 게이트 스크립트를 시나리오로 시험합니다. 실제 실행은 본인의 GitHub 저장소가 필요한 선택 확인입니다."
+tools: [github-actions]
+sut_profile: any
+tasks:
+  - id: t1
+    goal: 안전하고 게이트로 동작하는 GitHub Actions 워크플로를 작성한다
+    check: check/t1.mjs
+  - id: t2
+    goal: 테스트·커버리지·보안·성능 지표로 빌드를 막거나 통과시키는 품질 게이트 스크립트를 작성하고 불안정한 테스트를 기한부로 격리한다
+    check: check/t2.mjs
+    pass: { min_correct: 26 }
+status: ready

@@ -43,6 +43,7 @@ describe('classifyError / makeConfig', () => {
     const c = makeConfig({ baseUrl: 'http://127.0.0.1:8080', prefix: 't2-', variant: 'v2', latency: 'unstable' })
     expect(c).toContain("'X-QA-Lab-UI-Variant': \"v2\"")
     expect(c).toContain("'X-QA-Lab-Latency': \"unstable\"")
+    expect(c).toContain("'X-QA-Lab-Defects': 'none'") // 앱의 결함 프로필과 무관하게 같은 조건에서 채점
     expect(c).toContain('"t2-*.spec.mjs"')
     expect(c).toContain('launchOptions: {}')
     expect(makeConfig({ baseUrl: 'x', prefix: 't1-', executablePath: '/opt/chrome' })).toContain('"/opt/chrome"')

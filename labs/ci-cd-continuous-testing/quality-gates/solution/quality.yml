@@ -1,0 +1,37 @@
+name: quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# 같은 브랜치의 이전 실행은 새 실행이 시작되면 취소한다
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+# 최소 권한: 코드를 읽기만 한다
+permissions:
+  contents: read
+
+jobs:
+  test-and-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: 테스트 (커버리지 포함)
+        run: npm test
+      - name: 품질 게이트
+        run: node scripts/gate.mjs metrics/summary.json
+      - name: 결과 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-results
+          path: metrics/

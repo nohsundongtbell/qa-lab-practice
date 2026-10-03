@@ -1,12 +1,10 @@
 import path from 'node:path'
-import { loadCatalog } from '../../../../scripts/lib/defects.mjs'
+import { defectsForModule } from '../../../../scripts/lib/defects.mjs'
 import { resetSut } from '../../../../scripts/lib/sut.mjs'
 import { loadSpec, listOperations } from '../../../../scripts/lib/openapi-ops.mjs'
 
 /** 이 랩의 모듈과 연결된 결함 ID (카탈로그의 modules 기준, 채점기 내부 전용). */
-export function labDefectIds(ctx) {
-  return [...loadCatalog(ctx.repoRoot).values()].filter((d) => (d.modules ?? []).includes(ctx.lab.module)).map((d) => d.id)
-}
+export const labDefectIds = (ctx) => defectsForModule(ctx.repoRoot, ctx.lab.module)
 
 export const specFile = (repoRoot) => path.join(repoRoot, 'apps', 'shop', 'api', 'openapi.yaml')
 export const operationsOf = (repoRoot) => listOperations(loadSpec(specFile(repoRoot)))
