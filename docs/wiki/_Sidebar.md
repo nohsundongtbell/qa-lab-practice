@@ -1,6 +1,7 @@
 **qa-lab-practice 위키**
 
 - [처음](https://github.com/nohsundongtbell/qa-lab-practice/wiki)
+- [처음이라면 (설치부터)](https://github.com/nohsundongtbell/qa-lab-practice/wiki/First-Time-Setup)
 - [시작하기](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Getting-Started)
 - [랩 목록과 학습 순서](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Lab-Roadmap)
 - [채점 결과 읽는 법](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Reading-Results)

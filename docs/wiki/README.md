@@ -6,6 +6,7 @@
 |---|---|
 | `Home.md` | 첫 화면 |
 | `_Sidebar.md` | 오른쪽 목차 |
+| `First-Time-Setup.md` | 처음이라면 (터미널·설치가 처음인 분) |
 | `Getting-Started.md` | 처음 시작하기 |
 | `Lab-Roadmap.md` | 랩 목록과 학습 순서 |
 | `Reading-Results.md` | 채점 결과 읽는 법 |
