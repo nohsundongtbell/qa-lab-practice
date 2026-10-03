@@ -11,3 +11,8 @@ playwright-report/
 .stryker-tmp/
 labs/**/work/
 labs/**/.runs/
+
+# 랩 자료는 위의 *.log · reports/ 규칙에서 제외한다 (커밋해야 하는 starter·solution 파일)
+!labs/*/*/starter/**/*.log
+!labs/*/*/starter/**/reports/
+!labs/*/*/solution/**/reports/
