@@ -38,7 +38,7 @@ npm run up -- --profile none
 npx playwright install chromium
 ```
 
-<!-- TODO: verify-windows — 새 PC 에서 npx playwright install chromium (headless 실행은 확인함) -->
+<!-- TODO: verify-windows — 브라우저가 없는 새 PC 에서 npx playwright install chromium 다운로드 (headless 실행·UI_VARIANT 블록은 확인함) -->
 
 작업 폴더 `labs/ui-automation/shop-ui-flows/work/`에 다음이 복사됩니다.
 

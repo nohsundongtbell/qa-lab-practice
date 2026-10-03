@@ -112,8 +112,9 @@ status: planned|beta|ready
 3. Node CLI·랩 템플릿·`lab.yaml` 스키마·validate/build-index·`.gitattributes` [Sonnet] — 완료
 4. 랩 1~3 `ready` [Opus] — 완료, `docs/CONTRIBUTING_LABS.md` 작성 완료 → **사용자 직접 풀이·피드백 대기** (피드백 반영 후 단계 5)
 5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6·7a·7b·8a·8b·9·10·11 완료(보안 랩 안전 검수 완료: `docs/SECURITY_LAB_SAFETY.md`), advanced 카탈로그(DF-013~019) 검수 완료, **단계 5 완료**
-6. CI·인덱스 배포 [Sonnet] — 완료(`.github/workflows/`, `docs/CI.md`; 실제 GitHub 러너 실행은 미검증 `TODO: verify`)
-7. QA-Lab 연동 제안서 [Sonnet] — 완료(`docs/QA_LAB_INTEGRATION.md`, 소비자 쪽 계약 검사 참고 구현 `scripts/lib/index-contract.mjs`). **1차 계획 단계 1~7 모두 완료. 남은 것: 사용자 피드백(랩 1~3 풀이), 실제 GitHub 러너·Windows·Mac 검증**
+6. CI·인덱스 배포 [Sonnet] — 완료(`.github/workflows/`, `docs/CI.md`; 2026-10-03 GitHub 러너에서 `validate`·`publish-index`·`codeql` 첫 실행 성공, `lab-ci`·`nightly` 는 미확인 `TODO: verify`)
+7. QA-Lab 연동 제안서 [Sonnet] — 완료(`docs/QA_LAB_INTEGRATION.md`, 소비자 쪽 계약 검사 참고 구현 `scripts/lib/index-contract.mjs`). **1차 계획 단계 1~7 모두 완료. 남은 것: 사용자 피드백(랩 1~3 풀이), `lab-ci`·`nightly` 첫 실행, Windows GUI 항목, Mac 검증** (Windows 는 2026-10-03 대부분 확인, `docs/PLATFORM_SUPPORT.md`)
+- 브랜치: 작업은 `claude/affectionate-faraday-amipy5`, `main` 에는 PR 로만 합친다(직접 push 금지). 위키 원본은 `docs/wiki/`.
 
 권장 모델이 바뀌는 지점에서 멈추고 다음 문구로 알린다:
 `⏸ 다음 단계는 [Opus|Sonnet] 권장입니다. /model 로 전환한 뒤 "계속"이라고 입력해 주세요. (이유: ...)`

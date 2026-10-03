@@ -1,5 +1,7 @@
 # 시작하기
 
+> 터미널이나 설치가 처음이라면 [처음이라면: 설치부터 첫 화면까지](https://github.com/nohsundongtbell/qa-lab-practice/wiki/First-Time-Setup)를 먼저 보세요.
+
 ## 1. 준비물
 | 도구 | 버전 | 용도 |
 |---|---|---|
