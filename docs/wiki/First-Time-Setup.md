@@ -129,7 +129,7 @@ npm run up
 npm run lab -- test-design/shop-rules
 ```
 
-전체 목록과 추천 순서: [랩 목록과 학습 순서](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Lab-Roadmap). 채점 결과를 읽는 법: [채점 결과 읽는 법](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Reading-Results).
+이 세 랩을 묶은 코스와 요령: [코딩 없이 하는 랩](https://github.com/nohsundongtbell/qa-lab-practice/wiki/No-Code-Labs). 전체 목록과 추천 순서: [랩 목록과 학습 순서](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Lab-Roadmap). 채점 결과를 읽는 법: [채점 결과 읽는 법](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Reading-Results).
 
 ## 8. 끝낼 때와 다시 시작할 때
 
