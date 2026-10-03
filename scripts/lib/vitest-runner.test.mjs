@@ -54,3 +54,25 @@ describe('summarize', () => {
     expect(summarize(null).loadError).toMatch(/실행하지 못했습니다/)
   })
 })
+
+describe('mapLimit', () => {
+  it('결과 순서를 유지하고 동시 실행 수를 제한한다', async () => {
+    let running = 0
+    let peak = 0
+    const { mapLimit } = await import('./vitest-runner.mjs')
+    const out = await mapLimit([30, 10, 20, 5, 15], 2, async (ms, i) => {
+      running++
+      peak = Math.max(peak, running)
+      await new Promise((r) => setTimeout(r, ms))
+      running--
+      return i * 10
+    })
+    expect(out).toEqual([0, 10, 20, 30, 40])
+    expect(peak).toBe(2)
+  })
+
+  it('항목이 없어도 동작한다', async () => {
+    const { mapLimit } = await import('./vitest-runner.mjs')
+    expect(await mapLimit([], 3, async () => 1)).toEqual([])
+  })
+})

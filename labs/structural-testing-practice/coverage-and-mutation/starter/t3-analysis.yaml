@@ -1,0 +1,4 @@
+# src/package-plan.mjs 의 packagePlan 함수를 분석해 채웁니다. (README 과제 t3 참고)
+# 정의(D)·사용(U) 번호는 소스의 주석을 따릅니다. 분석 대상 변수는 fee 와 days 입니다.
+cyclomatic_complexity:   # 순환 복잡도 (정수)
+du_pairs: []             # 정의-사용 쌍 목록. 예: "D1-U1" (D1 에서 정의한 값이 U1 에서 쓰인다)

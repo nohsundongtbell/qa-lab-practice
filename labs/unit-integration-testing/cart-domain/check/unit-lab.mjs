@@ -2,7 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { finish } from '../../../../scripts/lib/check-kit.mjs'
 import { loadLabContext } from '../../../../scripts/lib/lab-kit.mjs'
-import { prepareRunDir, removeRunDir, runVitest, summarize } from '../../../../scripts/lib/vitest-runner.mjs'
+import { mapLimit, prepareRunDir, removeRunDir, runVitest, summarize } from '../../../../scripts/lib/vitest-runner.mjs'
 import { mutantsFor, mutatedSource } from './mutants.mjs'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
@@ -19,20 +19,6 @@ const REFERENCE_RUNS = {
     { label: '시간대 Asia/Seoul', seed: 2, tz: 'Asia/Seoul' },
     { label: '시간대 America/Los_Angeles', seed: 3, tz: 'America/Los_Angeles' },
   ],
-}
-
-async function mapLimit(items, limit, fn) {
-  const out = new Array(items.length)
-  let next = 0
-  await Promise.all(
-    Array.from({ length: Math.min(limit, items.length) }, async () => {
-      while (next < items.length) {
-        const i = next++
-        out[i] = await fn(items[i], i)
-      }
-    }),
-  )
-  return out
 }
 
 /** 한 번 실행: work/tests 의 해당 과제 테스트 + 정상 구현(+선택적으로 뮤턴트 한 파일). */

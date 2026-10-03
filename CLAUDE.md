@@ -73,6 +73,7 @@ status: planned|beta|ready
 - **README 링크 글자에는 QA-Lab 모듈·레슨 이름을 쓰지 않고 slug 를 쓴다** (예: ``[`test-design / boundary-value-analysis`](…/)``). 이름 복사 금지 원칙.
 - `pass` 기준 키: `min_defects`(서로 다른 결함 수), `max_cases`(케이스 상한, 무작위 대입 방지), `beyond_profile`(그 프로필에 없는 결함만 셈). 채점기는 `lab.yaml` 에서 읽는다.
 - 무효 케이스(결함 없는 버전에서도 기대와 다름)는 **실제 값을 숨기고** 사양서 절을 힌트로 준다. 지표 오답도 정답 값을 출력하지 않는다. 결함 ID 는 보여 줘도 되지만 카탈로그 내용은 출력하지 않는다.
+- **뮤턴트 기반 채점**(단위·구조 테스트 랩): `scripts/lib/vitest-runner.mjs` 로 학습자 테스트를 `<랩>/.runs/`(git 무시)에서 정상 구현(`check/ref/src`)과 뮤턴트에 대해 실행한다. 뮤턴트는 `check/mutants.mjs` 에 `{ id, file, where, from, to }` 로 정의하고, 학습자에게는 id·파일·함수만 보여 준다(무엇을 바꿨는지는 답). 뮤턴트 처치 수는 `pass.min_killed`, 커버리지는 `min_line_pct`·`min_branch_pct`. **Stryker 는 Vitest 5.0.3 과 호환되지 않아 쓰지 않는다**(`docs/PLATFORM_SUPPORT.md`).
 - 새 랩은 `docs/CONTRIBUTING_LABS.md` 와 기준 샘플 랩 3개(`test-design/shop-rules`, `defect-management/defect-reports`, `exploratory-testing/charter-sessions`)를 따른다.
 - 정답(`solution/`)으로는 check가 통과하고 `starter/`로는 실패해야 한다(CI 검증).
 - 1차 랩별 도구: test-design(케이스 표), defect-management, exploratory-testing, unit-integration(Vitest), structural(Istanbul/Stryker), data(psql·로그), api-contract(**Newman**·OpenAPI·Pact), api-testing-tools(Swagger UI·mitmproxy·pcap), ui-automation(Playwright), ui-automation-tools(**Selenium**), ci-cd(GitHub Actions), performance(**Locust**, docker), security(**SonarQube + 스캐너 리포트 분류**).

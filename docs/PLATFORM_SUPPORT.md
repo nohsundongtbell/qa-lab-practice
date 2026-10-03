@@ -42,3 +42,8 @@
 
 ## 알려진 사항
 - 저장소 위치(Windows 파일 시스템 또는 WSL 내부)에 따라 bind mount 성능이 다를 수 있다. 정확한 권장 사항은 Docker 공식 문서를 확인해 적는다. `TODO: verify`
+
+## 알려진 도구 제약
+| 항목 | 내용 |
+|---|---|
+| Stryker × Vitest | 이 저장소의 Vitest 5.0.3 과 Stryker(`@stryker-mutator/core` · `vitest-runner` 10.0.0) 조합에서, 뮤턴트가 코드에 반영되지 않아 모든 뮤턴트가 "생존"으로 나오는 것을 확인했다(2026-10-03, Linux). 그래서 구조 기반 테스트 랩은 미리 정의한 뮤턴트로 채점하고 Stryker 는 의존성에 넣지 않았다. `TODO: verify` — 호환되는 버전 조합이 확인되면 선택 과제로 추가한다. |

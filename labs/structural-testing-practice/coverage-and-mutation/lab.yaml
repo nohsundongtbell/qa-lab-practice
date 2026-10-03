@@ -1,0 +1,22 @@
+module: structural-testing-practice
+lessons: [coverage-tools-in-practice, mutation-testing, path-and-data-flow-testing]
+title_ko: 커버리지 리포트 읽기와 뮤테이션으로 약한 테스트 찾기
+level: advanced
+est_minutes: 100
+requires: [node24]
+platforms: [macos, windows, linux]
+tools: [vitest, istanbul]
+sut_profile: none
+tasks:
+  - id: t1
+    goal: 커버리지 리포트를 해석해 실행되지 않은 분기를 찾고 줄·분기 커버리지 100%를 달성한다
+    check: check/t1.mjs
+    pass: { min_line_pct: 100, min_branch_pct: 100 }
+  - id: t2
+    goal: 커버리지가 100%여도 살아남는 뮤턴트를 처치하는 테스트를 추가해 약한 테스트를 보강한다
+    check: check/t2.mjs
+    pass: { min_killed: 10 }
+  - id: t3
+    goal: 순환 복잡도와 정의-사용 쌍을 분석해 필요한 테스트 경로를 설계한다
+    check: check/t3.mjs
+status: ready

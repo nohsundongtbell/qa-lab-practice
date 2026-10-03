@@ -84,3 +84,18 @@ export function summarize(report) {
   }
   return { total: report.numTotalTests ?? 0, passed: report.numPassedTests ?? 0, failed: report.numFailedTests ?? 0, failures, loadError }
 }
+
+/** 동시에 limit 개까지만 실행하는 map. 결과 순서는 입력 순서와 같다. */
+export async function mapLimit(items, limit, fn) {
+  const out = new Array(items.length)
+  let next = 0
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (next < items.length) {
+        const i = next++
+        out[i] = await fn(items[i], i)
+      }
+    }),
+  )
+  return out
+}

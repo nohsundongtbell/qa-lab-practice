@@ -56,6 +56,29 @@
       ]
     },
     {
+      "id": "structural-testing-practice/coverage-and-mutation",
+      "moduleSlug": "structural-testing-practice",
+      "lessonSlugs": [
+        "coverage-tools-in-practice",
+        "mutation-testing",
+        "path-and-data-flow-testing"
+      ],
+      "title": "커버리지 리포트 읽기와 뮤테이션으로 약한 테스트 찾기",
+      "path": "labs/structural-testing-practice/coverage-and-mutation",
+      "status": "ready",
+      "estimatedMinutes": 100,
+      "level": "고급",
+      "tools": [
+        "vitest",
+        "istanbul"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "exploratory-testing/charter-sessions",
       "moduleSlug": "test-design",
       "lessonSlugs": [

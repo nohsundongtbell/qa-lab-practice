@@ -1,0 +1,18 @@
+# 모범 답안
+cyclomatic_complexity: 4   # 판단 지점 3곳 (weightKg > 10, express, remote) + 1
+du_pairs:
+  # fee: D1 → U1(10kg 초과), U2(10kg 이하 & 특급), U4(10kg 이하 & 특급 아님)
+  - D1-U1
+  - D1-U2
+  - D1-U4
+  # fee: D3(U1 에서 만든 값) → U2(특급), U4(특급 아님)
+  - D3-U2
+  - D3-U4
+  # fee: D4(특급) → U4
+  - D4-U4
+  # days: D2 → U3(일반 & 도서산간), U5(일반 & 도서산간 아님)
+  - D2-U3
+  - D2-U5
+  # days: D5(특급) → U5, D6(일반 & 도서산간) → U5
+  - D5-U5
+  - D6-U5

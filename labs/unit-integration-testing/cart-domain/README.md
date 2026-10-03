@@ -127,5 +127,5 @@ npm run check -- unit-integration-testing/cart-domain
 그래도 막히면 정답 위치를 확인할 수 있습니다: `npm run solution -- unit-integration-testing/cart-domain --yes`
 
 ## 다음 랩
-- QA-Lab 선수 관계상 이 모듈 다음은 [`structural-testing-practice`](https://qa-lab.pages.dev/module/structural-testing-practice/) (실습 랩 준비 중)
+- QA-Lab 선수 관계상 이 모듈 다음은 [`structural-testing-practice`](https://qa-lab.pages.dev/module/structural-testing-practice/) — 실습: [커버리지 리포트 읽기와 뮤테이션으로 약한 테스트 찾기](../../structural-testing-practice/coverage-and-mutation/README.md)
 - 같은 선수 관계의 다른 모듈: [`ai-cross-check`](https://qa-lab.pages.dev/module/ai-cross-check/) (실습 랩 준비 중)
