@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { api, ApiError, auth } from '../api'
+import { useVariant } from '../variant'
 
 export function LoginPage({ onLogin }: { onLogin: () => Promise<void> }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
+  const v2 = useVariant() === 'v2'
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,12 +23,21 @@ export function LoginPage({ onLogin }: { onLogin: () => Promise<void> }) {
   return (
     <section>
       <h1>로그인</h1>
-      <form onSubmit={submit} className="form">
-        <label>이메일<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required /></label>
-        <label>비밀번호<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required /></label>
-        <button type="submit" className="primary">로그인</button>
-        <p role="alert">{message}</p>
-      </form>
+      {v2 ? (
+        <form onSubmit={submit} className="login-box">
+          <p role="alert">{message}</p>
+          <div className="field"><label>비밀번호<input id="pw" type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required /></label></div>
+          <div className="field"><label>이메일<input id="mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required /></label></div>
+          <div className="actions"><button type="submit" className="cta">로그인</button></div>
+        </form>
+      ) : (
+        <form onSubmit={submit} className="form">
+          <label>이메일<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required /></label>
+          <label>비밀번호<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required /></label>
+          <button type="submit" className="primary">로그인</button>
+          <p role="alert">{message}</p>
+        </form>
+      )}
     </section>
   )
 }

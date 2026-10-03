@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { baseUrlFrom, probeSut, resetSut } from './sut.mjs'
+import { baseUrlFrom, probeSut, resetSut, webUrlFrom } from './sut.mjs'
 
 const json = (body, ok = true) => ({ ok, json: async () => body })
 const fake = (routes) => async (url) => {
@@ -28,6 +28,13 @@ describe('baseUrlFrom', () => {
   it('.env 의 API_PORT 를 쓴다', () => {
     expect(baseUrlFrom({ API_PORT: '4000' })).toBe('http://127.0.0.1:4000')
     expect(baseUrlFrom({})).toBe('http://127.0.0.1:3000')
+  })
+})
+
+describe('webUrlFrom', () => {
+  it('.env 의 WEB_PORT 를 쓴다', () => {
+    expect(webUrlFrom({ WEB_PORT: '9090' })).toBe('http://127.0.0.1:9090')
+    expect(webUrlFrom({})).toBe('http://127.0.0.1:8080')
   })
 })
 

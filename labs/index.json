@@ -197,6 +197,51 @@
       ]
     },
     {
+      "id": "ui-automation/shop-ui-flows",
+      "moduleSlug": "ui-automation",
+      "lessonSlugs": [
+        "getting-started-with-playwright",
+        "resilient-locators",
+        "page-object-model",
+        "wait-strategies",
+        "taming-flaky-ui-tests",
+        "api-fixture-test-data"
+      ],
+      "title": "QA 숍 화면을 Playwright 로 안정적으로 자동화하기",
+      "path": "labs/ui-automation/shop-ui-flows",
+      "status": "ready",
+      "estimatedMinutes": 180,
+      "level": "입문",
+      "tools": [
+        "playwright"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "ui-automation-tools/selenium-shop-flow",
+      "moduleSlug": "ui-automation-tools",
+      "lessonSlugs": [
+        "selenium-webdriver-quickstart"
+      ],
+      "title": "같은 구매 시나리오를 Selenium WebDriver 로 자동화하기",
+      "path": "labs/ui-automation-tools/selenium-shop-flow",
+      "status": "ready",
+      "estimatedMinutes": 90,
+      "level": "입문",
+      "tools": [
+        "selenium-webdriver"
+      ],
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ]
+    },
+    {
       "id": "unit-integration-testing/cart-domain",
       "moduleSlug": "unit-integration-testing",
       "lessonSlugs": [

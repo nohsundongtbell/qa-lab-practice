@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { type Amounts, api, ApiError, type CartLine, type Member, type Order, type OwnedCoupon, won } from '../api'
+import { useVariant } from '../variant'
 
 export function CartPage({ member }: { member: Member | null }) {
   const [lines, setLines] = useState<CartLine[]>([])
@@ -7,6 +8,7 @@ export function CartPage({ member }: { member: Member | null }) {
   const [couponCode, setCouponCode] = useState('')
   const [quote, setQuote] = useState<Amounts | null>(null)
   const [message, setMessage] = useState('')
+  const v2 = useVariant() === 'v2'
 
   const load = useCallback(async () => {
     const cart = await api<{ items: CartLine[] }>('GET', '/api/cart')
@@ -56,54 +58,68 @@ export function CartPage({ member }: { member: Member | null }) {
     }
   }
 
+  const table = (
+    <table className={v2 ? 'lines' : undefined}>
+      <thead>
+        <tr><th scope="col">상품</th><th scope="col">단가</th><th scope="col">수량</th><th scope="col">금액</th><th scope="col"><span className="sr-only">삭제</span></th></tr>
+      </thead>
+      <tbody>
+        {lines.map((l) => (
+          <tr key={l.productId} data-testid="cart-row">
+            <td>{l.name}</td>
+            <td>{won(l.unitPrice)}</td>
+            <td>
+              <input type="number" min={1} max={99} defaultValue={l.qty} aria-label={`${l.name} 수량`}
+                onBlur={(e) => e.target.value !== String(l.qty) && changeQty(l, e.target.value)} />
+            </td>
+            <td>{won(l.lineTotal)}</td>
+            <td><button type="button" onClick={() => remove(l)} aria-label={`${l.name} 삭제`}>삭제</button></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+  const couponSelect = (
+    <label>
+      쿠폰
+      <select value={couponCode} onChange={(e) => setCouponCode(e.target.value)}>
+        <option value="">사용 안 함</option>
+        {coupons.map((c) => (
+          <option key={c.code} value={c.code}>
+            {c.code} — {c.type === 'FIXED' ? won(c.amount ?? 0) : `${c.rate}% (최대 ${won(c.maxDiscount ?? 0)})`}
+          </option>
+        ))}
+      </select>
+    </label>
+  )
+  const amounts = quote && (
+    <dl className={v2 ? 'summary' : 'amounts'} aria-label="결제 금액">
+      <dt>상품 금액</dt><dd>{won(quote.subtotal)}</dd>
+      <dt>등급 할인</dt><dd>-{won(quote.gradeDiscount)}</dd>
+      <dt>쿠폰 할인</dt><dd>-{won(quote.couponDiscount)}</dd>
+      <dt>배송비</dt><dd>{won(quote.shippingFee)}</dd>
+      <dt>결제 금액</dt><dd className="total" data-testid="cart-total">{won(quote.total)}</dd>
+    </dl>
+  )
+  const orderButton = <button type="button" className={v2 ? 'cta' : 'primary'} onClick={order}>주문하기</button>
+
   return (
     <section>
       <h1>장바구니</h1>
       <p role="status" aria-live="polite">{message}</p>
       {lines.length === 0 ? (
         <p>장바구니가 비어 있습니다.</p>
+      ) : v2 ? (
+        <div className="cart-wrap">
+          <div className="cart-side">{couponSelect}{amounts}{orderButton}</div>
+          <div className="cart-main">{table}</div>
+        </div>
       ) : (
         <>
-          <table>
-            <thead>
-              <tr><th scope="col">상품</th><th scope="col">단가</th><th scope="col">수량</th><th scope="col">금액</th><th scope="col"><span className="sr-only">삭제</span></th></tr>
-            </thead>
-            <tbody>
-              {lines.map((l) => (
-                <tr key={l.productId}>
-                  <td>{l.name}</td>
-                  <td>{won(l.unitPrice)}</td>
-                  <td>
-                    <input type="number" min={1} max={99} defaultValue={l.qty} aria-label={`${l.name} 수량`}
-                      onBlur={(e) => e.target.value !== String(l.qty) && changeQty(l, e.target.value)} />
-                  </td>
-                  <td>{won(l.lineTotal)}</td>
-                  <td><button type="button" onClick={() => remove(l)} aria-label={`${l.name} 삭제`}>삭제</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <label>
-            쿠폰
-            <select value={couponCode} onChange={(e) => setCouponCode(e.target.value)}>
-              <option value="">사용 안 함</option>
-              {coupons.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {c.code} — {c.type === 'FIXED' ? won(c.amount ?? 0) : `${c.rate}% (최대 ${won(c.maxDiscount ?? 0)})`}
-                </option>
-              ))}
-            </select>
-          </label>
-          {quote && (
-            <dl className="amounts" aria-label="결제 금액">
-              <dt>상품 금액</dt><dd>{won(quote.subtotal)}</dd>
-              <dt>등급 할인</dt><dd>-{won(quote.gradeDiscount)}</dd>
-              <dt>쿠폰 할인</dt><dd>-{won(quote.couponDiscount)}</dd>
-              <dt>배송비</dt><dd>{won(quote.shippingFee)}</dd>
-              <dt>결제 금액</dt><dd className="total">{won(quote.total)}</dd>
-            </dl>
-          )}
-          <button type="button" className="primary" onClick={order}>주문하기</button>
+          {table}
+          {couponSelect}
+          {amounts}
+          {orderButton}
         </>
       )}
     </section>

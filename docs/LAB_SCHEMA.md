@@ -60,6 +60,10 @@ labs/<module-slug>/<lab-name>/
 | `min_statuses` | API 랩: 호출해서 **문서화된 상태 코드**를 실제로 받아 본 (오퍼레이션, 상태 코드) 쌍의 최소값 |
 | `min_correct` | 답안 파일 랩: 맞은 질문(또는 확인 항목) 수의 최소값 |
 | `min_assertions` | 학습자 컬렉션이 통과시킨 검증(pm.test) 수의 최소값 |
+| `min_tests` | UI 랩: 통과해야 하는 테스트 수의 최소값 (건너뛴 테스트는 세지 않음) |
+| `variants` | UI 랩: 테스트를 실행할 화면 변형 목록 (`v1`, `v2`). 기본 `[v1]`. 모두 통과해야 함 |
+| `latency` | UI 랩: API 응답 지연 프로필 (`none` · `slow` · `unstable`). 기본 `none` |
+| `repeat` | UI 랩: 같은 테스트를 반복 실행하는 횟수(1~50). 한 번이라도 실패하면 불안정으로 봄. 기본 1 |
 | `min_line_pct`, `min_branch_pct` | 대상 파일 **각각**의 줄·분기 커버리지 최소값(%) |
 | `beyond_profile` | 이 프로필에 **없는** 결함만 `min_defects`로 센다 (예: `beginner` → 더 깊은 결함을 찾았는지) |
 
@@ -74,6 +78,7 @@ labs/<module-slug>/<lab-name>/
 | 변수 | 값 |
 |---|---|
 | `QA_LAB_BASE_URL` | 대상 앱 API 주소 (예 `http://127.0.0.1:3000`) |
+| `QA_LAB_WEB_URL` | 대상 앱 웹(화면) 주소 (예 `http://127.0.0.1:8080`) |
 | `QA_LAB_DB_URL` | 대상 앱의 로컬 DB 주소 (`postgres://shop:shop@127.0.0.1:<DB_PORT>/shop`, 127.0.0.1 전용) |
 | `QA_LAB_WORK_DIR` | 채점할 폴더. 기본은 `work/`, `--from starter\|solution`이면 그 폴더 |
 | `QA_LAB_LAB_DIR` | 랩 폴더 |

@@ -11,13 +11,15 @@ import type { Db } from './db/pool.js'
 import { resetDatabase } from './db/reset.js'
 import { type DefectSettings, parseDefectHeader, setDefaultActiveDefects } from './defects/registry.js'
 import { ApiError } from './lib/errors.js'
+import { createRandom, delayFor, type LatencyProfile, parseLatencyProfile, parseUiVariant, type UiVariant } from './lib/environment.js'
+import { registerFixtureRoutes } from './routes/fixtures.js'
 import { registerPublicRoutes } from './routes/public.js'
 import { registerShopRoutes } from './routes/shop.js'
 
 const openapiPath = new URL('../openapi.yaml', import.meta.url)
 
 export interface AppOptions {
-  config: Pick<Config, 'allowDevTools' | 'logFile' | 'logLevel' | 'defectProfile'>
+  config: Pick<Config, 'allowDevTools' | 'logFile' | 'logLevel' | 'defectProfile'> & Partial<Pick<Config, 'uiVariant' | 'latencyProfile' | 'latencySeed'>>
   db: Db
   defects: DefectSettings
   /** 테스트에서 로그를 끌 때 false */
@@ -62,6 +64,33 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
     requestContext.enterWith({ defects: reqDefects, now: reqNow })
   })
 
+  // 환경 조건: UI 변형·응답 지연. 기본값은 환경 변수, 로컬 실습 모드에서는 헤더로 요청마다 덮어쓴다.
+  const defaultVariant = parseUiVariant(config.uiVariant) ?? 'v1'
+  const defaultLatency = parseLatencyProfile(config.latencyProfile) ?? 'none'
+  const random = createRandom(config.latencySeed ?? 1)
+  const environmentOf = (headers: Record<string, string | string[] | undefined>): { uiVariant: UiVariant; latencyProfile: LatencyProfile } => {
+    const pick = (name: string) => {
+      const v = headers[name]
+      return Array.isArray(v) ? v[0] : v
+    }
+    try {
+      return {
+        uiVariant: (config.allowDevTools ? parseUiVariant(pick('x-qa-lab-ui-variant')) : undefined) ?? defaultVariant,
+        latencyProfile: (config.allowDevTools ? parseLatencyProfile(pick('x-qa-lab-latency')) : undefined) ?? defaultLatency,
+      }
+    } catch (err) {
+      throw new ApiError(400, 'INVALID_DEV_HEADER', (err as Error).message)
+    }
+  }
+  app.addHook('preHandler', async (req) => {
+    if (!req.url.startsWith('/api/')) return
+    const { latencyProfile } = environmentOf(req.headers)
+    const ms = delayFor(latencyProfile, random)
+    if (ms > 0) await new Promise((resolve) => setTimeout(resolve, ms))
+  })
+  // 웹이 시작할 때 읽는다 (nginx 가 이 경로만 API 로 전달한다). 개발용 기능이 꺼져 있으면 환경 변수 기본값만 돌려준다.
+  app.get('/__qa/environment', async (req) => environmentOf(req.headers))
+
   app.addHook('onSend', async (req, reply) => {
     reply.header('x-request-id', req.id)
   })
@@ -96,6 +125,7 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
       await resetDatabase(db)
       return { status: 'reset' }
     })
+    registerFixtureRoutes(app, db)
     app.get('/__admin/defects', async () => ({ profile: config.defectProfile, active: [...defects.active].sort() }))
   }
 

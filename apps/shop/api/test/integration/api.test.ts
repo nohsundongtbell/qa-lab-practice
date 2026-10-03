@@ -229,3 +229,66 @@ describe('로컬 전용 기능', () => {
     }
   })
 })
+
+describe('환경 조건과 fixture (로컬 전용)', () => {
+  it('환경 조회: 기본값과 헤더 덮어쓰기', async () => {
+    const base = await call('GET', '/__qa/environment', { contract: false })
+    expect(base.body).toEqual({ uiVariant: 'v1', latencyProfile: 'none' })
+    const over = await call('GET', '/__qa/environment', { headers: { 'x-qa-lab-ui-variant': 'v2', 'x-qa-lab-latency': 'slow' }, contract: false })
+    expect(over.body).toEqual({ uiVariant: 'v2', latencyProfile: 'slow' })
+    expect((await call('GET', '/__qa/environment', { headers: { 'x-qa-lab-ui-variant': 'v9' }, contract: false })).status).toBe(400)
+  })
+
+  it('지연은 /api/ 요청에만 적용되고, 헬스 체크·환경 조회는 느려지지 않는다', async () => {
+    const timed = async (path: string) => {
+      const t = Date.now()
+      await call('GET', path, { headers: { 'x-qa-lab-latency': 'slow' }, contract: false })
+      return Date.now() - t
+    }
+    expect(await timed('/api/products')).toBeGreaterThanOrEqual(650)
+    expect(await timed('/health')).toBeLessThan(300)
+    expect(await timed('/__qa/environment')).toBeLessThan(300)
+  })
+
+  it('개발용 기능이 꺼져 있으면 환경 헤더를 무시한다', async () => {
+    const prod = await startServer({ allowDevTools: false })
+    try {
+      const r = await fetch(`${prod.baseUrl}/__qa/environment`, { headers: { 'x-qa-lab-ui-variant': 'v2', 'x-qa-lab-latency': 'slow' } })
+      expect(await r.json()).toEqual({ uiVariant: 'v1', latencyProfile: 'none' })
+      expect((await fetch(`${prod.baseUrl}/__admin/fixtures/orders`, { method: 'POST' })).status).toBe(404)
+    } finally {
+      await prod.close()
+    }
+  })
+
+  it('fixture: 배송 완료된 주문을 만들고 환불까지 할 수 있다', async () => {
+    const created = await call('POST', '/__admin/fixtures/orders', { json: { email: 'park@example.com', status: 'DELIVERED', items: [{ productId: 1, qty: 2 }] }, contract: false })
+    expect(created.status).toBe(201)
+    const park = await login('park@example.com')
+    const order = await call('GET', '/api/orders/{id}', { params: { id: created.body.id }, token: park })
+    expect(order.body).toMatchObject({ status: 'DELIVERED', subtotal: 100000, grade: 'GOLD', gradeDiscount: 3000, couponDiscount: 0, shippingFee: 0, total: 97000 })
+    expect(order.body.deliveredAt).not.toBeNull()
+    const refunded = await call('POST', '/api/orders/{id}/refund', { params: { id: created.body.id }, token: park })
+    expect(refunded.body.status).toBe('REFUNDED')
+  })
+
+  it('fixture: 기한이 지난 배송 완료 주문은 환불이 거절된다', async () => {
+    const created = await call('POST', '/__admin/fixtures/orders', { json: { email: 'kim@example.com', status: 'DELIVERED', items: [{ productId: 3, qty: 1 }], deliveredHoursAgo: 24 * 8 }, contract: false })
+    const kim = await login('kim@example.com')
+    expect((await call('POST', '/api/orders/{id}/refund', { params: { id: created.body.id }, token: kim })).status).toBe(409)
+  })
+
+  it('fixture: 모든 상태로 만들 수 있고, 잘못된 입력은 400·404', async () => {
+    for (const status of ['PENDING', 'PAID', 'SHIPPED', 'CANCELLED', 'REFUNDED']) {
+      const r = await call('POST', '/__admin/fixtures/orders', { json: { email: 'kim@example.com', status, items: [{ productId: 1, qty: 1 }] }, contract: false })
+      expect(r.status, status).toBe(201)
+    }
+    const kim = await login('kim@example.com')
+    const list = await call('GET', '/api/orders', { token: kim })
+    expect(list.body.map((o: { status: string }) => o.status).sort()).toEqual(['CANCELLED', 'PAID', 'PENDING', 'REFUNDED', 'SHIPPED'])
+    const bad = (json: unknown) => call('POST', '/__admin/fixtures/orders', { json, contract: false })
+    expect((await bad({ email: 'kim@example.com', status: 'NOPE', items: [{ productId: 1, qty: 1 }] })).status).toBe(400)
+    expect((await bad({ email: 'kim@example.com', status: 'PAID', items: [] })).status).toBe(400)
+    expect((await bad({ email: 'nobody@example.com', status: 'PAID', items: [{ productId: 1, qty: 1 }] })).status).toBe(404)
+  })
+})

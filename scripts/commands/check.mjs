@@ -5,7 +5,7 @@ import { paths } from '../lib/paths.mjs'
 import { readEnvFile } from '../lib/env.mjs'
 import { runCheck } from '../lib/runner.mjs'
 import { runSetup } from '../lib/setup-runner.mjs'
-import { baseUrlFrom, dbUrlFrom, probeSut } from '../lib/sut.mjs'
+import { baseUrlFrom, dbUrlFrom, probeSut, webUrlFrom } from '../lib/sut.mjs'
 
 const TARGETS = ['work', 'starter', 'solution']
 
@@ -64,7 +64,7 @@ export async function run(argv) {
   let passed = 0
   for (const task of tasks) {
     console.log(`\n=== ${task.id}: ${task.goal} ===`)
-    const r = runCheck({ lab, task, workDir: work, target, baseUrl, repoRoot: p.root, dbUrl: dbUrlFrom(readEnvFile(p.env)) })
+    const r = runCheck({ lab, task, workDir: work, target, baseUrl, repoRoot: p.root, dbUrl: dbUrlFrom(readEnvFile(p.env)), webUrl: webUrlFrom(readEnvFile(p.env)) })
     if (r.error) console.error(`채점 스크립트를 실행하지 못했습니다: ${r.error.message}`)
     if (r.passed) passed++
   }

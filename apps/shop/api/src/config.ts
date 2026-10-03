@@ -28,6 +28,10 @@ export interface Config {
   allowDevTools: boolean
   logFile: string | undefined
   logLevel: string
+  /** 환경 조건 (결함 아님). 기본값이며 개발용 헤더로 요청마다 덮어쓸 수 있다 */
+  uiVariant: string
+  latencyProfile: string
+  latencySeed: number
 }
 
 export function loadConfig(): Config {
@@ -43,5 +47,8 @@ export function loadConfig(): Config {
     allowDevTools: flag('ALLOW_DEV_TOOLS'),
     logFile: process.env.LOG_FILE || undefined,
     logLevel: process.env.LOG_LEVEL ?? 'info',
+    uiVariant: process.env.UI_VARIANT || 'v1',
+    latencyProfile: process.env.LATENCY_PROFILE || 'none',
+    latencySeed: Number(process.env.LATENCY_SEED ?? 1),
   }
 }

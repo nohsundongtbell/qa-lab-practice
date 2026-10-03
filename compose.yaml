@@ -47,6 +47,9 @@ services:
       DEFECTS_OFF: ${DEFECTS_OFF:-}
       # 로컬 실습 전용 기능 (/__admin/*, X-QA-Lab-Defects, X-QA-Lab-Now)
       ALLOW_DEV_TOOLS: "1"
+      # 환경 조건 (결함이 아님): 웹 화면 DOM 변형 v1|v2, API 응답 지연 none|slow|unstable
+      UI_VARIANT: ${UI_VARIANT:-v1}
+      LATENCY_PROFILE: ${LATENCY_PROFILE:-none}
       LOG_FILE: /var/log/shop/app.log
     volumes:
       - ./defects:/defects:ro

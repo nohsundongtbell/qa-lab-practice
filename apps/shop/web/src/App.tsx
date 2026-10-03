@@ -5,6 +5,7 @@ import { CartPage } from './pages/Cart'
 import { OrdersPage } from './pages/Orders'
 import { LoginPage } from './pages/Login'
 import { SignupPage } from './pages/Signup'
+import { useVariant } from './variant'
 
 /** 아주 단순한 해시 라우터: #/products, #/cart, #/orders, #/login, #/signup */
 function useRoute(): string {
@@ -19,6 +20,7 @@ function useRoute(): string {
 
 export function App() {
   const route = useRoute()
+  const variant = useVariant()
   const [member, setMember] = useState<Member | null>(null)
 
   const refreshMember = useCallback(async () => {
@@ -41,6 +43,24 @@ export function App() {
     location.hash = '/products'
   }
 
+  const sessionBox = (
+    <div className={variant === 'v2' ? 'account' : 'session'}>
+      {member ? (
+        <>
+          <span data-testid="session-name">
+            {member.name}님 <span className="grade">{member.grade}</span>
+          </span>
+          <button type="button" onClick={logout}>로그아웃</button>
+        </>
+      ) : (
+        <>
+          <a href="#/login">로그인</a>
+          <a href="#/signup">회원 가입</a>
+        </>
+      )}
+    </div>
+  )
+
   let page
   if (route.startsWith('/cart')) page = <CartPage member={member} />
   else if (route.startsWith('/orders')) page = <OrdersPage member={member} />
@@ -51,30 +71,17 @@ export function App() {
   return (
     <>
       <div className="warning" role="note">실습용 서비스입니다. 의도적인 결함이 들어 있으며 실제 결제는 일어나지 않습니다.</div>
-      <header>
-        <a className="brand" href="#/products">QA 숍</a>
-        <nav aria-label="주 메뉴">
+      <header className={variant === 'v2' ? 'topbar' : undefined}>
+        <a className={variant === 'v2' ? 'logo' : 'brand'} href="#/products">QA 숍</a>
+        {variant === 'v2' ? sessionBox : null}
+        <nav aria-label="주 메뉴" className={variant === 'v2' ? 'menu' : undefined}>
           <a href="#/products">상품</a>
           <a href="#/cart">장바구니</a>
           <a href="#/orders">주문 내역</a>
         </nav>
-        <div className="session">
-          {member ? (
-            <>
-              <span>
-                {member.name}님 <span className="grade">{member.grade}</span>
-              </span>
-              <button type="button" onClick={logout}>로그아웃</button>
-            </>
-          ) : (
-            <>
-              <a href="#/login">로그인</a>
-              <a href="#/signup">회원 가입</a>
-            </>
-          )}
-        </div>
+        {variant === 'v1' ? sessionBox : null}
       </header>
-      <main>{page}</main>
+      {variant === 'v2' ? <div className="page"><main className="content">{page}</main></div> : <main>{page}</main>}
     </>
   )
 }

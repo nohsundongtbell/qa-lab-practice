@@ -20,6 +20,9 @@ export async function probeSut(baseUrl, { fetchImpl = fetch, timeoutMs = 2000 } 
 
 export const baseUrlFrom = (env) => `http://127.0.0.1:${env.API_PORT ?? 3000}`
 
+/** 웹(화면) 주소. UI 랩의 채점 스크립트가 QA_LAB_WEB_URL 로 받는다. */
+export const webUrlFrom = (env) => `http://127.0.0.1:${env.WEB_PORT ?? 8080}`
+
 /** 대상 앱의 DB 접속 문자열 (로컬 전용, compose 의 고정 계정). 랩의 setup·채점 스크립트가 QA_LAB_DB_URL 로 받는다. */
 export const dbUrlFrom = (env) => `postgres://shop:shop@127.0.0.1:${env.DB_PORT ?? 55432}/shop`
 

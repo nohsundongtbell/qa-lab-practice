@@ -93,6 +93,8 @@ npm run up
 | [`data-checking-sql-logs-analytics/sql-and-logs`](labs/data-checking-sql-logs-analytics/sql-and-logs/README.md) | SQL 정합성 쿼리, 로그 분석, 상관 ID | 필요 (DB) |
 | [`api-contract-testing/shop-api-contract`](labs/api-contract-testing/shop-api-contract/README.md) | Postman 컬렉션(Newman)과 OpenAPI 대조로 API 계약 위반 찾기, 오퍼레이션·상태 코드 커버리지 | 필요 (앱) |
 | [`api-testing-tools/swagger-and-traffic`](labs/api-testing-tools/swagger-and-traffic/README.md) | Swagger UI, OpenAPI→컬렉션→Newman, mitmproxy 애드온, 패킷 캡처(.pcap) 읽기 | 필요 (앱, mitmproxy) |
+| [`ui-automation/shop-ui-flows`](labs/ui-automation/shop-ui-flows/README.md) | Playwright 로 구매 흐름 자동화, 화면 변형(v2)·불안정한 응답에서도 통과, fixture 로 테스트 데이터 준비 | 필요 (앱, 브라우저) |
+| [`ui-automation-tools/selenium-shop-flow`](labs/ui-automation-tools/selenium-shop-flow/README.md) | 같은 시나리오를 Selenium WebDriver 로, 명시적 대기 | 필요 (앱, Chrome) |
 
 공통
 

@@ -12,7 +12,7 @@
 
 랩용 도구 이미지(Locust, SonarQube 등)는 해당 랩을 만들 때 추가한다. `TODO: verify`
 
-호스트에 설치하는 도구: Newman·Ajv·Vitest·openapi-to-postmanv2 는 npm 의존성(`npm ci`)이다. Wireshark(`tshark`)는 랩 `api-testing-tools/swagger-and-traffic` t4 에서 학습자가 직접 설치한다(Windows 설치는 `TODO: verify-windows`).
+호스트에 설치하는 도구: Newman·Ajv·Vitest·openapi-to-postmanv2·Playwright(`@playwright/test`)·selenium-webdriver 는 npm 의존성(`npm ci`)이다. Playwright 브라우저는 학습자가 `npx playwright install chromium` 으로, Selenium 은 Chrome 설치 + Selenium Manager 의 chromedriver 자동 다운로드(`TODO: verify-windows`, `TODO: verify` macOS)에 기댄다. Wireshark(`tshark`)는 랩 `api-testing-tools/swagger-and-traffic` t4 에서 학습자가 직접 설치한다(Windows 설치는 `TODO: verify-windows`).
 mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기는 진입점을 `mitmdump` 로 바꾸고 `--user 1000:1000 --cap-drop ALL` 로 실행한다. (기본 진입점 + `--cap-drop ALL` 은 `usermod`/`gosu` 에서 실패한다.)
 
 ## 검증 현황
@@ -51,3 +51,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 | 항목 | 내용 |
 |---|---|
 | Stryker × Vitest | 이 저장소의 Vitest 5.0.3 과 Stryker(`@stryker-mutator/core` · `vitest-runner` 10.0.0) 조합에서, 뮤턴트가 코드에 반영되지 않아 모든 뮤턴트가 "생존"으로 나오는 것을 확인했다(2026-10-03, Linux). 그래서 구조 기반 테스트 랩은 미리 정의한 뮤턴트로 채점하고 Stryker 는 의존성에 넣지 않았다. `TODO: verify` — 호환되는 버전 조합이 확인되면 선택 과제로 추가한다. |
+
+## UI 랩 개발 환경 메모 (검증 방법)
+- Playwright 랩(`ui-automation/shop-ui-flows`)은 사전 설치된 Chromium 으로 검증했다: `QA_LAB_CHROMIUM_PATH=<chrome 경로>` 로 채점기 설정에 실행 파일을 넘기고 `--no-sandbox` 를 쓴다(컨테이너 root 환경). 학습자 환경에서는 필요 없다.
+- Selenium 랩(`ui-automation-tools/selenium-shop-flow`)은 개발 환경에서 chromedriver 를 내려받을 수 없어(외부 다운로드 차단), PATH 의 chromedriver 147 + Chromium 141 을 `--disable-build-check` 로 연결해 검증했다. `support/driver.mjs` 의 진단용 환경 변수 `QA_LAB_CHROME_PATH`, `QA_LAB_NO_SANDBOX=1`, `QA_LAB_DRIVER_PATH`, `QA_LAB_DRIVER_ARGS` 가 그 용도다. 정식 조합(Chrome 과 맞는 chromedriver)은 CI 의 Ubuntu 러너에서 확인한다. `TODO: verify`

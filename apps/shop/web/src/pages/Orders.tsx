@@ -73,7 +73,7 @@ export function OrdersPage({ member }: { member: Member | null }) {
           <thead><tr><th scope="col">주문 번호</th><th scope="col">상태</th><th scope="col">결제 금액</th><th scope="col">주문 시각</th></tr></thead>
           <tbody>
             {orders.map((o) => (
-              <tr key={o.id}>
+              <tr key={o.id} data-testid="order-row">
                 <td><a href={`#/orders/${o.id}`}>#{o.id}</a></td>
                 <td>{STATUS_LABEL[o.status] ?? o.status}</td>
                 <td>{won(o.total)}</td>
