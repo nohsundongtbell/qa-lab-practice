@@ -19,6 +19,8 @@ export interface DefectSettings {
   known: ReadonlySet<string>
   /** 프로필과 DEFECTS_ON/OFF 로 정해진 기본 활성 집합 */
   active: ReadonlySet<string>
+  /** 웹 화면에서 분기하는 결함 (catalog 의 surface: web). 웹은 /__qa/environment 로 켜짐 여부를 받는다 */
+  web: ReadonlySet<string>
 }
 
 function readYaml<T>(file: string): T {
@@ -34,6 +36,12 @@ export function loadCatalogIds(dir: string): Set<string> {
     ids.add(d.id)
   }
   return ids
+}
+
+/** catalog 에서 surface 가 web 인 결함 ID. */
+export function loadWebDefectIds(dir: string): Set<string> {
+  const catalog = readYaml<{ defects?: Array<{ id: string; surface?: string }> }>(path.join(dir, 'catalog.yaml'))
+  return new Set((catalog.defects ?? []).filter((d) => d.surface === 'web').map((d) => d.id))
 }
 
 /** 프로필 파일을 extends 사슬을 따라 읽어 누적 결함 목록을 만든다. */
@@ -61,7 +69,7 @@ export function loadDefectSettings(opts: {
   for (const id of active) {
     if (!known.has(id)) throw new Error(`catalog.yaml 에 없는 결함 ID입니다: ${id}`)
   }
-  return { known, active }
+  return { known, active, web: loadWebDefectIds(opts.dir) }
 }
 
 /**

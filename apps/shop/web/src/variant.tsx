@@ -13,6 +13,8 @@ export const useVariant = () => useContext(VariantContext)
 export interface Environment {
   uiVariant: Variant
   latencyProfile: string
+  /** 웹 화면 결함의 켜짐 여부 (src/defects.ts) */
+  webDefects?: Record<string, boolean>
 }
 
 /** 시작할 때 서버에서 읽는다. 주소에 ?ui=v2 가 있으면 그 변형을 요청한다 (개발용 기능이 켜져 있을 때). 실패하면 v1. */

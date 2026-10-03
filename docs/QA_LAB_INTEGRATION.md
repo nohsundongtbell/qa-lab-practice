@@ -57,7 +57,7 @@ QA-Lab이 **빌드할 때** 이 저장소의 `labs/index.json`을 받아 `conten
 | 한 랩이 여러 모듈에 걸칠 때 | 같은 `id`로 `moduleSlug`만 다른 항목을 **펼쳐서** 담는다(예: 랩 하나가 두 모듈의 레슨에 연결). 소비자는 `id`가 아니라 `(moduleSlug, id)`로 유일성을 본다 |
 | `platforms` | 확장 필드. 모르면 무시해도 된다 |
 
-### 3-1. 현재 내용 (ready 13개 랩)
+### 3-1. 현재 내용 (ready 14개 랩)
 | 랩 `id` | 모듈 slug | 레슨 수 | 수준 | 분 | 도구 |
 |---|---|---|---|---|---|
 | `test-design/shop-rules` | `test-design` | 3 | 중급 | 120 | csv |
@@ -74,8 +74,10 @@ QA-Lab이 **빌드할 때** 이 저장소의 `labs/index.json`을 받아 `conten
 | `ci-cd-continuous-testing/quality-gates` | `ci-cd-continuous-testing` | 3 | 입문 | 120 | github-actions |
 | `performance-testing-tools/locust-bottlenecks` | `performance-testing-tools` | 1 | 고급 | 120 | locust |
 | `security-testing-tools/scanner-triage` | `security-testing-tools` | 2 | 고급 | 150 | sonarqube, report-triage |
+| `usability-accessibility-testing/shop-a11y-audit` | `usability-accessibility-testing` | 2 | 중급 | 120 | playwright, axe-core |
+| `usability-accessibility-testing/shop-a11y-audit` | `nonfunctional-testing` | 1 | 중급 | 120 | playwright, axe-core |
 
-(`exploratory-testing/charter-sessions`가 두 줄인 것이 위의 "펼친 항목"입니다. 이 표가 `labs/index.json`과 같은지는 `scripts/lib/index-contract.test.mjs`가 확인합니다.)
+(`exploratory-testing/charter-sessions`와 `usability-accessibility-testing/shop-a11y-audit`가 두 줄인 것이 위의 "펼친 항목"입니다. 이 표가 `labs/index.json`과 같은지는 `scripts/lib/index-contract.test.mjs`가 확인합니다.)
 
 ### 3-2. 참고 구현: 계약 검사
 `scripts/lib/index-contract.mjs`에 **의존성 없는 순수 함수**가 있습니다. QA-Lab이 그대로 복사해 동기화 스크립트와 테스트에 쓸 수 있습니다.

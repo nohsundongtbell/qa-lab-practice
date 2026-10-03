@@ -61,6 +61,7 @@ npm run check -- test-design/shop-rules --task t1
 | `api-testing-tools/swagger-and-traffic` t1 | 브라우저의 API 문서 화면(Swagger UI)에서 버튼을 눌러 API 를 직접 호출해 보고 질문 6개에 답하기 | `npm run check -- api-testing-tools/swagger-and-traffic --task t1` |
 | `data-checking-sql-logs-analytics/sql-and-logs` t3·t4 | 서버 로그 파일을 검색해 오류의 규모·시각과 실패한 결제의 증거 찾기. README 의 검색 명령을 복사해 쓰면 됩니다 | `npm run check -- data-checking-sql-logs-analytics/sql-and-logs --task t3` |
 | `security-testing-tools/scanner-triage` t1 | 보안 실습을 시작하기 전에 허가·범위 체크리스트 작성 | `npm run check -- security-testing-tools/scanner-triage --task t1` |
+| `usability-accessibility-testing/shop-a11y-audit` t3 | 마우스 없이 키보드(Tab·Enter·Space)만으로 쇼핑몰 화면을 써 보고 점검표(CSV)에 통과·실패 적기. 앱은 `advanced` 프로필로 띄웁니다 | `npm run check -- usability-accessibility-testing/shop-a11y-audit --task t3` |
 
 같은 랩의 다른 과제(SQL 작성, 코드 확인 등)는 이 코스 다음 단계입니다. 전체 목록: [랩 목록과 학습 순서](https://github.com/nohsundongtbell/qa-lab-practice/wiki/Lab-Roadmap).
 

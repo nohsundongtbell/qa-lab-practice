@@ -107,6 +107,7 @@ npm run up
 | [`security-testing-tools/scanner-triage`](labs/security-testing-tools/scanner-triage/README.md) | 허가·범위 체크리스트, 스캐너 리포트 100건 분류(진짜·오탐·중복), (선택) SonarQube | 불필요 (선택 실습만) |
 | [`ci-cd-continuous-testing/quality-gates`](labs/ci-cd-continuous-testing/quality-gates/README.md) | GitHub Actions 워크플로 규칙, 품질 게이트 스크립트, 불안정한 테스트 격리 | 불필요 |
 | [`performance-testing-tools/locust-bottlenecks`](labs/performance-testing-tools/locust-bottlenecks/README.md) | Locust 부하 시나리오 작성, p95 로 병목 엔드포인트·원인 결함 찾기 | 필요 (앱, Locust 이미지) |
+| [`usability-accessibility-testing/shop-a11y-audit`](labs/usability-accessibility-testing/shop-a11y-audit/README.md) | Playwright + axe-core 자동 스캔, 결과 분류(위반·오탐·확인 필요), 키보드 수동 점검, KWCAG 2.2 매핑 보고서 | 필요 (앱, 브라우저) |
 
 공통
 

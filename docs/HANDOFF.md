@@ -28,8 +28,8 @@ npm test
 
 ## 1. 이 저장소는 무엇인가 (요약)
 - QA-Lab(https://qa-lab.pages.dev/) 강의와 짝을 이루는 **한국어 QA 실습 저장소**입니다. 강의 내용은 복사하지 않고(모듈·레슨 이름도 쓰지 않음, slug 만), 실행 환경·과제·대상 앱·자동 채점만 담습니다.
-- **대상 앱(SUT) "QA 숍"**: `apps/shop/` — Fastify + PostgreSQL + React(nginx), `docker compose`로 `127.0.0.1`에만 뜹니다. 의도적 결함 DF-001~019 를 프로필(`none` ⊂ `beginner` ⊂ `intermediate` ⊂ `advanced`)과 요청 헤더로 켜고 끕니다.
-- **랩 13개(모두 `ready`)**: `labs/<모듈 slug>/<랩>/` — README, starter, solution, check(채점기), lab.yaml.
+- **대상 앱(SUT) "QA 숍"**: `apps/shop/` — Fastify + PostgreSQL + React(nginx), `docker compose`로 `127.0.0.1`에만 뜹니다. 의도적 결함 DF-001~026 을 프로필(`none` ⊂ `beginner` ⊂ `intermediate` ⊂ `advanced`)과 요청 헤더로 켜고 끕니다. DF-020~026 은 웹 화면(접근성) 결함으로, 웹이 `/__qa/environment` 의 `webDefects` 로 켜짐 여부를 받습니다.
+- **랩 14개(모두 `ready`)** — 1차 13개 + 접근성 랩: `labs/<모듈 slug>/<랩>/` — README, starter, solution, check(채점기), lab.yaml.
 - **학습자 명령**은 모두 `npm run <cmd>`(→ `node scripts/cli.mjs <cmd>`). macOS·Windows·Linux 공통이 목표입니다.
 
 ## 2. 진행 단계 (CLAUDE.md §9)
@@ -42,6 +42,7 @@ npm test
 | 5 랩 4~13 | 완료 (결함 카탈로그 확장·보안 랩 안전 검수 포함) |
 | 6 CI | 완료 — 2026-10-03 `main` push 로 첫 실행: `validate`(ubuntu·macos·windows·api), `publish-index`, `codeql` 모두 성공. `lab-ci`·`nightly` 는 아직 실행 전 |
 | 7 QA-Lab 연동 제안서 | 완료 |
+| 8 접근성 랩 + 웹 화면 결함 DF-020~026 | 완료 — PR #2(`feat/a11y-lab`), main 에 합치기 전 |
 
 ### 커밋 흐름 (오래된 것 → 최신)
 ```
@@ -75,6 +76,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 | `ci-cd-continuous-testing/quality-gates` | 워크플로 YAML 정적 규칙 R1~R10, 게이트 스크립트 26 시나리오 | 불필요 |
 | `performance-testing-tools/locust-bottlenecks` | **Locust 컨테이너**로 학습자 시나리오 실행, 채점기가 기준 시나리오로 직접 측정해 병목 정답 생성 | 필요 |
 | `security-testing-tools/scanner-triage` | 허가·범위 체크리스트(관문) → 스캐너 리포트 100건 TP/FP/DUP 분류(집계만 출력) | 불필요 |
+| `usability-accessibility-testing/shop-a11y-audit` | 학습자 axe 스캔을 none 에서 통과 → 웹 결함 하나씩 켜 귀속, 분류표(오탐을 위반으로 보면 감점)·키보드 점검표(거짓 보고 상한)·KWCAG 2.2 매핑 CSV | 필요 + 브라우저 |
 
 공통 원칙: 정답과 같은지가 아니라 **관찰 가능한 결과**로 판정. 실패 출력에는 앱의 실제 값·정답을 숨깁니다(정답을 알려 주지 않기 위해). 학습자가 바꿀 수 없게 채점기는 `starter/`의 원본 도우미(`support/` 등)를 씁니다.
 
@@ -99,7 +101,8 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 3. **GitHub 기본 브랜치를 `main` 으로** — 2026-10-03 현재 기본 브랜치는 아직 작업 브랜치일 수 있다. `git ls-remote --symref origin HEAD` 로 확인. 바꾸기는 사용자가 한다(웹 Settings → General → Default branch, 또는 `gh repo edit --default-branch main`).
 4. **위키** — `docs/wiki/` 의 9개 페이지를 2026-10-03 위키에 게시했다(https://github.com/nohsundongtbell/qa-lab-practice/wiki). 원본은 `docs/wiki/` 이고, 고치면 같은 방법(`docs/wiki/README.md`)으로 다시 올린다.
 5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.
-6. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
+6. **접근성 랩 후속**: `reference/kwcag-2.2.md` 의 `TODO(검토 필요)` 항목을 공식 원문과 대조, Windows·Mac 확인(`docs/PLATFORM_SUPPORT.md`).
+7. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
 
 ## 6. 어떤 문서를 읽을까
 | 하려는 일 | 문서 |
@@ -123,6 +126,8 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 - SonarQube: `vm.max_map_count` 를 올려도 세션 디스크 한도 때문에 Elasticsearch 가 멈춰 검증 못 함.
 
 ## 8. 마지막으로 확인된 상태
+클라우드, Linux (2026-10-03, `feat/a11y-lab` 에 main(PR #1)을 합친 뒤): `npm run validate` 통과(랩 14개), `build-index --check` 최신(항목 16개), `npm test` 658 통과·6 건너뜀, API 타입 검사·단위 97·통합 105 통과. `npm run test:labs` 전체(앱 `advanced`, 새 이미지) 56개 통과 — 랩 14개 모두 solution 통과·starter 과제별 실패(접근성 랩, UI 랩 2개 포함).
+
 로컬 Windows 11 (2026-10-03): `npm run validate` 통과, `npm test` 600개 통과(앱 실행 중), API 단위 94 + 통합 81, `npm run test:labs` 전체 통과(Playwright t2 경합 수정 후). GitHub 러너: `validate`·`publish-index`·`codeql` 성공.
 
 클라우드, Linux:

@@ -1,0 +1,25 @@
+page,check,result,note
+signup,K1,pass,
+signup,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+signup,K3,pass,
+signup,K4,pass,
+login,K1,pass,
+login,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+login,K3,pass,
+login,K4,pass,
+products,K1,pass,
+products,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+products,K3,pass,
+products,K4,pass,
+cart,K1,pass,
+cart,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+cart,K3,pass,
+cart,K4,pass,
+orders,K1,pass,
+orders,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+orders,K3,pass,
+orders,K4,pass,
+order-detail,K1,fail,"Tab 을 계속 눌러도 카드 번호 다음 초점이 “주문 취소”로 건너뛰고 “결제하기”에는 가지 않는다"
+order-detail,K2,fail,"Tab 으로 이동해도 초점 테두리가 보이지 않아 지금 어느 요소에 있는지 알 수 없다"
+order-detail,K3,fail,"“결제하기”에 초점이 가지 않아 Enter·Space 로 누를 수 없다 (마우스로만 결제 가능)"
+order-detail,K4,pass,

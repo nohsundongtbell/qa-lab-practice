@@ -22,9 +22,10 @@ QA-Lab 의 선수 관계를 따라 묶었습니다. 위에서 아래 순서를 �
 | 5 자동화 다음 | [`ci-cd-continuous-testing/quality-gates`](https://github.com/nohsundongtbell/qa-lab-practice/tree/HEAD/labs/ci-cd-continuous-testing/quality-gates) | `ci-cd-continuous-testing` | 입문 | 120분 | 불필요 |
 | 6 비기능 | [`performance-testing-tools/locust-bottlenecks`](https://github.com/nohsundongtbell/qa-lab-practice/tree/HEAD/labs/performance-testing-tools/locust-bottlenecks) | `performance-testing-tools` | 고급 | 120분 | 필요 |
 | 6 비기능 | [`security-testing-tools/scanner-triage`](https://github.com/nohsundongtbell/qa-lab-practice/tree/HEAD/labs/security-testing-tools/scanner-triage) | `security-testing-tools` | 고급 | 150분 | 불필요 |
+| 6 비기능 | [`usability-accessibility-testing/shop-a11y-audit`](https://github.com/nohsundongtbell/qa-lab-practice/tree/HEAD/labs/usability-accessibility-testing/shop-a11y-audit) | `usability-accessibility-testing` (`nonfunctional-testing` 에도 연결) | 중급 | 120분 | 필요 |
 
 - 단계 3 의 두 랩과 CI/CD·보안 랩은 **Docker 없이** Node.js 만으로 풉니다.
-- UI 랩은 브라우저가 필요합니다(Playwright 는 `npx playwright install chromium`, Selenium 은 Chrome 설치).
+- UI 랩과 접근성 랩은 브라우저가 필요합니다(Playwright 는 `npx playwright install chromium`, Selenium 은 Chrome 설치).
 - 부하 랩과 API 도구 랩의 t3 은 채점할 때 Locust·mitmproxy Docker 이미지를 받습니다(처음 한 번).
 
 ## 랩마다 무엇을 내고, 어떻게 채점하나
@@ -43,3 +44,4 @@ QA-Lab 의 선수 관계를 따라 묶었습니다. 위에서 아래 순서를 �
 | ci-cd-continuous-testing | 워크플로 YAML, 게이트 스크립트 | 규칙 검사, 경계값 시나리오 |
 | performance-testing-tools | locustfile, 병목 분석 답 | 시나리오 실행, 병목 판정 |
 | security-testing-tools | 범위 체크리스트, 리포트 분류표 | 범위 검사(먼저), 분류 정확도 |
+| usability-accessibility-testing | axe 스캔 테스트, 분류표·키보드 점검표·KWCAG 보고서(CSV) | 결함을 하나씩 켜서 스캔이 잡는지, 분류 정확도(오탐을 위반으로 보면 감점), 수동 점검 검출·거짓 보고, 매핑 |

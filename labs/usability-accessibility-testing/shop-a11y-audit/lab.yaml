@@ -1,0 +1,31 @@
+module: usability-accessibility-testing
+lessons: [wcag-2-2-verification, screen-reader-testing]
+also_for:
+  - module: nonfunctional-testing
+    lessons: [wcag-accessibility]
+title_ko: QA 숍 화면의 접근성을 자동 스캔과 키보드 점검으로 확인하고 KWCAG 2.2 로 보고하기
+level: intermediate
+est_minutes: 120
+requires: [docker, node24]
+platforms: [macos, windows, linux]
+notes: ""
+tools: [playwright, axe-core]
+sut_profile: advanced
+tasks:
+  - id: t1
+    goal: Playwright 와 axe-core 로 주요 화면 6개를 스캔하고 사양서가 허용하지 않는 위반이 있으면 실패하는 테스트를 만든다
+    check: check/t1.mjs
+    pass: { min_defects: 5 }
+  - id: t2
+    goal: 스캔 결과를 진짜 위반·오탐·수동 확인 필요로 분류하고 근거를 적는다
+    check: check/t2.mjs
+    pass: { min_correct: 6 }
+  - id: t3
+    goal: 키보드만으로 화면을 점검해 자동 스캔이 놓친 문제를 체크리스트에 기록한다
+    check: check/t3.mjs
+    pass: { min_defects: 2, max_false_reports: 1 }
+  - id: t4
+    goal: 확인된 문제를 KWCAG 2.2 검사항목과 심각도에 매핑한 보고서를 쓴다
+    check: check/t4.mjs
+    pass: { min_correct: 6, max_false_reports: 0 }
+status: ready

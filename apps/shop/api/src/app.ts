@@ -9,7 +9,7 @@ import type { Config } from './config.js'
 import { requestContext } from './context.js'
 import type { Db } from './db/pool.js'
 import { resetDatabase } from './db/reset.js'
-import { type DefectSettings, parseDefectHeader, setDefaultActiveDefects } from './defects/registry.js'
+import { type DefectSettings, isDefectOn, parseDefectHeader, setDefaultActiveDefects } from './defects/registry.js'
 import { ApiError } from './lib/errors.js'
 import { createRandom, delayFor, type LatencyProfile, parseLatencyProfile, parseUiVariant, type UiVariant } from './lib/environment.js'
 import { registerFixtureRoutes } from './routes/fixtures.js'
@@ -89,7 +89,11 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
     if (ms > 0) await new Promise((resolve) => setTimeout(resolve, ms))
   })
   // 웹이 시작할 때 읽는다 (nginx 가 이 경로만 API 로 전달한다). 개발용 기능이 꺼져 있으면 환경 변수 기본값만 돌려준다.
-  app.get('/__qa/environment', async (req) => environmentOf(req.headers))
+  // webDefects: 웹 화면에서 분기하는 결함의 켜짐 여부 (요청 문맥 기준 — X-QA-Lab-Defects 로 덮어쓸 수 있다).
+  app.get('/__qa/environment', async (req) => ({
+    ...environmentOf(req.headers),
+    webDefects: Object.fromEntries([...defects.web].sort().map((id) => [id, isDefectOn(id)])),
+  }))
 
   app.addHook('onSend', async (req, reply) => {
     reply.header('x-request-id', req.id)

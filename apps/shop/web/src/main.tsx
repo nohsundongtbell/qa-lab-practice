@@ -2,6 +2,7 @@ import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './App'
 import { type Environment, loadEnvironment, VariantProvider } from './variant'
+import { isDefectOn, setActiveDefects } from './defects'
 import './styles.css'
 
 function Root() {
@@ -9,6 +10,8 @@ function Root() {
   useEffect(() => {
     void loadEnvironment().then((e) => {
       document.documentElement.dataset.uiVariant = e.uiVariant
+      setActiveDefects(e.webDefects)
+      document.documentElement.classList.toggle('no-focus-ring', isDefectOn('DF-026'))
       setEnv(e)
     })
   }, [])
