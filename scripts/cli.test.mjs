@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, makeRepo, validLabYaml } from './test-support/fixtures.mjs'
 
@@ -19,7 +20,7 @@ function run(args, root, env = {}) {
 /** 채점기: work 폴더의 a.txt 에 "solution" 이 들어 있어야 통과 (정답으로는 통과, 시작 파일로는 실패해야 한다) */
 const checkScript = `
 import fs from 'node:fs'
-import { checkEnv, finish } from '${path.resolve(import.meta.dirname, 'lib/check-kit.mjs').replace(/\\/g, '/')}'
+import { checkEnv, finish } from '${pathToFileURL(path.resolve(import.meta.dirname, 'lib/check-kit.mjs')).href}'
 const env = checkEnv()
 const text = fs.readFileSync(env.workDir + '/a.txt', 'utf8')
 finish({ passed: text.includes('solution'), message: text.includes('solution') ? '정답 확인' : '아직 풀지 않았습니다', hints: ['a.txt 에 solution 이라고 적어 보세요'] })
