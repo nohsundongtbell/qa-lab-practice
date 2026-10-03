@@ -46,7 +46,7 @@
 - 웹 화면 결함(`surface: web`, DF-020~026 접근성, advanced): 웹의 `isDefectOn`(`apps/shop/web/src/defects.ts`) 한 함수로 분기하고, 켜짐 여부는 `/__qa/environment` 의 `webDefects`(요청 문맥 = `X-QA-Lab-Defects` 를 따름)로 받는다. catalog repro 는 그 플래그만 확인하고, 화면에서 드러나는지는 접근성 랩 t1 귀속·solution e2e 로 확인한다. 기존 UI 랩 셀렉터가 쓰는 요소(로그인 칸, 담기·수량, 장바구니, 환불 등)는 건드리지 않는다.
 
 ## 6. 랩 구조
-- 경로: **`labs/<module-slug>/<lab-slug>/`**(2단). 1차는 모듈당 랩 1개, 랩 13개.
+- 경로: **`labs/<module-slug>/<lab-slug>/`**(2단). 1차는 모듈당 랩 1개, 랩 13개. 이후 접근성 랩 1개를 더해 지금은 **랩 14개**.
 - 구성: `README.md`(`templates/LAB_README.md`를 따름), `starter/`, `solution/`(저장소 안), `check/`, `lab.yaml`.
 - `lab.yaml` 스키마:
 ```yaml
@@ -114,6 +114,7 @@ status: planned|beta|ready
 5. 랩 4~11 [Sonnet] (결함 카탈로그 검수, 보안 랩 안전 장치, 원인 불명 실패는 Opus) — 랩 4·5·6·7a·7b·8a·8b·9·10·11 완료(보안 랩 안전 검수 완료: `docs/SECURITY_LAB_SAFETY.md`), advanced 카탈로그(DF-013~019) 검수 완료, **단계 5 완료**
 6. CI·인덱스 배포 [Sonnet] — 완료(`.github/workflows/`, `docs/CI.md`; 2026-10-03 GitHub 러너에서 `validate`·`publish-index`·`codeql` 첫 실행 성공, `lab-ci`·`nightly` 는 미확인 `TODO: verify`)
 7. QA-Lab 연동 제안서 [Sonnet] — 완료(`docs/QA_LAB_INTEGRATION.md`, 소비자 쪽 계약 검사 참고 구현 `scripts/lib/index-contract.mjs`). **1차 계획 단계 1~7 모두 완료. 남은 것: 사용자 피드백(랩 1~3 풀이), `lab-ci`·`nightly` 첫 실행, Windows GUI 항목, Mac 검증** (Windows 는 2026-10-03 대부분 확인, `docs/PLATFORM_SUPPORT.md`)
+8. 접근성 랩 `usability-accessibility-testing/shop-a11y-audit` + 웹 화면 결함 DF-020~026 — 완료(PR #2, `feat/a11y-lab`). KWCAG 참조표의 `TODO(검토 필요)` 항목과 Windows·Mac 확인이 남음
 - 브랜치: 작업은 `claude/affectionate-faraday-amipy5`, `main` 에는 PR 로만 합친다(직접 push 금지). 위키 원본은 `docs/wiki/`.
 
 권장 모델이 바뀌는 지점에서 멈추고 다음 문구로 알린다:
