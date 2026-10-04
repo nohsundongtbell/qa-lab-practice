@@ -56,7 +56,7 @@ npm run down
 `QA_LAB_E2E_ONLY`는 쉼표로 여러 랩을, `QA_LAB_E2E_SKIP`은 건너뛸 랩을 받습니다. 이 목록에 맞는 랩이 하나도 없으면 "No test found"로 실패합니다(오타를 조용히 넘기지 않기 위해).
 
 ## 저장소 설정 권장
-- main 브랜치 보호: 필수 체크로 `validate (ubuntu-latest)`, `validate (macos-latest)`, `validate (windows-latest)`, `api (단위·통합, 결함 독립성)`, `lab-ci`의 랩 잡들을 지정하세요. `lab-ci`의 잡 이름은 랩마다 달라서(`<모듈>/<랩>`), 필요하면 랩 잡이 모두 끝났는지 확인하는 마지막 잡을 더하는 방법도 있습니다.
+- main 브랜치 보호 (2026-10-04 설정): PR 로만 합치기(승인 수 0 — 혼자 쓰는 저장소), 관리자에게도 적용, 강제 push·삭제 금지, 최신 main 포함은 요구하지 않음. 필수 체크: `validate (ubuntu-latest)`, `validate (macos-latest)`, `validate (windows-latest)`, `api (단위·통합, 결함 독립성)`, `analyze`(CodeQL), `lab-ci 결과`. `lab-ci`의 랩 잡 이름은 PR 마다 달라서(`<모듈>/<랩>`) 필수로 걸 수 없으므로, 고른 랩이 모두 통과했는지(고른 랩이 없으면 통과) 판정하는 `lab-ci 결과` 잡을 필수 체크로 쓴다. 잡 이름을 바꾸면 보호 규칙의 필수 체크도 함께 바꿔야 한다.
 - **CodeQL 기본 설정(default setup)을 이미 켰다면** `codeql.yml`과 충돌합니다. 둘 중 하나만 쓰세요. 기본 설정을 쓸 거라면 `codeql.yml`을 지우고, 저장소 설정의 코드 스캐닝에서 `labs/security-testing-tools/scanner-triage/starter/scan-target`를 제외하세요.
 - 포크에서 온 PR에서는 `GITHUB_TOKEN`이 읽기 전용이라 이 워크플로들이 그대로 돕니다(`pull_request_target`은 쓰지 않습니다).
 

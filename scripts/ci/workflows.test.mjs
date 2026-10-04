@@ -148,6 +148,13 @@ describe('워크플로의 설계 의도', () => {
     expect(steps(lab).some((s) => s.env?.QA_LAB_E2E_ONLY === '${{ matrix.slug }}')).toBe(true)
   })
 
+  it('lab-ci 결과 잡은 랩을 고르지 않아도 항상 돌고 랩 잡에 기댄다 (main 브랜치 보호의 필수 체크 이름)', () => {
+    const result = docs['lab-ci.yml'].jobs.result
+    expect(result.name).toBe('lab-ci 결과')
+    expect(result.needs).toEqual(['select', 'lab'])
+    expect(result.if).toBe('always()')
+  })
+
   it('publish-index 는 검증 → 최신 여부 확인 → 보관 순서다', () => {
     const runList = steps(docs['publish-index.yml'].jobs.index).map((s) => s.run ?? s.uses)
     const at = (re) => runList.findIndex((x) => re.test(x))

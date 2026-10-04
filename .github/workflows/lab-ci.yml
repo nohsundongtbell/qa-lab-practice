@@ -76,3 +76,20 @@ jobs:
       - name: 정리
         if: always() && matrix.docker
         run: npm run down
+
+  # 랩 잡 이름은 PR 마다 다르다. 브랜치 보호의 필수 체크는 이 잡 하나로 건다 (docs/CI.md).
+  result:
+    name: lab-ci 결과
+    needs: [select, lab]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 고른 랩이 모두 통과했는지
+        env:
+          SELECT_RESULT: ${{ needs.select.result }}
+          LAB_RESULT: ${{ needs.lab.result }}
+        run: |
+          echo "랩 고르기: $SELECT_RESULT / 랩: $LAB_RESULT (skipped 는 고른 랩이 없다는 뜻)"
+          test "$SELECT_RESULT" = "success"
+          case "$LAB_RESULT" in success|skipped) ;; *) exit 1 ;; esac
