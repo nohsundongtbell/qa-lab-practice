@@ -100,7 +100,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 2. **CI** — `validate`·`publish-index`·`codeql` 은 첫 실행 성공(2026-10-03, CodeQL default setup 충돌 없음). `lab-ci`·`nightly` 도 2026-10-04 성공, 액션은 Node 24 버전으로 올림. 남은 것: `main` 브랜치 보호 규칙(`docs/CI.md`), 2026-10-19 `ubuntu-latest` 가 Ubuntu 26 으로 바뀐 뒤 첫 `nightly` 확인.
 3. **GitHub 기본 브랜치를 `main` 으로** — 2026-10-03 현재 기본 브랜치는 아직 작업 브랜치일 수 있다. `git ls-remote --symref origin HEAD` 로 확인. 바꾸기는 사용자가 한다(웹 Settings → General → Default branch, 또는 `gh repo edit --default-branch main`).
 4. **위키** — `docs/wiki/` 의 9개 페이지를 2026-10-03 위키에 게시했다(https://github.com/nohsundongtbell/qa-lab-practice/wiki). 원본은 `docs/wiki/` 이고, 고치면 같은 방법(`docs/wiki/README.md`)으로 다시 올린다.
-5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.
+5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도. 비개발자가 위키만 보고 설치~랩 1 채점을 해 보는 사용성 테스트 절차는 `docs/USABILITY_TEST.md`.
 6. **접근성 랩 후속**: KWCAG 참조표는 2026-10-04 표준 원문(KS X OT0003:2022)과 대조 완료, Windows 확인 완료. 남은 것은 Mac 확인(`docs/PLATFORM_SUPPORT.md`).
 7. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
 
@@ -111,6 +111,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 | 새 랩 만들기 | `docs/CONTRIBUTING_LABS.md`, `docs/LAB_SCHEMA.md`, `templates/` |
 | 결함 추가 | `apps/shop/api/README.md`(결함 추가 절차), `docs/REPRO_DSL.md` |
 | 플랫폼·Windows | `docs/PLATFORM_SUPPORT.md` |
+| 비개발자 사용성 테스트 | `docs/USABILITY_TEST.md` |
 | CI | `docs/CI.md` |
 | 보안 랩 | `docs/SECURITY_LAB_SAFETY.md` |
 | QA-Lab 연동 | `docs/QA_LAB_INTEGRATION.md` |
