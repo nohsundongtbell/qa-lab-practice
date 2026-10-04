@@ -31,7 +31,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 `.devcontainer/devcontainer.json`(Node 24, docker-in-docker, Playwright chromium). 2026-10-04 2-core Codespace 에서 확인: `npm run doctor`, `npm run up`, `npm test` 637개, Selenium 랩 채점(Chrome 별도 설치 없이), 웹·Swagger UI(포트 전달 주소), 포트 기본 Private. 다른 랩 채점은 미확인 `TODO: verify`. 학습자 안내는 위키 Codespaces 페이지.
 
 ## GitHub Actions 러너 제약
-- GitHub-hosted Windows 러너는 Linux 컨테이너를 실행할 수 없고, macOS(arm64) 러너에는 Docker가 없는 것으로 알고 있다. `TODO: verify` — 공식 문서 확인 필요(작성 환경에서 docs.github.com 접근 불가).
+- macOS(arm64) 러너에는 Docker 가 없다 — 2026-10-04 `macos-check` 실행에서 `docker` 명령 자체가 없음을 확인(공식 러너 문서에는 명시가 없음). GitHub-hosted Windows 러너가 Linux 컨테이너를 실행할 수 없는지는 `TODO: verify`.
 - 그래서 Docker 기반 통합 검증은 Ubuntu 러너에서만 하고(`lab-ci`, `nightly`, `validate` 의 `api` 잡), macOS·Windows 러너에서는 Docker 없이 되는 검사(`validate`: 규칙 검사, 인덱스 최신 여부, 채점기 단위 테스트)만 한다. 구성은 `docs/CI.md`.
 
 ## Windows 수동 확인 체크리스트
@@ -66,11 +66,11 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 ## macOS 수동 확인 체크리스트
 Docker 가 필요한 항목은 GitHub 러너로 확인할 수 없어 실제 Mac(가능하면 Apple Silicon)에서 확인한다. Docker 없이 되는 항목은 수동 실행 워크플로 `macos-check`(macOS Arm64 러너)로 확인한다. 확인하면 날짜와 환경(macOS 버전, CPU, Docker Desktop 버전)을 적고 해당 `TODO: verify` 를 지운다.
 
-`macos-check` 워크플로로 확인하는 것 (실제 Mac 불필요):
-- [ ] `npm ci`, `npm run doctor` 의 Docker 없음 안내, macOS 러너의 Docker 유무 (위 "GitHub Actions 러너 제약"의 `TODO: verify`)
-- [ ] Docker 가 필요 없는 랩 4개 E2E (`unit-integration-testing/cart-domain`, `structural-testing-practice/coverage-and-mutation`, `ci-cd-continuous-testing/quality-gates`, `security-testing-tools/scanner-triage`)
-- [ ] 새 Mac 에서 `npx playwright install chromium`
-- [ ] README 의 macOS 블록 중 앱 없이 되는 것: quality-gates 의 `echo "종료 코드: $?"`, sql-and-logs 의 로그 `grep`
+`macos-check` 워크플로로 확인하는 것 (실제 Mac 불필요) — 모두 확인함(2026-10-04, [실행 37190405203](https://github.com/nohsundongtbell/qa-lab-practice/actions/runs/37190405203), macOS 26.6.2 arm64, Node 24.20.0):
+- [x] `npm ci`, `npm run doctor` 의 Docker 없음 안내("[실패] Docker — 설치되어 있지 않습니다. → README 의 "준비물"을 보고 Docker Desktop 을 설치하세요.", 종료 코드 1), macOS 러너의 Docker 유무(없음)
+- [x] Docker 가 필요 없는 랩 4개 E2E (14개 통과) (`unit-integration-testing/cart-domain`, `structural-testing-practice/coverage-and-mutation`, `ci-cd-continuous-testing/quality-gates`, `security-testing-tools/scanner-triage`)
+- [x] 새 Mac 에서 `npx playwright install chromium` (Chrome for Testing 153 등이 `~/Library/Caches/ms-playwright` 에 설치됨)
+- [x] README 의 macOS 블록 중 앱 없이 되는 것: quality-gates 의 `echo "종료 코드: $?"`(차단 시 1), sql-and-logs 의 로그 `grep`. 러너에는 `jq` 1.8.2 가 있었지만 학습자 Mac 에는 없을 수 있음(`brew install jq`)
 
 실제 Mac 에서 확인할 것:
 - [ ] README 의 `brew install --cask docker`, `brew install node@24 git` 로 준비물 설치 (Homebrew 의 `node@24` 는 PATH 에 자동으로 잡히지 않을 수 있음 — `TODO: verify`)
