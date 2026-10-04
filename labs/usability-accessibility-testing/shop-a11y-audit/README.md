@@ -35,7 +35,7 @@ npm run up -- --profile advanced
 npx playwright install chromium
 ```
 
-<!-- TODO: verify-windows — 새 PC 에서 npx playwright install chromium 후 axe 스캔 실행 -->
+<!-- TODO: verify-windows — 브라우저가 없는 새 PC 에서 npx playwright install chromium 다운로드 (axe 스캔 실행은 확인함) -->
 
 작업 폴더 `labs/usability-accessibility-testing/shop-a11y-audit/work/`에 다음이 복사됩니다.
 
