@@ -152,8 +152,16 @@ export function gradeChecklist(cells, truth = KEYBOARD_TRUTH) {
 
 export const REPORT_COLUMNS = ['source', 'ref', 'page', 'kwcag', 'severity', 'summary']
 
-/** "1.1.1 적절한 대체 텍스트 제공" → "1.1.1" */
-export const kwcagNumber = (v) => /\b(\d\.\d\.\d)\b/.exec(norm(v))?.[1] ?? ''
+/**
+ * "1.1.1 적절한 대체 텍스트 제공" → "1.1.1".
+ * 표준 원문(KS X OT0003)의 절 번호(원칙 1~4 → 5~8절, 예: 6.5.3)로 적어도 같은 검사항목 번호(2.5.3)로 읽는다.
+ */
+export const kwcagNumber = (v) => {
+  const n = /\b(\d)\.(\d)\.(\d)\b/.exec(norm(v))
+  if (!n) return ''
+  const principle = Number(n[1]) >= 5 && Number(n[1]) <= 8 ? Number(n[1]) - 4 : Number(n[1])
+  return `${principle}.${n[2]}.${n[3]}`
+}
 
 /** 형식 검사. @returns {{ problems: string[], rows: Array<{ line: number, source: string, ref: string, page: string, kwcag: string, severity: string }> }} */
 export function parseReport(rows) {

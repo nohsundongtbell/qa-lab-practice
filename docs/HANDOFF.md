@@ -101,7 +101,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
 3. **GitHub 기본 브랜치를 `main` 으로** — 2026-10-03 현재 기본 브랜치는 아직 작업 브랜치일 수 있다. `git ls-remote --symref origin HEAD` 로 확인. 바꾸기는 사용자가 한다(웹 Settings → General → Default branch, 또는 `gh repo edit --default-branch main`).
 4. **위키** — `docs/wiki/` 의 9개 페이지를 2026-10-03 위키에 게시했다(https://github.com/nohsundongtbell/qa-lab-practice/wiki). 원본은 `docs/wiki/` 이고, 고치면 같은 방법(`docs/wiki/README.md`)으로 다시 올린다.
 5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.
-6. **접근성 랩 후속**: `reference/kwcag-2.2.md` 의 `TODO(검토 필요)` 항목을 공식 원문과 대조, Windows·Mac 확인(`docs/PLATFORM_SUPPORT.md`).
+6. **접근성 랩 후속**: KWCAG 참조표는 2026-10-04 표준 원문(KS X OT0003:2022)과 대조 완료, Windows 확인 완료. 남은 것은 Mac 확인(`docs/PLATFORM_SUPPORT.md`).
 7. **macOS 확인**(`TODO: verify`), SonarQube 선택 실습 검증(클라우드에서는 ES 디스크 한도로 실패), m61 레슨 DDL 로 DB 컬럼 확인(`TODO: verify`).
 
 ## 6. 어떤 문서를 읽을까

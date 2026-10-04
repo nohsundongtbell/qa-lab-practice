@@ -122,6 +122,10 @@ describe('t4 KWCAG 매핑 보고서', () => {
     expect(kwcagNumber('1.1.1 적절한 대체 텍스트 제공')).toBe('1.1.1')
     expect(kwcagNumber('KWCAG 2.1.2')).toBe('2.1.2')
     expect(kwcagNumber('대체 텍스트')).toBe('')
+    // 표준 원문의 절 번호(5~8절)로 적어도 같은 검사항목으로 읽는다
+    expect(kwcagNumber('6.5.3 레이블과 네임')).toBe('2.5.3')
+    expect(kwcagNumber('8.2.1')).toBe('4.2.1')
+    expect(kwcagNumber('5.1.1')).toBe('1.1.1')
   })
   it('매핑이 빠진 행은 형식 오류로 알린다', () => {
     const rows = readRows('solution/report.csv').map((r, i) => (i === 0 ? { ...r, kwcag: '' } : r))
