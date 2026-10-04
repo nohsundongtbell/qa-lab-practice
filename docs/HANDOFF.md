@@ -40,7 +40,7 @@ npm test
 | 3 Node CLI·스키마·validate/build-index | 완료 |
 | 4 랩 1~3 | 완료 — **사용자 직접 풀이·피드백 대기** |
 | 5 랩 4~13 | 완료 (결함 카탈로그 확장·보안 랩 안전 검수 포함) |
-| 6 CI | 완료 — 2026-10-03 `main` push 로 첫 실행: `validate`(ubuntu·macos·windows·api), `publish-index`, `codeql` 모두 성공. `lab-ci`·`nightly` 는 아직 실행 전 |
+| 6 CI | 완료 — 모든 워크플로가 실제 러너에서 성공: `validate`·`publish-index`·`codeql`(2026-10-03), `lab-ci`(2026-10-04, PR #1·#2 에서 첫 실행 버그 2개 수정 후 모든 랩 통과), `nightly`(2026-10-03 예약·2026-10-04 수동, 랩 14개) |
 | 7 QA-Lab 연동 제안서 | 완료 |
 | 8 접근성 랩 + 웹 화면 결함 DF-020~026 | 완료 — PR #2(`feat/a11y-lab`), main 에 합치기 전 |
 
@@ -97,7 +97,7 @@ eed5621 CI 워크플로 · 309da89 연동 제안서 · cad76e1 Windows 체크리
    4. 각 랩 README 의 PowerShell 블록(특히 `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`).
    5. 통과 항목은 날짜·환경을 적고 해당 `TODO: verify-windows` 를 지움. 실패는 고쳐서 커밋·push.
    - GUI 가 필요한 것(Postman 앱, Wireshark 화면)은 사용자에게 확인 방법을 안내. **winget 설치는 실행 전에 사용자에게 묻기.**
-2. **CI** — `validate`·`publish-index`·`codeql` 은 첫 실행 성공(2026-10-03, CodeQL default setup 충돌 없음). 남은 것: `lab-ci`(랩을 바꾼 PR 에서 돎)·`nightly` 첫 실행 확인, `main` 브랜치 보호 규칙(`docs/CI.md`).
+2. **CI** — `validate`·`publish-index`·`codeql` 은 첫 실행 성공(2026-10-03, CodeQL default setup 충돌 없음). `lab-ci`·`nightly` 도 2026-10-04 성공, 액션은 Node 24 버전으로 올림. 남은 것: `main` 브랜치 보호 규칙(`docs/CI.md`), 2026-10-19 `ubuntu-latest` 가 Ubuntu 26 으로 바뀐 뒤 첫 `nightly` 확인.
 3. **GitHub 기본 브랜치를 `main` 으로** — 2026-10-03 현재 기본 브랜치는 아직 작업 브랜치일 수 있다. `git ls-remote --symref origin HEAD` 로 확인. 바꾸기는 사용자가 한다(웹 Settings → General → Default branch, 또는 `gh repo edit --default-branch main`).
 4. **위키** — `docs/wiki/` 의 9개 페이지를 2026-10-03 위키에 게시했다(https://github.com/nohsundongtbell/qa-lab-practice/wiki). 원본은 `docs/wiki/` 이고, 고치면 같은 방법(`docs/wiki/README.md`)으로 다시 올린다.
 5. **사용자 피드백**: 랩 1~3 직접 풀이 결과 → 반영 후 같은 기준을 다른 랩에도.

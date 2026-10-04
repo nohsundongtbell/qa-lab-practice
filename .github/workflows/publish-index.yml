@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: npm
@@ -30,7 +30,7 @@ jobs:
       - name: 인덱스가 최신인지 (낡았으면 실패 — 로컬에서 npm run build-index 후 커밋)
         run: npm run build-index -- --check
       - name: 인덱스 보관
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: labs-index
           path: labs/index.json

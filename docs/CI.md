@@ -62,6 +62,8 @@ npm run down
 
 ## 알려진 한계 (`TODO: verify`)
 - 2026-10-03 `main` push 로 `validate`(ubuntu·macOS·Windows 러너의 `npm test` 포함, `api` 잡), `publish-index`, `codeql` 이 처음 실행되어 모두 성공했습니다. CodeQL default setup 과의 충돌은 없었습니다.
-- `lab-ci`·`nightly` 는 아직 실제 러너에서 실행해 보지 못했습니다(`TODO: verify`). 첫 실행에서 러너 환경 차이로 실패할 수 있습니다.
+- `lab-ci` 는 2026-10-04 PR #1·#2 에서 처음 끝까지 돌아 모든 랩이 통과했습니다(첫 실행에서 랩 고르기 `--base` 옵션 버그와, Docker 가 필요 없는 랩을 앱 없이 채점하지 못하던 문제를 고침). `nightly` 는 2026-10-03 예약 실행과 2026-10-04 수동 실행(랩 14개, 약 10분) 모두 성공했습니다.
+- 워크플로의 액션은 Node.js 24 를 쓰는 버전으로 고정합니다: `actions/checkout@v7`, `actions/setup-node@v7`, `actions/upload-artifact@v7`, `github/codeql-action/*@v4` (2026-10-04 올림. 이전 v4·v3 은 Node.js 20 이라 지원 종료 경고가 났음).
+- GitHub 의 `ubuntu-latest` 는 2026-10-19 부터 Ubuntu 26 으로 바뀝니다. 그 뒤 첫 `nightly` 에서 Playwright 브라우저 설치(`--with-deps`)·Docker·Selenium 이 깨지지 않는지 확인하세요(`TODO: verify`).
 - `lab-ci`/`nightly`의 UI 랩은 `npx playwright install --with-deps chromium`과 러너의 Chrome(Selenium Manager가 chromedriver를 받음)에 기댑니다. 개발 환경에서는 사전 설치된 Chromium으로 대신 확인했습니다.
 - 앱 이미지를 빌드하고 Locust·mitmproxy 이미지를 받으므로 `lab-ci`/`nightly`는 몇 분 이상 걸립니다. Docker Hub 요청 제한에 걸리면 재시도하세요.
