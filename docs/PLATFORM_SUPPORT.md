@@ -55,12 +55,12 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [x] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(로그 파일 보기), `docker compose exec db psql -U qa_reader -d shop` 접속(조회 가능, 쓰기는 읽기 전용 트랜잭션으로 거부)
 - [ ] `api-contract-testing/shop-api-contract`: Postman 앱에서 컬렉션 가져오기·내보내기 `TODO: verify-windows`. 확인함: README 의 `npx newman run …` 명령(한국어 검증 이름도 정상 출력), 채점기의 Newman 실행(`test:labs`)
 - [ ] `api-testing-tools/swagger-and-traffic`: `tshark` 가 PATH 에 잡히는지 `TODO: verify-windows`. 확인함: winget ID(`WiresharkFoundation.Wireshark`), mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`. 호스트 포트 8081 을 다른 프로그램이 쓰고 있으면 `-p 127.0.0.1:<다른 포트>:8080` 으로 바꾼다
-- [ ] `ui-automation/shop-ui-flows`: 브라우저가 없는 새 PC 에서 `npx playwright install chromium` 이 내려받는지 `TODO: verify-windows`. 확인함: 헤드리스 실행, `npx playwright install chromium` 명령(이미 설치된 PC 에서 정상 종료), README 의 `$env:UI_VARIANT`·`$env:LATENCY` 블록(v2 · unstable 에서 정답 테스트 8개 통과)
+- [x] `ui-automation/shop-ui-flows`: 브라우저가 없는 새 PC 에서 `npx playwright install chromium` 이 내려받는지 — 2026-10-04: 브라우저가 없는 상태(`PLAYWRIGHT_BROWSERS_PATH` 를 빈 폴더로)에서 `npx playwright install chromium` 이 Chrome for Testing 153 등 약 310MB 를 41초에 내려받았고, 그 브라우저로 Playwright 랩·접근성 랩 E2E 10개 통과. 빈 폴더 상태로 채점하면 "브라우저가 설치되어 있지 않습니다 … install chromium" 안내가 나옴. Node·npm·Windows 시스템 라이브러리가 이미 있는 PC 에서의 재현이다. 그 밖에 확인함: 헤드리스 실행, `npx playwright install chromium` 명령(이미 설치된 PC 에서 정상 종료), README 의 `$env:UI_VARIANT`·`$env:LATENCY` 블록(v2 · unstable 에서 정답 테스트 8개 통과)
 - [x] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이) — Chrome 154 용 드라이버를 `%USERPROFILE%\.cache\selenium` 에 받음
 - [x] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
 - [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 스캐너 `-v "${PWD}\…"` 경로 형식
 - [x] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
-- [x] `usability-accessibility-testing/shop-a11y-audit` (2026-10-04): axe 스캔 실행(README 의 `npx playwright test` 명령, 결과 파일 6개), README 의 PowerShell 블록(결과 파일은 ASCII 라 `Get-Content` 로 깨지지 않음), 분류표·점검표·보고서 CSV 를 UTF-8·CP949·UTF-8(BOM, Excel 의 "CSV UTF-8") 세 형식으로 저장해 t2~t4 채점 통과, 랩 E2E(`test:labs`) 5개 통과. 브라우저가 없는 새 PC 의 `npx playwright install chromium` 은 `TODO: verify-windows`
+- [x] `usability-accessibility-testing/shop-a11y-audit` (2026-10-04): axe 스캔 실행(README 의 `npx playwright test` 명령, 결과 파일 6개), README 의 PowerShell 블록(결과 파일은 ASCII 라 `Get-Content` 로 깨지지 않음), 분류표·점검표·보고서 CSV 를 UTF-8·CP949·UTF-8(BOM, Excel 의 "CSV UTF-8") 세 형식으로 저장해 t2~t4 채점 통과, 랩 E2E(`test:labs`) 5개 통과. 브라우저가 없는 새 PC 의 `npx playwright install chromium` 도 확인(위 Playwright 랩 항목과 같은 방법)
 - [x] 한국어 파일 내용(CSV)을 CP949 로 저장한 뒤 채점 — `test-design/shop-rules` t1 정답 CSV 를 CP949·CRLF(Excel 의 일반 "CSV" 저장과 같은 형식)로 저장해 "CP949 로 읽었습니다"와 함께 UTF-8 과 같은 결과(통과). Excel·메모장 화면에서 직접 저장하는 것과 YAML 은 `TODO: verify-windows`
 
 ## 알려진 사항
