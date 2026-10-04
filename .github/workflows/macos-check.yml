@@ -1,0 +1,64 @@
+# 수동 실행 전용: macOS(Apple Silicon) 러너에서 Docker 없이 확인할 수 있는 것을 점검한다.
+# Docker 가 필요한 항목(앱 기동, 앱이 필요한 랩)은 실제 Mac 에서 확인한다 (docs/PLATFORM_SUPPORT.md).
+name: macos-check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: macOS 점검 (Docker 없이)
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: 환경 (OS·CPU·Docker 유무)
+        run: |
+          sw_vers
+          echo "CPU: $(uname -m)"
+          node -v
+          npm -v
+          if command -v docker >/dev/null 2>&1; then
+            docker --version
+            if docker info >/dev/null 2>&1; then echo "Docker 데몬: 실행 중"; else echo "Docker 데몬: 없음"; fi
+          else
+            echo "docker 명령: 없음"
+          fi
+          if command -v jq >/dev/null 2>&1; then echo "jq: $(jq --version)"; else echo "jq: 없음 (학습자는 brew install jq)"; fi
+      - run: npm ci
+      - name: npm run doctor (Docker 가 없을 때 안내 문구 확인용, 실패해도 다음 단계로)
+        run: |
+          set +e
+          npm run doctor
+          echo "doctor 종료 코드: $?"
+      - name: Docker 없이 되는 랩 E2E (solution 통과, starter 과제별 실패)
+        run: npm run test:labs
+        env:
+          QA_LAB_E2E_ONLY: unit-integration-testing/cart-domain,structural-testing-practice/coverage-and-mutation,ci-cd-continuous-testing/quality-gates,security-testing-tools/scanner-triage
+      - name: 새 Mac 에서 Playwright 브라우저 받기
+        run: |
+          npx playwright install chromium
+          npx playwright --version
+      - name: README macOS 블록 — quality-gates 의 종료 코드(echo $?)
+        run: |
+          cat > m.json <<'EOF'
+          { "today": "2026-10-03", "tests": { "total": 120, "failed": ["checkout > 반올림"] }, "quarantine": [], "coverage": { "line": 85.0, "baseline_line": 85.0 }, "security": { "new_critical": 0, "new_high": 0 }, "performance": { "p95_ms": 100, "baseline_p95_ms": 100 } }
+          EOF
+          set +e
+          node labs/ci-cd-continuous-testing/quality-gates/solution/gate.mjs m.json; echo "종료 코드: $?"
+          node labs/ci-cd-continuous-testing/quality-gates/solution/gate.mjs m.json; code=$?
+          set -e
+          test "$code" = "1"
+      - name: README macOS 블록 — 로그 보기(grep)
+        run: |
+          log=labs/data-checking-sql-logs-analytics/sql-and-logs/starter/data/access.log
+          grep -c '' "$log"
+          grep -m 10 -E '" 5[0-9]{2} ' "$log"
+          grep '/api/orders/842/pay' "$log"

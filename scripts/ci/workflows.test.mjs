@@ -19,7 +19,7 @@ const onNames = (doc) => (typeof doc.on === 'object' && !Array.isArray(doc.on) ?
 
 describe('워크플로 파일', () => {
   it('기대하는 워크플로가 모두 있다', () => {
-    expect(files).toEqual(['codeql.yml', 'lab-ci.yml', 'nightly.yml', 'publish-index.yml', 'validate.yml'])
+    expect(files).toEqual(['codeql.yml', 'lab-ci.yml', 'macos-check.yml', 'nightly.yml', 'publish-index.yml', 'validate.yml'])
   })
 
   it.each(files)('%s: YAML 이 객체이고 name·on·jobs 가 있다', (f) => {

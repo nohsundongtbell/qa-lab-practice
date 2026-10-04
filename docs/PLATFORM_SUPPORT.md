@@ -63,6 +63,33 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [x] `usability-accessibility-testing/shop-a11y-audit` (2026-10-04): axe 스캔 실행(README 의 `npx playwright test` 명령, 결과 파일 6개), README 의 PowerShell 블록(결과 파일은 ASCII 라 `Get-Content` 로 깨지지 않음), 분류표·점검표·보고서 CSV 를 UTF-8·CP949·UTF-8(BOM, Excel 의 "CSV UTF-8") 세 형식으로 저장해 t2~t4 채점 통과, 랩 E2E(`test:labs`) 5개 통과. 브라우저가 없는 새 PC 의 `npx playwright install chromium` 도 확인(위 Playwright 랩 항목과 같은 방법)
 - [x] 한국어 파일 내용(CSV)을 CP949 로 저장한 뒤 채점 — `test-design/shop-rules` t1 정답 CSV 를 CP949·CRLF(Excel 의 일반 "CSV" 저장과 같은 형식)로 저장해 "CP949 로 읽었습니다"와 함께 UTF-8 과 같은 결과(통과). Excel·메모장 화면에서 직접 저장하는 것과 YAML 은 `TODO: verify-windows`
 
+## macOS 수동 확인 체크리스트
+Docker 가 필요한 항목은 GitHub 러너로 확인할 수 없어 실제 Mac(가능하면 Apple Silicon)에서 확인한다. Docker 없이 되는 항목은 수동 실행 워크플로 `macos-check`(macOS Arm64 러너)로 확인한다. 확인하면 날짜와 환경(macOS 버전, CPU, Docker Desktop 버전)을 적고 해당 `TODO: verify` 를 지운다.
+
+`macos-check` 워크플로로 확인하는 것 (실제 Mac 불필요):
+- [ ] `npm ci`, `npm run doctor` 의 Docker 없음 안내, macOS 러너의 Docker 유무 (위 "GitHub Actions 러너 제약"의 `TODO: verify`)
+- [ ] Docker 가 필요 없는 랩 4개 E2E (`unit-integration-testing/cart-domain`, `structural-testing-practice/coverage-and-mutation`, `ci-cd-continuous-testing/quality-gates`, `security-testing-tools/scanner-triage`)
+- [ ] 새 Mac 에서 `npx playwright install chromium`
+- [ ] README 의 macOS 블록 중 앱 없이 되는 것: quality-gates 의 `echo "종료 코드: $?"`, sql-and-logs 의 로그 `grep`
+
+실제 Mac 에서 확인할 것:
+- [ ] README 의 `brew install --cask docker`, `brew install node@24 git` 로 준비물 설치 (Homebrew 의 `node@24` 는 PATH 에 자동으로 잡히지 않을 수 있음 — `TODO: verify`)
+- [ ] Docker Desktop(Apple Silicon)에서 `npm run up -- --profile advanced` → 웹·API·DB 모두 healthy, 포트는 `127.0.0.1` 에만
+- [ ] `npm run down`, `npm run reset`, `docker compose down -v` 초기화
+- [ ] bind mount(`./var/logs`) 쓰기, `npm run logs -- --follow` 와 Ctrl+C 로 끝내기
+- [ ] 터미널(Terminal·iTerm)에서 한국어 출력이 깨지지 않는지
+- [ ] `npm test`(앱 실행 중, DB 테스트 포함), `npm run validate`, API 단위·통합 테스트
+- [ ] `npm run test:labs` 전체 (앱 `advanced`)
+
+랩별 항목 (각 랩 README 의 "macOS / Linux (터미널)" 블록):
+- [ ] `data-checking-sql-logs-analytics/sql-and-logs`: psql 접속, `jq` 로 app.log 보기 (`brew install jq`)
+- [ ] `api-testing-tools/swagger-and-traffic`: mitmproxy `docker run --mount` 경로 형식, `tshark` 설치(Wireshark)
+- [ ] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 부하 측정 결과가 흔들리지 않는지
+- [ ] `ui-automation/shop-ui-flows`, `usability-accessibility-testing/shop-a11y-audit`: Playwright 헤드리스 실행
+- [ ] `ui-automation-tools/selenium-shop-flow`: 설치된 Chrome 을 찾고 Selenium Manager 가 chromedriver 를 받는지(진단용 환경 변수 없이)
+- [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 컨테이너(Apple Silicon 이미지·메모리)
+- [ ] 한국어 CSV 를 Numbers·Excel(Mac)에서 저장한 뒤 채점 (Mac Excel 의 "CSV UTF-8")
+
 ## 알려진 사항
 - (2026-10-03 Windows 확인 중 발견, OS 와 무관) `.gitignore` 의 `*.log`·`reports/` 규칙 때문에 `sql-and-logs/starter/data/*.log` 와 `defect-reports/starter/reports/_TEMPLATE.md`·`solution/reports/*.md` 가 커밋되지 않았다. 작성 환경에는 파일이 남아 있어 테스트가 통과했지만 새로 clone 하면 실패한다. `.gitignore` 에 예외를 추가했고 로그는 `setup/logs.mjs` 로 다시 만들었다. 리포트 템플릿과 모범 리포트 4개는 작성 환경에서 원본을 커밋했다(1abb564). 앱을 띄운 Windows 에서 `npm test` 600개 전부 통과, 결함 리포트 랩 E2E 통과(2026-10-03).
 - (같은 날 발견, OS 와 무관) Playwright 랩 t2 정답 테스트가 상품 목록의 같은 이름 수량 입력란을 잡는 경합이 있어 빠른 PC 에서 매번 실패했다. 장바구니 행(`cart-row`) 안으로 범위를 좁혀 고쳤다. 채점기가 "값이 다름"을 "시간 초과"로 안내하던 오류 분류도 고쳤다.
