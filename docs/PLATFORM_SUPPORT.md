@@ -51,7 +51,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [x] winget 패키지 ID (`Docker.DockerDesktop`, `OpenJS.NodeJS.LTS`(24.x), `Git.Git`) — `winget show --id <ID> --exact` 로 확인
 
 랩별 항목 (각 랩 README 의 `TODO: verify-windows` 주석과 1:1):
-- [x] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤, 2026-10-03 — 접근성 랩 추가 전). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
+- [x] `npm run test:labs` 전체 통과 (앱을 `npm run up -- --profile advanced` 로 띄운 뒤, 2026-10-03. 접근성 랩은 2026-10-04 따로 통과). 랩 하나만은 `$env:QA_LAB_E2E_ONLY = "<모듈>/<랩>"; npm run test:labs`
 - [x] `data-checking-sql-logs-analytics/sql-and-logs`: README 의 PowerShell 블록(로그 파일 보기), `docker compose exec db psql -U qa_reader -d shop` 접속(조회 가능, 쓰기는 읽기 전용 트랜잭션으로 거부)
 - [ ] `api-contract-testing/shop-api-contract`: Postman 앱에서 컬렉션 가져오기·내보내기 `TODO: verify-windows`. 확인함: README 의 `npx newman run …` 명령(한국어 검증 이름도 정상 출력), 채점기의 Newman 실행(`test:labs`)
 - [ ] `api-testing-tools/swagger-and-traffic`: `tshark` 가 PATH 에 잡히는지 `TODO: verify-windows`. 확인함: winget ID(`WiresharkFoundation.Wireshark`), mitmproxy `docker run --mount "type=bind,source=$PWD\…"` 경로 형식, 네트워크 이름 `qa-lab-shop_default`. 호스트 포트 8081 을 다른 프로그램이 쓰고 있으면 `-p 127.0.0.1:<다른 포트>:8080` 으로 바꾼다
@@ -60,7 +60,7 @@ mitmproxy 이미지의 기본 진입점은 root 권한이 필요해, 채점기�
 - [x] `performance-testing-tools/locust-bottlenecks`: Locust `docker run --mount` 경로 형식, 채점기의 결과 폴더 쓰기(Windows 에서 `chmod` 는 의미 없음)
 - [ ] `security-testing-tools/scanner-triage`: (선택) SonarQube 스캐너 `-v "${PWD}\…"` 경로 형식
 - [x] `ci-cd-continuous-testing/quality-gates`: README 의 `$LASTEXITCODE` 블록
-- [ ] `usability-accessibility-testing/shop-a11y-audit`: `npx playwright install chromium` 후 axe 스캔 실행, README 의 PowerShell 블록(결과 파일 보기), Excel 로 저장한 CSV(분류표·점검표·보고서) 채점 `TODO: verify-windows`
+- [x] `usability-accessibility-testing/shop-a11y-audit` (2026-10-04): axe 스캔 실행(README 의 `npx playwright test` 명령, 결과 파일 6개), README 의 PowerShell 블록(결과 파일은 ASCII 라 `Get-Content` 로 깨지지 않음), 분류표·점검표·보고서 CSV 를 UTF-8·CP949·UTF-8(BOM, Excel 의 "CSV UTF-8") 세 형식으로 저장해 t2~t4 채점 통과, 랩 E2E(`test:labs`) 5개 통과. 브라우저가 없는 새 PC 의 `npx playwright install chromium` 은 `TODO: verify-windows`
 - [x] 한국어 파일 내용(CSV)을 CP949 로 저장한 뒤 채점 — `test-design/shop-rules` t1 정답 CSV 를 CP949·CRLF(Excel 의 일반 "CSV" 저장과 같은 형식)로 저장해 "CP949 로 읽었습니다"와 함께 UTF-8 과 같은 결과(통과). Excel·메모장 화면에서 직접 저장하는 것과 YAML 은 `TODO: verify-windows`
 
 ## 알려진 사항
