@@ -16,4 +16,4 @@ Windows 11 Pro, Windows PowerShell 5.1, Docker Desktop(WSL 2 백엔드), Node.js
 - 호스트 포트(예: mitmproxy 의 8081)를 다른 프로그램이 쓰고 있으면 `-p 127.0.0.1:<다른 포트>:8080` 으로 바꾸세요. 포트는 항상 `127.0.0.1` 에만 여세요.
 
 ## 아직 확인하지 못한 것
-PowerShell 콘솔 화면에서의 한국어 표시, `npm run logs -- --follow` 의 Ctrl+C, Postman 앱 가져오기·내보내기, `tshark` PATH, 브라우저가 없는 새 PC 의 `npx playwright install chromium`, Excel·메모장 화면에서 직접 저장한 CSV, SonarQube 선택 실습. (psql 접속, newman, CP949 CSV 채점은 2026-10-03 확인) 해 보셨다면 결과를 Issues 로 알려 주세요.
+PowerShell 콘솔 화면에서의 한국어 표시, `npm run logs -- --follow` 의 Ctrl+C, Postman 앱 가져오기·내보내기, `tshark` PATH, Excel·메모장 화면에서 직접 저장한 CSV, SonarQube 선택 실습. (psql 접속, newman, CP949 CSV 채점은 2026-10-03 확인) 해 보셨다면 결과를 Issues 로 알려 주세요.
