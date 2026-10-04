@@ -42,15 +42,15 @@ export const SEVERITIES = ['상', '중', '하']
 
 /**
  * t4: 보고서에 있어야 하는 문제와 허용하는 KWCAG 2.2 검사항목·심각도.
- * 검사항목 번호는 reference/kwcag-2.2.md 와 같다. TODO(검토 필요) 표시가 있는 매핑은 후보를 넓게 받는다.
+ * 검사항목 번호는 reference/kwcag-2.2.md 와 같다. 한 문제에 두 검사항목이 모두 맞을 수 있는 매핑은 후보를 넓게 받는다.
  */
 export const REPORT_TRUTH = [
   { key: 'image-alt', source: 'axe', match: (r) => r.ref === 'image-alt', kwcag: ['1.1.1'], severity: ['중', '하'], defect: 'DF-020', kind: 'auto' },
   { key: 'label', source: 'axe', match: (r) => r.ref === 'label', kwcag: ['3.3.2'], severity: ['상', '중'], defect: 'DF-021', kind: 'auto' },
   { key: 'color-contrast', source: 'axe', match: (r) => r.ref === 'color-contrast', kwcag: ['1.4.3'], severity: ['중', '하'], defect: 'DF-022', kind: 'auto' },
-  // TODO(검토 필요): 이름 없는 아이콘 버튼의 KWCAG 매핑 (1.1.1 대체 텍스트로 보는 관행과 4.2.1 로 보는 관점이 모두 있음)
+  // 해석이 둘 다 가능해 둘 다 받는다: 이름 없는 아이콘 버튼 (1.1.1 대체 텍스트로 보는 관행과 4.2.1 로 보는 관점)
   { key: 'button-name', source: 'axe', match: (r) => r.ref === 'button-name', kwcag: ['1.1.1', '4.2.1'], severity: ['상', '중'], defect: 'DF-023', kind: 'auto' },
-  // TODO(검토 필요): 제목 수준 건너뜀의 KWCAG 매핑 (2.4.2 제목 제공 / 1.3.2 콘텐츠의 선형 구조)
+  // 해석이 둘 다 가능해 둘 다 받는다: 제목 수준 건너뜀 (2.4.2 제목 제공 / 1.3.2 콘텐츠의 선형 구조)
   { key: 'heading-order', source: 'axe', match: (r) => r.ref === 'heading-order', kwcag: ['2.4.2', '1.3.2'], severity: ['중', '하'], defect: 'DF-024', kind: 'auto' },
   { key: 'keyboard-pay', source: 'keyboard', match: (r) => r.page === 'order-detail' && ['K1', 'K3'].includes(r.ref), kwcag: ['2.1.1'], severity: ['상'], defect: 'DF-025', kind: 'manual' },
   { key: 'focus-visible', source: 'keyboard', match: (r) => r.ref === 'K2', kwcag: ['2.1.2'], severity: ['상', '중'], defect: 'DF-026', kind: 'manual' },
